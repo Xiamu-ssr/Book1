@@ -76,11 +76,15 @@ Semantic Errors:
 
 ~~我没看懂这个符号表~~
 {% endtab %}
+
+{% tab title="中间代码生成" %}
+
+{% endtab %}
 {% endtabs %}
 
 也许看明白了，但是怎么实操呢？
 
-[antlr4](https://github.com/antlr/antlr4)
+首先你得懂扩展巴科斯范式（EBNF，Extended Backus–Naur Form）和[antlr4](https://github.com/antlr/antlr4)
 
 antlr4 可以帮助你完成编译器前端的两个部分：词法分析和语法分析。
 
