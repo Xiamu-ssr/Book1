@@ -122,54 +122,48 @@ ELSE    : 'else';
 
 接下来就可以写main函数了，这个main函数可以调用runtime，也可以调用上面所说生成的cpp，然后使用c++编译器编译这个main函数，得到一个可执行文件，这个可执行文件就是我们的SySy编译器。很神奇是不是，都快自举了。但是这个main函数不是一下就能写完的，比如我们目前只完成了词法分析和语法分析，main函数最后可能只能输出抽象语法树AST，离真正的编译器还差些距离。
 
-以下是new bing给出的一份main函数样例
+以下是GPT给出的一份main函数样例
 
 ```cpp
 #include <iostream>
-#include <fstream>
-#include <sstream>
+#include "antlr4-runtime.h"
+#include "MyLexer.h"
+#include "MyParser.h"
+#include "MyVisitor.h"
 
-#include "TLLexer.h"
-#include "TLParser.h"
-#include "TLVisitor.h"
-#include "tree/ParseTreeVisitor.h"
-
-std::string read_file(const std::string& filename) {
-    std::ifstream infile(filename);
-    std::stringstream buffer;
-    buffer << infile.rdbuf();
-    std::string file_content = buffer.str();
-    infile.close();
-    return file_content;
-}
+using namespace antlr4;
 
 int main(int argc, const char* argv[]) {
-  //输入文件名，读取文件内容
-  std::string file_content = read_file(argv[1]);
-  //载入到antlr4输入流
-  antlr4::ANTLRInputStream input(file_content);
-  //用input作为参数构建TLLexer类，名为lexer
-  TLLexer lexer(&input);
-  //用lexer作为参数构建token流
-  antlr4::CommonTokenStream tokens(&lexer);
-  //用token流构建TLParser类，名为parser，至此已完成词法分析和语法分析
-  TLParser parser(&tokens);
-  return 0;
+    std::ifstream stream;
+    stream.open(argv[1]);
+    ANTLRInputStream input(stream);
+    MyLexer lexer(&input);
+    CommonTokenStream tokens(&lexer);
+    MyParser parser(&tokens);
+    tree::ParseTree* tree = parser.program();
+    MyVisitor visitor;
+    visitor.visit(tree);
+    return 0;
 }
-
 ```
+
+这个 main 函数做了以下几件事情：
+
+1. 打开输入文件并将其转换为 ANTLRInputStream。
+2. 使用 MyLexer 将输入流转换为token流。
+3. 使用 MyParser 将标记流转换为AST。
+4. 创建 MyVisitor 的实例并使用它来遍历语法树。
+
+这个示例仅是一个基本的模板，你需要根据你的语言和编译器的需求进行修改。在这个示例中，MyLexer、MyParser 和 MyVisitor 都是从你的 ANTLR 4 语法文件生成的 C++ 类。
 {% endtab %}
 
 {% tab title="语义分析" %}
-修改visitor类，在visitor遍历查看AST时，添加你的自定义操作，完成AST的纠错和优化。
+如果你已经修改了visitor类，在visitor遍历查看AST时，你的自定义操作，能够完成AST的纠错和优化，那么前面写的这三行代码，已经完成了语义分析。
 
-并在main中继续添加
-
-<pre class="language-cpp"><code class="lang-cpp"><strong>  //从parser获取到AST
-</strong>  antlr4::tree::ParseTree* tree = parser.parse();
-  //使用visitor去检查这棵AST，如果你修改了visitor代码，那么至此已完成语义分析
-  TLVisitor visitor;
-  visitor.visit(tree);
-</code></pre>
+```cpp
+    tree::ParseTree* tree = parser.program();
+    MyVisitor visitor;
+    visitor.visit(tree);
+```
 {% endtab %}
 {% endtabs %}
