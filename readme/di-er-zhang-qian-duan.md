@@ -91,3 +91,79 @@ ANTLR4是一个工具，可以帮助你快速地构建编译器的前端部分�
 ANTLR4还可以让你自定义一个访问者（visitor），这是一个类，可以遍历解析树中的每个节点，并对每个节点执行一些操作。你可以在访问者中实现你自己的逻辑，比如生成AST、检查错误、执行代码等。
 
 {% embed url="https://github.com/antlr/antlr4" %}
+
+{% tabs %}
+{% tab title="词法分析和语法分析" %}
+首席配置好antlr4环境并下载好antlr4的runtime
+
+根据SySy语言的定义，写一份g4文件，大抵像这样：
+
+```
+grammar SysY;
+
+program     : (decl ';' | funcdef)+ EOF
+            ;
+
+expr        : addexpr
+            ;
+
+。。。
+            
+VOID    : 'void';
+FLOAT   : 'float';
+INT     : 'int';
+IF      : 'if';
+ELSE    : 'else';
+```
+
+然后使用命令`antlr4 -visitor -Dlanguage=Cpp SysY.g4`生成出许多cpp文件和h文件，然后这些文件里的类或者方法什么的，就都可以直接调用了。
+
+接下来就可以写main函数了，这个main函数可以调用runtime，也可以调用上面所说生成的cpp，然后使用c++编译器编译这个main函数，得到一个可执行文件，这个可执行文件就是我们的SySy编译器。很神奇是不是，都快自举了。但是这个main函数不是一下就能写完的，比如我们目前只完成了词法分析和语法分析，main函数最后可能只能输出抽象语法树AST，离真正的编译器还差些距离。
+
+以下是new bing给出的一份main函数样例
+
+```cpp
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+#include "TLLexer.h"
+#include "TLParser.h"
+#include "TLVisitor.h"
+#include "tree/ParseTreeVisitor.h"
+
+std::string read_file(const std::string& filename) {
+    std::ifstream infile(filename);
+    std::stringstream buffer;
+    buffer << infile.rdbuf();
+    std::string file_content = buffer.str();
+    infile.close();
+    return file_content;
+}
+
+int main(int argc, const char* argv[]) {
+  //输入文件名，读取文件内容
+  std::string file_content = read_file(argv[1]);
+  //载入到antlr4输入流
+  antlr4::ANTLRInputStream input(file_content);
+  //用input作为参数构建TLLexer类，名为lexer
+  TLLexer lexer(&input);
+  //用lexer作为参数构建token流
+  antlr4::CommonTokenStream tokens(&lexer);
+  //用token流构建TLParser类，名为parser，至此已完成词法分析和语法分析
+  TLParser parser(&tokens);
+  //从parser获取到AST
+  antlr4::tree::ParseTree* tree = parser.parse();
+  //使用visitor去检查这棵AST
+  TLVisitor visitor;
+  visitor.visit(tree);
+  return 0;
+}
+
+```
+{% endtab %}
+
+{% tab title="语义分析" %}
+
+{% endtab %}
+{% endtabs %}
