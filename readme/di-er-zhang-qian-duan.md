@@ -92,6 +92,8 @@ ANTLR4还可以让你自定义一个访问者（visitor），这是一个类，�
 
 {% embed url="https://github.com/antlr/antlr4" %}
 
+{% embed url="https://www.antlr.org/api/Java/index.html" %}
+
 {% tabs %}
 {% tab title="词法分析和语法分析" %}
 首席配置好antlr4环境并下载好antlr4的runtime
@@ -152,11 +154,6 @@ int main(int argc, const char* argv[]) {
   antlr4::CommonTokenStream tokens(&lexer);
   //用token流构建TLParser类，名为parser，至此已完成词法分析和语法分析
   TLParser parser(&tokens);
-  //从parser获取到AST
-  antlr4::tree::ParseTree* tree = parser.parse();
-  //使用visitor去检查这棵AST
-  TLVisitor visitor;
-  visitor.visit(tree);
   return 0;
 }
 
@@ -164,6 +161,15 @@ int main(int argc, const char* argv[]) {
 {% endtab %}
 
 {% tab title="语义分析" %}
+修改visitor类，在visitor遍历查看AST时，添加你的自定义操作，完成AST的纠错和优化。
 
+并在main中继续添加
+
+<pre class="language-cpp"><code class="lang-cpp"><strong>  //从parser获取到AST
+</strong>  antlr4::tree::ParseTree* tree = parser.parse();
+  //使用visitor去检查这棵AST，如果你修改了visitor代码，那么至此已完成语义分析
+  TLVisitor visitor;
+  visitor.visit(tree);
+</code></pre>
 {% endtab %}
 {% endtabs %}
