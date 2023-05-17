@@ -10,15 +10,15 @@ description: 我之所以看的更远，是因为我站在梯子上。
 
 {% tabs %}
 {% tab title="樱花机场" %}
-{% embed url="https://ssr.gr/" %}
+{% embed url="https://dy.ssrla.de/auth/register?code=VXwq" %}
 
 均衡的樱花机场。
 
-价格说的过去，但是最近几个月，稳定性越来越差，听说是这个产业的最近都烂。
+价格也很便宜，但是最近几个月，稳定性开始变差。
 {% endtab %}
 
 {% tab title="两元店" %}
-{% embed url="https://xn--5hqx9equq.com/#/dashboard" %}
+{% embed url="https://xn--5hqx9equq.com/#/register?code=9hHIaNoU" %}
 
 听说是一个把性价比练到三星五费的机场
 {% endtab %}
