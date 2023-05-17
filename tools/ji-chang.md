@@ -4,6 +4,8 @@ description: 我之所以看的更远，是因为我站在梯子上。
 
 # 机场
 
+{% embed url="https://github.com/vpncn/vpncn.github.io" %}
+
 ## 机场
 
 {% tabs %}
