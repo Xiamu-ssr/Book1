@@ -8,8 +8,8 @@
 | 前端样式框架 | Element-plus+Bootstrap5+ECharts |
 | 后端响应框架 | Flask                           |
 
-{% embed url="https://cn.vuejs.org/" %}
-Vue3
+{% embed url="https://cn.vuejs.org/guide/introduction.html" %}
+vue3
 {% endembed %}
 
 {% embed url="https://element-plus.gitee.io/zh-CN/" %}
@@ -68,3 +68,5 @@ index.ts路由配置文件
 主体关系如下图，更多细节请查看源码，已打注释。
 
 <img src="../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+
+## Docker容器运行
