@@ -22,6 +22,12 @@ description: 我之所以看的更远，是因为我站在梯子上。
 
 听说是一个把性价比练到三星五费的机场
 {% endtab %}
+
+{% tab title="一元店" %}
+{% embed url="https://xn--4gq62f52gdss.com/#/register?code=chfOv0bl" %}
+
+性价比也是史诗的存在
+{% endtab %}
 {% endtabs %}
 
 ## 使用
