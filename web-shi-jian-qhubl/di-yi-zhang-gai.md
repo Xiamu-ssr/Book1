@@ -10,4 +10,4 @@ description: 至少得知道，我们在做什么
 * 数据库\[2]
 * 面向管理员的前后端\[3]
 
-<img src="../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+<img src="../.gitbook/assets/file.excalidraw (1).svg" alt="" class="gitbook-drawing">
