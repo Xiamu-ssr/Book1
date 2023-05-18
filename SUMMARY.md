@@ -21,8 +21,8 @@
 
 ## Debug
 
-* [Git](debug/git/README.md)
-  * [Page 1](debug/git/page-1.md)
+* [Git](tools/git/README.md)
+  * [Page 1](tools/git/page-1.md)
 * [Docker](debug/docker/README.md)
   * [Page 2](debug/docker/page-2.md)
 

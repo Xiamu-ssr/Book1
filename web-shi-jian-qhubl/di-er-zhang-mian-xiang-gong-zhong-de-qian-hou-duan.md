@@ -70,3 +70,9 @@ index.ts路由配置文件
 <img src="../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
 
 ## Docker容器运行
+
+1. `docker start [`containerid`]`启动容器
+2. `docker exec [containerid] bash /root/start.sh`让容器启动前后端服务
+3. `docker exec [containerid] bash /root/end.sh`让容器停止前后端服务
+4. `docker stop [containerid]`停止容器
+
