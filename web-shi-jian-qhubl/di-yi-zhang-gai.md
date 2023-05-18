@@ -6,14 +6,8 @@ description: 至少得知道，我们在做什么
 
 整个网站被分为以下三个部分进行开发，每个部分被包裹在一个docker容器之中
 
-* 面向公众的前后端
-* 数据库
-* 面向管理员的前后端
+* 面向公众的前后端\[1]
+* 数据库\[2]
+* 面向管理员的前后端\[3]
 
-### 面向公众的前后端
-
-前端编程开发采用vue3框架，样式主题采用与vue3高度适配的element-plus框架和热门经典的boostrap5框架，后端编程开发采用flask框架。
-
-### 数据库
-
-### 面向管理员的前后端
+<img src="../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
