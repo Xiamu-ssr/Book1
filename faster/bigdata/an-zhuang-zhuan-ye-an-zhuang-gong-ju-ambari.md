@@ -2,11 +2,13 @@
 
 {% embed url="https://cwiki.apache.org/confluence/display/AMBARI/Installation+Guide+for+Ambari+2.7.7" %}
 
-安装依赖
+## 安装依赖
 
 ```sh
 sudo apt update && sudo apt install maven
 ```
+
+## Build and install Ambari <a href="#installationguideforambari2.7.7-buildandinstallambari2.7.7" id="installationguideforambari2.7.7-buildandinstallambari2.7.7"></a>
 
 下载，解压，编译
 
