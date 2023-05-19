@@ -20,3 +20,9 @@ pushd ambari-metrics
 mvn versions:set -DnewVersion=2.7.7.0.0
 popd
 ```
+
+清理，编译，打包，安装
+
+```sh
+mvn -B clean install jdeb:jdeb -DnewVersion=2.7.7.0.0 -DbuildNumber=388e072381e71c7755673b7743531c03a4d61be8 -DskipTests -Dpython.ver="python >= 2.6"
+```
