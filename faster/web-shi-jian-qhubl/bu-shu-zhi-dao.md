@@ -80,11 +80,16 @@ web_id=$(docker ps -a | grep $web | awk '{print $1}')
 mysql_id=$(docker ps -a | grep $mysql | awk '{print $1}')
 admin_id=$(docker ps -a | grep $admin | awk '{print $1}')
 
-docker start $web_id
 docker start $mysql_id
 docker start $admin_id
+docker start $web_id
+docker exec $web_id bash /root/start.sh
 ```
 
 获取三个容器的id，然后依次启动它们
 {% endtab %}
 {% endtabs %}
+
+## 备份数据库
+
+提供数据库备份脚本，`bash sqlbk.sh`即可，具体原理细节如下
