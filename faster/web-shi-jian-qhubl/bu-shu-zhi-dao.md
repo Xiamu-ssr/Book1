@@ -93,3 +93,16 @@ docker exec $web_id bash /root/start.sh
 ## 备份数据库
 
 提供数据库备份脚本，`bash sqlbk.sh`即可，具体原理细节如下
+
+{% tabs %}
+{% tab title="sqlbk.sh" %}
+```sh
+source ./config.sh
+
+mysql_id=$(docker ps -a | grep $mysql | awk '{print $1}')
+docker exec $mysql_id mysqldump -u root -p'Aa4115252397' PearAdminFlask > /tmp/PearAdminFlask.sql
+```
+
+数据库备份文件将会被导出到**主机**的/tmp/下，名为PearAdminFlask.sql
+{% endtab %}
+{% endtabs %}
