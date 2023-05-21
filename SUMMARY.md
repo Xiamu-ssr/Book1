@@ -20,6 +20,7 @@
     * [MPAS7](faster/linux/ke-xue-ji-suan/mpas7.md)
   * [VMware](faster/linux/virtual-box-vm/README.md)
     * [虚拟机代理](faster/linux/virtual-box-vm/xu-ni-ji-dai-li.md)
+    * [双向复制粘贴](faster/linux/vmware/shuang-xiang-fu-zhi-nian-tie.md)
 * [BigData](faster/bigdata/README.md)
   * [安装专业安装工具Ambari](faster/bigdata/an-zhuang-zhuan-ye-an-zhuang-gong-ju-ambari.md)
 
