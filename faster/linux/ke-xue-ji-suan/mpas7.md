@@ -8,7 +8,7 @@ MPAS Atmosphere home page
 
 从home page找到User's Guide，阅读文档，MPAS-A需要netcdf、parallel-netcdf、parallelio库
 
-spack创建新环境`spack env create mpas7`
+spack创建新环境`spack env create mpas7`，随后激活环境`spack env activate mpas7`
 
 修改环境下的`spack.yaml`，添加以下包，然后`spack install`安装
 
