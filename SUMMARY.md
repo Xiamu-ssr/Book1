@@ -19,6 +19,8 @@
   * [用户相关](faster/linux/yong-hu-xiang-guan.md)
   * [科学计算](faster/linux/ke-xue-ji-suan/README.md)
     * [MPAS7](faster/linux/ke-xue-ji-suan/mpas7.md)
+  * [Virtual Box VM](faster/linux/virtual-box-vm/README.md)
+    * [虚拟机代理](faster/linux/virtual-box-vm/xu-ni-ji-dai-li.md)
 * [BigData](faster/bigdata/README.md)
   * [安装专业安装工具Ambari](faster/bigdata/an-zhuang-zhuan-ye-an-zhuang-gong-ju-ambari.md)
 
