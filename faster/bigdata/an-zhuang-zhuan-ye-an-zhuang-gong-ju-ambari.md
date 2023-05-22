@@ -5,7 +5,7 @@
 ## 安装依赖
 
 ```sh
-sudo apt update && sudo apt install maven
+sudo apt update && sudo apt install openjdk-8-jdk maven
 ```
 
 ## Build and install Ambari <a href="#installationguideforambari2.7.7-buildandinstallambari2.7.7" id="installationguideforambari2.7.7-buildandinstallambari2.7.7"></a>
