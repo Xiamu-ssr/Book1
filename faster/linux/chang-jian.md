@@ -15,3 +15,13 @@ apt update && apt install vim sudo proxychains4 net-tools git wget curl htop
 ```sh
 adduser mumu && usermod -aG sudo mumu
 ```
+
+## CentOS
+
+{% embed url="https://vault.centos.org/" %}
+历届版本iso下载,isos/
+{% endembed %}
+
+{% embed url="http://mirror.centos.org/centos/7/os/x86_64/" %}
+官方镜像站点
+{% endembed %}
