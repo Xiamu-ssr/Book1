@@ -14,7 +14,22 @@
 
 ## 1.环境及软件准备
 
-|   |   |   |
-| - | - | - |
-|   |   |   |
-|   |   |   |
+| OS        | CentOS 7.9 in VMware |
+| --------- | -------------------- |
+| Ambari    | 2.7.4.0              |
+| HDP       | 3.1.4.0              |
+| HDP-UTILS | 1.1.0.22             |
+| Java      | JDK8                 |
+| SQL       | Mysql 5.7+           |
+
+Ambari、HDP、HDP-UTILS安装包下载链接如下
+
+{% embed url="https://pan.baidu.com/s/18uH3jvciTj0mFNbHlZiugQ" %}
+**提取码：3rwq**
+{% endembed %}
+
+安装mysql5.7、jdk8
+
+```sh
+sudo yum update && sudo yum install 
+```
