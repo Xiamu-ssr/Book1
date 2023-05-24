@@ -7,3 +7,7 @@
 看到网上很多教程包括cloudera自己家的教程，都是添加repo然后使用包管理器直接安装，比如下面这个。然后我发现，资源访问需要付费订阅？去查了一下，在21年的时候就停止免费了，但是很多教程依旧停留在免费的时代，所以一直导致安装过程停滞不前。
 
 {% embed url="https://docs.cloudera.com/HDPDocuments/Ambari-2.5.0.3/bk_ambari-installation/content/ambari_repositories.html" %}
+
+不过这并不难办，互联网上肯定有大量备份。比如我这份教程是按照下面这份教程，然后记录过程的。
+
+{% embed url="https://blog.csdn.net/AnameJL/article/details/122962868" %}
