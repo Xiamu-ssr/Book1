@@ -28,8 +28,11 @@ Ambari、HDP、HDP-UTILS安装包下载链接如下
 **提取码：3rwq**
 {% endembed %}
 
-安装mysql5.7、jdk8
-
 ```sh
-sudo yum update && sudo yum install 
+sudo yum update && sudo yum upgrade #先给新系统更新一下新技能
+sudo yum localinstall https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm #添加mysql到yum的安装列表中
+sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022 #添加对mysql安装的密钥
+sudo yum install mysql-community-server.x86_64 #安装mysqljava-1.8.0-openjdk.x86_64
+
+sudo yum install java-1.8.0-openjdk.x86_64 java-1.8.0-openjdk-headless.x86_64 #安装JDK8
 ```
