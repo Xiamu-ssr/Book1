@@ -58,9 +58,37 @@ sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022 #添加对mysql�
 sudo yum install mysql-community-server.x86_64 #安装mysqljava-1.8.0-openjdk.x86_64
 ```
 
-修改`/etc/my.cnf`文件，添加`skip-grant-tables`跳过mysql的密码登录
+重置初始密码和免输密码登录
+
+{% content-ref url="../../debug/mysql/" %}
+[mysql](../../debug/mysql/)
+{% endcontent-ref %}
+
+修改`/etc/my.cnf`添加以下配置
+
+```
+[mysqld]
+port=3306
+bind-address=0.0.0.0
+```
 
 ```sh
-systemctl start mysqld #开启服务
+systemctl restart mysqld #开启服务
 netstat -nltp | grep 3306 # 查看mysql默认的3306端口号是否存在
+systemctl enable mysqld # 将mysql服务加入到开机自启
 ```
+
+### 2.4关闭SELinux
+
+```sh
+# 临时性关闭（立即生效，但是重启服务器后失效）
+setenforce 0 #设置selinux为permissive模式（即关闭）
+setenforce 1 #设置selinux为enforcing模式（即开启）
+# 永久性关闭（这样需要重启服务器后生效）
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
+```
+
+然后reboot重启，`sestatus`查看SELinux状态
+
+### 2.5克隆额外两台服务器
+
