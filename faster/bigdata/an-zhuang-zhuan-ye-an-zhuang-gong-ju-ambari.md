@@ -57,3 +57,10 @@ sudo yum localinstall https://dev.mysql.com/get/mysql80-community-release-el7-1.
 sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022 #添加对mysql安装的密钥
 sudo yum install mysql-community-server.x86_64 #安装mysqljava-1.8.0-openjdk.x86_64
 ```
+
+修改`/etc/my.cnf`文件，添加`skip-grant-tables`跳过mysql的密码登录
+
+```sh
+systemctl start mysqld #开启服务
+netstat -nltp | grep 3306 # 查看mysql默认的3306端口号是否存在
+```

@@ -36,6 +36,9 @@
   * [Page 1](tools/git/page-1.md)
 * [Docker](debug/docker/README.md)
   * [Page 2](debug/docker/page-2.md)
+* [MySQL](debug/mysql/README.md)
+  * [重置初始密码](debug/mysql/zhong-zhi-chu-shi-mi-ma.md)
+  * [DeBug](debug/mysql/debug.md)
 
 ## Tools
 
