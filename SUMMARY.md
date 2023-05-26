@@ -27,8 +27,8 @@
 ## 置身事内
 
 * [外](zhi-shen-shi-nei/wai.md)
-* [内](zhi-shen-shi-nei/nei/README.md)
-  * [常用工具](zhi-shen-shi-nei/nei/chang-yong-gong-ju.md)
+* [内](zhi-shen-shi-nei/nei.md)
+  * [我的工具](zhi-shen-shi-nei/nei/wo-de-gong-ju.md)
 
 ## Debug
 
