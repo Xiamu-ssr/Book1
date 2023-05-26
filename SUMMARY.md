@@ -26,9 +26,9 @@
 
 ## 置身事内
 
-* [外](zhi-shen-shi-nei/wai.md)
-* [内](zhi-shen-shi-nei/nei.md)
-  * [我的工具](zhi-shen-shi-nei/nei/wo-de-gong-ju.md)
+* [置身事内](zhi-shen-shi-nei/zhi-shen-shi-nei.md)
+* [Self](zhi-shen-shi-nei/self/README.md)
+  * [电脑应用](zhi-shen-shi-nei/self/dian-nao-ying-yong.md)
 
 ## Debug
 
