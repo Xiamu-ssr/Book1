@@ -28,11 +28,32 @@ Ambari、HDP、HDP-UTILS安装包下载链接如下
 **提取码：3rwq**
 {% endembed %}
 
+## 2.准备工作
+
+### 2.1关闭防火墙
+
 ```sh
-sudo yum update && sudo yum upgrade #先给新系统更新一下新技能
+sudo systemctl status firewalld # 通过此命令查看防火墙状态
+sudo systemctl stop firewalld # 关闭防火墙
+sudo systemctl disable firewalld # 关闭防火墙开机自启
+```
+
+### 2.2安装JDK
+
+<pre class="language-sh"><code class="lang-sh"><strong>sudo yum install java-1.8.0-openjdk.x86_64 java-1.8.0-openjdk-headless.x86_64
+</strong>
+readlink -f /usr/bin/java #查看java安装位置
+
+sudo vim /etc/profile
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.372.b07-1.el7_9.x86_64/jre
+export PATH=$PATH:$JAVA_HOME/bin
+
+</code></pre>
+
+### 2.3安装MySQL
+
+```sh
 sudo yum localinstall https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm #添加mysql到yum的安装列表中
 sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022 #添加对mysql安装的密钥
 sudo yum install mysql-community-server.x86_64 #安装mysqljava-1.8.0-openjdk.x86_64
-
-sudo yum install java-1.8.0-openjdk.x86_64 java-1.8.0-openjdk-headless.x86_64 #安装JDK8
 ```
