@@ -92,3 +92,5 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
 
 ### 2.5克隆额外两台服务器
 
+使用VMware克隆功能，选择完全克隆。
+
