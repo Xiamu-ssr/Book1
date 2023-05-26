@@ -26,8 +26,8 @@
 
 ## 置身事内
 
-* [置身事内](zhi-shen-shi-nei/zhi-shen-shi-nei.md)
-* [Self](zhi-shen-shi-nei/self/README.md)
+* [置身事内](zhi-shen-shi-nei/wai.md)
+* [Self](zhi-shen-shi-nei/nei.md)
   * [电脑应用](zhi-shen-shi-nei/self/dian-nao-ying-yong.md)
 
 ## Debug
