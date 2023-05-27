@@ -208,3 +208,158 @@ tar -zxf /opt/ambari-2.7.4.0-centos7.tar.gz -C /var/www/html/ambari
 tar -zxf /opt/HDP-3.1.4.0-centos7-rpm.tar.gz -C /var/www/html/hdp
 tar -zxf /opt/HDP-UTILS-1.1.0.22-centos7.tar.gz -C /var/www/html/hdp-utils/
 ```
+
+配置yum源
+
+```sh
+# 配置ambari源
+vi /etc/yum.repos.d/ambari.repo
+
+#内容如下
+[ambari]
+name=ambari
+baseurl=http://192.168.80.xxx/ambari/ambari/centos7/2.7.4.0-118
+gpgcheck=0
+```
+
+<pre class="language-sh"><code class="lang-sh"># 配置hdp和hdp-utils源
+vi /etc/yum.repos.d/hdp.repo
+
+# 内容如下
+<strong>[HDP]
+</strong>name=HDP
+baseurl=http://192.168.80.xxx/hdp/HDP/centos7/3.1.4.0-315
+gpgcheck=0
+[HDP-UTILS]
+name=HDP_UTILS
+baseurl=http://192.168.80.xxx/hdp-utils/HDP-UTILS/centos7/1.1.0.22/
+gpgcheck=0
+</code></pre>
+
+```sh
+# yum创建缓存
+yum clean all
+yum makecache
+
+# 通过yum repolist命令验证即可
+yum repolist
+```
+
+配置好yum源后使用scp命令将ambari.repo和hdp.repo文件发送到其他节点的/etc/yum.repos.d/目录下
+
+### 3.2配置和安装ambari-server
+
+```sh
+yum install -y ambari-server #安装ambari-server
+```
+
+配置数据库
+
+```sh
+# 登录已经安装好的mysql
+mysql -u root
+
+mysql>  CREATE USER 'ambari'@'%' IDENTIFIED BY 'MKLmkl11@@'; -- 创建ambari用户
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create database ambari;
+Query OK, 1 row affected (0.00 sec) -- 创建ambari数据库
+
+mysql> grant all on ambari.* to ambari@'%';
+Query OK, 0 rows affected, 1 warning (0.00 sec) -- 授权
+
+mysql> use ambari; -- 使用已经创建好的ambari数据库
+Database changed
+
+mysql> source /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql -- 使用ambari-server提供的sql脚本创建相关表
+
+```
+
+将jdbc驱动包放到指定目录
+
+{% embed url="https://dev.mysql.com/downloads/connector/j/" %}
+下载驱动
+{% endembed %}
+
+```sh
+#查看安装位置和内容
+rpm -qpl mysql-connector-j-8.0.33-1.el7.noarch.rpm
+#安装
+sudo rpm -ivh mysql-connector-j-8.0.33-1.el7.noarch.rpm
+#查看是否安装
+rpm -qa | grep mysql-connector-j
+# 创建目录
+mkdir -p /usr/share/java
+# 如果mysql-connector-java.jar不在/usr/share/java/下则复制一份过去
+```
+
+配置ambari-server
+
+```sh
+[root@hdp1 Downloads]# ambari-server setup
+Using python  /usr/bin/python
+Setup ambari-server
+Checking SELinux...
+SELinux status is 'disabled'
+Customize user account for ambari-server daemon [y/n] (n)? y
+Enter user account for ambari-server daemon (mumu):    
+Adjusting ambari-server permissions and ownership...
+Checking firewall status...
+Checking JDK...
+[1] Oracle JDK 1.8 + Java Cryptography Extension (JCE) Policy Files 8
+[2] Custom JDK
+==============================================================================
+Enter choice (1): 2
+WARNING: JDK must be installed on all hosts and JAVA_HOME must be valid on all hosts.
+WARNING: JCE Policy files are required for configuring Kerberos security. If you plan to use Kerberos,please make sure JCE Unlimited Strength Jurisdiction Policy Files are valid on all hosts.
+Path to JAVA_HOME: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.372.b07-1.el7_9.x86_64/jre
+Validating JDK on Ambari Server...done.
+Check JDK version for Ambari Server...
+JDK version found: 8
+Minimum JDK version is 8 for Ambari. Skipping to setup different JDK for Ambari Server.
+Checking GPL software agreement...
+GPL License for LZO: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+Enable Ambari Server to download and install GPL Licensed LZO packages [y/n] (n)? 
+Completing setup...
+Configuring database...
+Enter advanced database configuration [y/n] (n)? y
+Configuring database...
+==============================================================================
+Choose one of the following options:
+[1] - PostgreSQL (Embedded)
+[2] - Oracle
+[3] - MySQL / MariaDB
+[4] - PostgreSQL
+[5] - Microsoft SQL Server (Tech Preview)
+[6] - SQL Anywhere
+[7] - BDB
+==============================================================================
+Enter choice (1): 3
+Hostname (localhost): hdp1
+Port (3306): 
+Database name (ambari): 
+Username (ambari): 
+Enter Database Password (bigdata): 
+Invalid characters in password. Use only alphanumeric or _ or - characters
+Enter Database Password (bigdata): 
+Invalid characters in password. Use only alphanumeric or _ or - characters
+Enter Database Password (bigdata): 
+Configuring ambari database...
+Should ambari use existing default jdbc /usr/share/java/mysql-connector-java.jar [y/n] (y)? 
+Configuring remote database connection properties...
+WARNING: Before starting Ambari Server, you must run the following DDL directly from the database shell to create the schema: /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
+Proceed with configuring remote database connection properties [y/n] (y)? 
+Extracting system views...
+ambari-admin-2.7.4.0.118.jar
+....
+Ambari repo file doesn't contain latest json url, skipping repoinfos modification
+Adjusting ambari-server permissions and ownership...
+Ambari Server 'setup' completed successfully.
+[root@hdp1 Downloads]# 
+```
+
+启动ambari
+
+```sh
+ambari-server start
+```
