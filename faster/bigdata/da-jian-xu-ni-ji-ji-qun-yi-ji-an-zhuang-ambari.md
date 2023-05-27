@@ -21,7 +21,11 @@
 | HDP             | 3.1.4.0    |
 | HDP-UTILS       | 1.1.0.22   |
 | Java            | JDK8       |
-| SQL             | Mysql 5.7+ |
+| SQL             | Mysql 5.7  |
+
+{% embed url="https://supportmatrix.cloudera.com/#Hortonworks" %}
+你可以在这里查询软件之间的版本支持度就
+{% endembed %}
 
 Ambari、HDP、HDP-UTILS安装包下载链接如下
 
