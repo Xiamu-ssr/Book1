@@ -403,6 +403,49 @@ HDP和HDP-UTILS就填/var/www/html/下的对应路径，然后把/var/www/html�
 {% endtab %}
 
 {% tab title="2-Install Options" %}
+输入节点主机名列表，并选择Perform manual registration on hosts and do not use SSH，因为我们刚才已经配置过了ambari-agent。
 
+<figure><img src="../../.gitbook/assets/X[V_2[B4W[}%JZACB8UPJ7K.png" alt=""><figcaption></figcaption></figure>
+{% endtab %}
+
+{% tab title="3-Confirm Hosts" %}
+等待服务器注册，然后点击NEXT
+{% endtab %}
+
+{% tab title="4-Choose Services" %}
+选择需要安装的组件
+
+如果你刚学习大数据，我建议你从以下几个比较基础和常用的组件开始：
+
+HDFS：Hadoop分布式文件系统，是Hadoop的核心组件之一，提供了高可靠性和高吞吐量的数据存储服务
+
+YARN：Hadoop资源管理器，是Hadoop的核心组件之一，负责管理集群中的计算资源，并调度各种应用程序的运行。
+
+MapReduce：Hadoop分布式计算框架，是Hadoop最早提供的编程模型，可以实现批量数据处理
+
+Hive：基于Hadoop的数据仓库系统，支持使用类SQL语言进行数据查询和分析。&#x20;
+
+HBase：基于Hadoop的非关系型分布式数据库，适合存储和访问海量结构化或半结构化数据。
+
+Spark：基于内存计算的大数据处理框架，支持批处理、流处理、机器学习等多种场景。
+{% endtab %}
+
+{% tab title="5-Assign Masters" %}
+选择每个组件具体安装在哪个服务器上。
+{% endtab %}
+
+{% tab title="6-Assign Slaves and Clients" %}
+分配主节点和从节点，仅供参考
+
+<figure><img src="../../.gitbook/assets/T8JKRYQ)[KOFMZ&#x60;STKZD0TL.png" alt=""><figcaption></figcaption></figure>
+{% endtab %}
+
+{% tab title="7-Customize Services" %}
+设置服务对应的密码
+
+<figure><img src="../../.gitbook/assets/)QX%A65OH$D@9%4&#x60;1WU]6}6.png" alt=""><figcaption></figcaption></figure>
+
+配置大数据组件参数，这个根据需求配置即可，如果不了解大数据组件的相关配置可以先使用默认，后续可通过查证资料进行更改配置
 {% endtab %}
 {% endtabs %}
+
