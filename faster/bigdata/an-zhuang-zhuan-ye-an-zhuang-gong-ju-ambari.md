@@ -112,3 +112,73 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
 sudo scp /etc/hosts hdp2:/etc/
 sudo scp /etc/hosts hdp3:/etc/
 ```
+
+### 2.7配置免密
+
+```sh
+ssh-keygen #回车到底 
+
+ssh-copy-id -i hdp1
+ssh-copy-id -i hdp2
+ssh-copy-id -i hdp3
+```
+
+三台服务器都要重复以上步骤
+
+### 2.8时间同步
+
+#### 2.8.1主服务器时间配置
+
+选一台服务器作时间服务器，这里以hdp1作为时间服务器，其他服务器以时间服务器时间为准
+
+```sh
+sudo yum install ntp
+sudo vim /etc/ntp.conf
+```
+
+授权192.168.137.0-192.168.137.255网段上的所有机器可以从这台机器上查询和同步时间
+
+```sh
+#修改
+#restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap
+#为
+restrict 192.168.137.0 mask 255.255.255.0 nomodify notrap #我这里使用的网段为137，具体网段根据服务器的ip而定
+
+#注释
+#server 0.centos.pool.ntp.org iburst
+#server 1.centos.pool.ntp.org iburst
+#server 2.centos.pool.ntp.org iburst
+#server 3.centos.pool.ntp.org iburst
+# 添加如下，使用阿里云服务器时间
+server ntp1.aliyun.com iburst
+server ntp2.aliyun.com iburst
+server ntp3.aliyun.com iburst
+server ntp4.aliyun.com iburst
+server ntp5.aliyun.com iburst
+server ntp6.aliyun.com iburst
+server ntp7.aliyun.com iburst
+
+#追加，当该节点丢失网络连接，依然可以采用本地时间作为时间服务器为集群中的其他节点提供时间同步
+server 127.127.1.0
+fudge 127.127.1.0 stratum 10
+```
+
+```sh
+sudo systemctl start ntpd # 启动ntpd服务
+sudo systemctl enable ntpd # 配置ntpd服务开机自启
+```
+
+#### 2.8.2其它服务器时间配置
+
+```sh
+sudo yum install -y ntpdate #安装时间同步包
+sudo ntpdate hdp1 #同步时间
+
+#编写定时任务
+crontab -e 
+# 添加如下内容,每小时的第29分和59分同步一次时间
+29,59 * * * * /usr/sbin/ntpdate hdp1
+```
+
+## 3.安装Ambari
+
