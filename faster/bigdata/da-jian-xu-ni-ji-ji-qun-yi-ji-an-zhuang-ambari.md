@@ -362,9 +362,16 @@ Ambari Server 'setup' completed successfully.
 ambari-server start
 ```
 
-通过ip:8080就可以访问Web UI了。
-
-账户密码都是admin
-
 ### 3.3 安装、配置ambari-agent节点（所有节点）
 
+<pre class="language-sh"><code class="lang-sh"><strong>yum install -y ambari-agent #安装ambari-agent
+</strong>sudo vim /etc/ambari-agent/conf/ambari-agent.ini
+# 将hostname=localhost修改为hdp1
+# [server]
+# hostname=hdp1
+ambari-agent start #启动服务
+</code></pre>
+
+## 4. 部署HDP
+
+通过ip:8080就可以访问Web UI了，登录ambari，默认用户名和密码都是admin。
