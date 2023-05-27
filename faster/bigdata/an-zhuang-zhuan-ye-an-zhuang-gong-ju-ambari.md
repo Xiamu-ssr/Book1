@@ -94,3 +94,21 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
 
 使用VMware克隆功能，选择完全克隆。
 
+### 2.6配置域名映射
+
+同时开启三台虚拟机，输入`ifconfig`查看各个的ip地址
+
+`vim /etc/hosts`写入映射规则，根据ip追加以下内容
+
+```sh
+192.168.137.132 hdp1
+192.168.137.133 hdp2
+192.168.137.134 hdp3
+```
+
+通过scp命令将hosts文件同步到另外两台服务器
+
+```sh
+sudo scp /etc/hosts hdp2:/etc/
+sudo scp /etc/hosts hdp3:/etc/
+```
