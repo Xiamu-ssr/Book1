@@ -21,8 +21,9 @@
   * [VMware](faster/linux/virtual-box-vm/README.md)
     * [虚拟机代理](faster/linux/virtual-box-vm/xu-ni-ji-dai-li.md)
     * [双向复制粘贴](faster/linux/vmware/shuang-xiang-fu-zhi-nian-tie.md)
+    * [磁盘扩容](faster/linux/vmware/ci-pan-kuo-rong.md)
 * [BigData](faster/bigdata/README.md)
-  * [安装专业安装工具Ambari](faster/bigdata/an-zhuang-zhuan-ye-an-zhuang-gong-ju-ambari.md)
+  * [搭建虚拟机集群以及安装Ambari](faster/bigdata/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari.md)
 
 ## 置身事内
 

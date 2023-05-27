@@ -1,4 +1,4 @@
-# 安装专业安装工具Ambari
+# 搭建虚拟机集群以及安装Ambari
 
 这应该是免费版的ambari，需要自己从源码构建，我尝试过ubuntu16.04和centos7，mvn构建不出来，而且过程很长。
 
@@ -14,13 +14,14 @@
 
 ## 1.环境及软件准备
 
-| OS        | CentOS 7.9 in VMware |
-| --------- | -------------------- |
-| Ambari    | 2.7.4.0              |
-| HDP       | 3.1.4.0              |
-| HDP-UTILS | 1.1.0.22             |
-| Java      | JDK8                 |
-| SQL       | Mysql 5.7+           |
+| Virtual Machine | VMware 17  |
+| --------------- | ---------- |
+| OS              | CentOS 7.9 |
+| Ambari          | 2.7.4.0    |
+| HDP             | 3.1.4.0    |
+| HDP-UTILS       | 1.1.0.22   |
+| Java            | JDK8       |
+| SQL             | Mysql 5.7+ |
 
 Ambari、HDP、HDP-UTILS安装包下载链接如下
 
@@ -182,3 +183,28 @@ crontab -e
 
 ## 3.安装Ambari
 
+这个部分只需要在**主节点hdp1**上操作就行了。
+
+### 3.1配置ambari和hdp的yum源
+
+```sh
+# 安装httpd
+sudo yum install -y httpd
+# 启动http
+sudo systemctl start httpd
+# 将httpd加入到开机自启
+sudo systemctl enable httpd
+```
+
+上传安装包并解压那三个压缩包
+
+```sh
+# 先在/var/www/html目录下创建ambari、hdp、hdp-utils文件夹
+mkdir /var/www/html/ambari
+mkdir /var/www/html/hdp
+mkdir /var/www/html/hdp-utils
+# 这里的-C是指定解压目录
+tar -zxf /opt/ambari-2.7.4.0-centos7.tar.gz -C /var/www/html/ambari 
+tar -zxf /opt/HDP-3.1.4.0-centos7-rpm.tar.gz -C /var/www/html/hdp
+tar -zxf /opt/HDP-UTILS-1.1.0.22-centos7.tar.gz -C /var/www/html/hdp-utils/
+```
