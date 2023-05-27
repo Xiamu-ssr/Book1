@@ -183,9 +183,7 @@ crontab -e
 
 ## 3.安装Ambari
 
-这个部分只需要在**主节点hdp1**上操作就行了。
-
-### 3.1配置ambari和hdp的yum源
+### 3.1配置ambari和hdp的yum源（主节点）
 
 ```sh
 # 安装httpd
@@ -247,7 +245,7 @@ yum repolist
 
 配置好yum源后使用scp命令将ambari.repo和hdp.repo文件发送到其他节点的/etc/yum.repos.d/目录下
 
-### 3.2配置和安装ambari-server
+### 3.2配置和安装ambari-server（主节点）
 
 ```sh
 yum install -y ambari-server #安装ambari-server
@@ -363,3 +361,10 @@ Ambari Server 'setup' completed successfully.
 ```sh
 ambari-server start
 ```
+
+通过ip:8080就可以访问Web UI了。
+
+账户密码都是admin
+
+### 3.3 安装、配置ambari-agent节点（所有节点）
+

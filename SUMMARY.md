@@ -40,6 +40,7 @@
 * [MySQL](debug/mysql/README.md)
   * [重置初始密码](debug/mysql/zhong-zhi-chu-shi-mi-ma.md)
   * [免输密码登录](debug/mysql/mian-shu-mi-ma-deng-lu.md)
+  * [低密码策略脚本](debug/mysql/di-mi-ma-ce-lve-jiao-ben.md)
   * [DeBug](debug/mysql/debug.md)
 
 ## Tools
