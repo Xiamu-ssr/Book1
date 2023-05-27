@@ -24,7 +24,7 @@
 | SQL             | Mysql 5.7  |
 
 {% embed url="https://supportmatrix.cloudera.com/#Hortonworks" %}
-你可以在这里查询软件之间的版本支持度就
+你可以在这里查询软件之间的版本支持度
 {% endembed %}
 
 Ambari、HDP、HDP-UTILS安装包下载链接如下
@@ -32,6 +32,8 @@ Ambari、HDP、HDP-UTILS安装包下载链接如下
 {% embed url="https://pan.baidu.com/s/18uH3jvciTj0mFNbHlZiugQ" %}
 **提取码：3rwq**
 {% endembed %}
+
+主节点磁盘50GB，从节点磁盘30GB。（笔记本没磁盘qwq）
 
 ## 2.准备工作
 
@@ -55,13 +57,28 @@ export PATH=$PATH:$JAVA_HOME/bin
 
 </code></pre>
 
-### 2.3安装MySQL
+### 2.3关闭SELinux
 
 ```sh
-sudo yum localinstall https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm #添加mysql到yum的安装列表中
-sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022 #添加对mysql安装的密钥
-sudo yum install mysql-community-server.x86_64 #安装mysqljava-1.8.0-openjdk.x86_64
+# 临时性关闭（立即生效，但是重启服务器后失效）
+setenforce 0 #设置selinux为permissive模式（即关闭）
+setenforce 1 #设置selinux为enforcing模式（即开启）
+# 永久性关闭（这样需要重启服务器后生效）
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
 ```
+
+然后reboot重启，`sestatus`查看SELinux状态
+
+### 2.4克隆额外两台服务器
+
+使用VMware克隆功能，选择完全克隆。
+
+### 2.5安装MySQL（主节点）
+
+<pre class="language-sh"><code class="lang-sh"><strong>sudo yum install -y https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm #添加mysql到yum的安装列表中
+</strong>sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022 #添加对mysql安装的密钥
+sudo yum install -y mysql-community-server #安装mysql-server
+</code></pre>
 
 重置初始密码和免输密码登录
 
@@ -82,22 +99,6 @@ systemctl restart mysqld #开启服务
 netstat -nltp | grep 3306 # 查看mysql默认的3306端口号是否存在
 systemctl enable mysqld # 将mysql服务加入到开机自启
 ```
-
-### 2.4关闭SELinux
-
-```sh
-# 临时性关闭（立即生效，但是重启服务器后失效）
-setenforce 0 #设置selinux为permissive模式（即关闭）
-setenforce 1 #设置selinux为enforcing模式（即开启）
-# 永久性关闭（这样需要重启服务器后生效）
-sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
-```
-
-然后reboot重启，`sestatus`查看SELinux状态
-
-### 2.5克隆额外两台服务器
-
-使用VMware克隆功能，选择完全克隆。
 
 ### 2.6配置域名映射
 
@@ -132,7 +133,7 @@ ssh-copy-id -i hdp3
 
 ### 2.8时间同步
 
-#### 2.8.1主服务器时间配置
+#### 2.8.1主服务器时间配置(主节点)
 
 选一台服务器作时间服务器，这里以hdp1作为时间服务器，其他服务器以时间服务器时间为准
 
@@ -173,7 +174,7 @@ sudo systemctl start ntpd # 启动ntpd服务
 sudo systemctl enable ntpd # 配置ntpd服务开机自启
 ```
 
-#### 2.8.2其它服务器时间配置
+#### 2.8.2其它服务器时间配置(从节点)
 
 ```sh
 sudo yum install -y ntpdate #安装时间同步包
@@ -379,3 +380,25 @@ ambari-agent start #启动服务
 ## 4. 部署HDP
 
 通过ip:8080就可以访问Web UI了，登录ambari，默认用户名和密码都是admin。
+
+点击`ClusterInformation` --> `LAUNCH INSTALL WIZARD`开始安装向导
+
+{% tabs %}
+{% tab title="0-Get Started" %}
+填集群名字
+{% endtab %}
+
+{% tab title="1-Select Version" %}
+HDP选3.1
+
+<figure><img src="../../.gitbook/assets/DTR$BF$8EX012@EBZ)BI1%D.png" alt="0" width="188"><figcaption></figcaption></figure>
+
+OS选Redhat7填入
+
+HDP和HDP-UTILS就填/var/www/html/下的对应路径，然后把/var/www/html改成http://hdp1/，比如[http://hdp1/hdp/HDP/centos7/3.1.4.0-315/](http://hdp1/hdp/HDP/centos7/3.1.4.0-315/)和[http://hdp1/hdp-utils/HDP-UTILS/centos7/1.1.0.22/](http://hdp1/hdp-utils/HDP-UTILS/centos7/1.1.0.22/)
+
+最后两个选项不要勾选。
+
+<figure><img src="../../.gitbook/assets/XTVH8HW[2T5(XN@NALJ4BDD.png" alt="0"><figcaption></figcaption></figure>
+{% endtab %}
+{% endtabs %}
