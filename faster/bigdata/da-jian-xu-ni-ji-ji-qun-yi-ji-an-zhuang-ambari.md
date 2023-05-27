@@ -391,14 +391,18 @@ ambari-agent start #启动服务
 {% tab title="1-Select Version" %}
 HDP选3.1
 
-<figure><img src="../../.gitbook/assets/DTR$BF$8EX012@EBZ)BI1%D.png" alt="0" width="188"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/DTR$BF$8EX012@EBZ)BI1%D.png" alt="0"><figcaption></figcaption></figure>
 
-OS选Redhat7填入
+OS选Redhat7填入并移除所有其它条目输入节点主机名列表输入节点主机名列
 
 HDP和HDP-UTILS就填/var/www/html/下的对应路径，然后把/var/www/html改成http://hdp1/，比如[http://hdp1/hdp/HDP/centos7/3.1.4.0-315/](http://hdp1/hdp/HDP/centos7/3.1.4.0-315/)和[http://hdp1/hdp-utils/HDP-UTILS/centos7/1.1.0.22/](http://hdp1/hdp-utils/HDP-UTILS/centos7/1.1.0.22/)
 
 最后两个选项不要勾选。
 
 <figure><img src="../../.gitbook/assets/XTVH8HW[2T5(XN@NALJ4BDD.png" alt="0"><figcaption></figcaption></figure>
+{% endtab %}
+
+{% tab title="2-Install Options" %}
+
 {% endtab %}
 {% endtabs %}
