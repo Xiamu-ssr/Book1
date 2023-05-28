@@ -284,6 +284,10 @@ mysql> source /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql -- �
 下载驱动
 {% endembed %}
 
+{% hint style="info" %}
+这里我使用最新版jdbc8.0.33之后可以运行ambari-server，但是和mysql5.7适配的jdbc5.1.44会一直遇到已耗尽最大连接次数和flush的问题，看了很多解决办法没解决掉。不过用8.0.33也没什么不好的。
+{% endhint %}
+
 ```sh
 #查看安装位置和内容
 rpm -qpl mysql-connector-j-8.0.33-1.el7.noarch.rpm
@@ -409,7 +413,11 @@ HDP和HDP-UTILS就填/var/www/html/下的对应路径，然后把/var/www/html�
 {% endtab %}
 
 {% tab title="3-Confirm Hosts" %}
-等待服务器注册，然后点击NEXT
+等待服务器注册，并检查潜在的error，然后点击NEXT
+
+{% hint style="info" %}
+遇到过一个，[已记录在DeBug中](debug.md#error-occured-during-stack-advisor-command-invocation-cannot-create-var-run-ambari-server-stack-reco)。
+{% endhint %}
 {% endtab %}
 
 {% tab title="4-Choose Services" %}
