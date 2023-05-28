@@ -47,7 +47,7 @@ sudo systemctl disable firewalld # 关闭防火墙开机自启
 
 ### 2.2安装JDK
 
-<pre class="language-sh"><code class="lang-sh"><strong>sudo yum install java-1.8.0-openjdk.x86_64 java-1.8.0-openjdk-headless.x86_64
+<pre class="language-sh"><code class="lang-sh"><strong>sudo yum install java-1.8.0-openjdk.x86_64 java-1.8.0-openjdk-devel.x86_64 java-1.8.0-openjdk-headless.x86_64
 </strong>
 readlink -f /usr/bin/java #查看java安装位置
 

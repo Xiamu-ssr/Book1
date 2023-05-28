@@ -24,6 +24,7 @@
     * [磁盘扩容](faster/linux/vmware/ci-pan-kuo-rong.md)
 * [BigData](faster/bigdata/README.md)
   * [搭建虚拟机集群以及安装Ambari](faster/bigdata/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari.md)
+  * [DeBug](faster/bigdata/debug.md)
 
 ## 置身事内
 
