@@ -7,13 +7,6 @@
 
 ## Faster&#x20;
 
-* [编译原理-华为毕昇杯](<README (1).md>)
-  * [第一章-概](bian-yi-yuan-li-hua-wei-bi-sheng-bei/bian-yi-yuan-li-gai-lun.md)
-  * [第二章-前端](readme/di-er-zhang-qian-duan.md)
-* [Web实践-Qhubl](web-xiang-mu/README.md)
-  * [第一章-概](web-shi-jian-qhubl/di-yi-zhang-gai.md)
-  * [第二章-面向公众的前后端](web-shi-jian-qhubl/di-er-zhang-mian-xiang-gong-zhong-de-qian-hou-duan.md)
-  * [部署指导](faster/web-shi-jian-qhubl/bu-shu-zhi-dao.md)
 * [Linux](faster/linux/README.md)
   * [常见](faster/linux/chang-jian.md)
   * [科学计算](faster/linux/ke-xue-ji-suan/README.md)
@@ -25,7 +18,15 @@
   * [代理](faster/linux/dai-li.md)
 * [BigData](faster/bigdata/README.md)
   * [搭建虚拟机集群以及安装Ambari](faster/bigdata/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari.md)
+  * [Maven](faster/bigdata/maven.md)
   * [DeBug](faster/bigdata/debug.md)
+* [编译原理-华为毕昇杯](<README (1).md>)
+  * [第一章-概](bian-yi-yuan-li-hua-wei-bi-sheng-bei/bian-yi-yuan-li-gai-lun.md)
+  * [第二章-前端](readme/di-er-zhang-qian-duan.md)
+* [Web实践-Qhubl](web-xiang-mu/README.md)
+  * [第一章-概](web-shi-jian-qhubl/di-yi-zhang-gai.md)
+  * [第二章-面向公众的前后端](web-shi-jian-qhubl/di-er-zhang-mian-xiang-gong-zhong-de-qian-hou-duan.md)
+  * [部署指导](faster/web-shi-jian-qhubl/bu-shu-zhi-dao.md)
 
 ## 置身事内
 
