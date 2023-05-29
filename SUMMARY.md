@@ -20,6 +20,7 @@
   * [搭建虚拟机集群以及安装Ambari](faster/bigdata/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari.md)
   * [Maven](faster/bigdata/maven/README.md)
     * [一个简单的项目](faster/bigdata/maven/yi-ge-jian-dan-de-xiang-mu.md)
+    * [GitHub远程maven私人仓库](faster/bigdata/maven/github-yuan-cheng-maven-si-ren-cang-ku.md)
   * [DeBug](faster/bigdata/debug.md)
 * [编译原理-华为毕昇杯](<README (1).md>)
   * [第一章-概](bian-yi-yuan-li-hua-wei-bi-sheng-bei/bian-yi-yuan-li-gai-lun.md)
