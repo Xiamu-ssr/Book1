@@ -22,6 +22,7 @@
     * [虚拟机代理](faster/linux/virtual-box-vm/xu-ni-ji-dai-li.md)
     * [双向复制粘贴](faster/linux/vmware/shuang-xiang-fu-zhi-nian-tie.md)
     * [磁盘扩容](faster/linux/vmware/ci-pan-kuo-rong.md)
+  * [代理](faster/linux/dai-li.md)
 * [BigData](faster/bigdata/README.md)
   * [搭建虚拟机集群以及安装Ambari](faster/bigdata/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari.md)
   * [DeBug](faster/bigdata/debug.md)
@@ -45,7 +46,3 @@
   * [免输密码登录](debug/mysql/mian-shu-mi-ma-deng-lu.md)
   * [低密码策略脚本](debug/mysql/di-mi-ma-ce-lve-jiao-ben.md)
   * [DeBug](debug/mysql/debug.md)
-
-## Tools
-
-* [机场](tools/ji-chang.md)
