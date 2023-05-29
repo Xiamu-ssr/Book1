@@ -31,6 +31,18 @@
   * [第二章-面向公众的前后端](web-shi-jian-qhubl/di-er-zhang-mian-xiang-gong-zhong-de-qian-hou-duan.md)
   * [部署指导](faster/web-shi-jian-qhubl/bu-shu-zhi-dao.md)
 
+## Tools
+
+* [Git](tools/git/README.md)
+  * [Page 1](tools/git/page-1.md)
+* [Docker](tools/docker/README.md)
+  * [Page 2](tools/docker/page-2.md)
+* [MySQL](tools/mysql/README.md)
+  * [重置初始密码](tools/mysql/zhong-zhi-chu-shi-mi-ma.md)
+  * [免输密码登录](tools/mysql/mian-shu-mi-ma-deng-lu.md)
+  * [低密码策略脚本](tools/mysql/di-mi-ma-ce-lve-jiao-ben.md)
+  * [DeBug](tools/mysql/debug.md)
+
 ## 置身事内
 
 * [置身事内](zhi-shen-shi-nei/wai.md)
@@ -38,15 +50,3 @@
   * [电脑应用](zhi-shen-shi-nei/self/dian-nao-ying-yong.md)
   * [奖项存档](zhi-shen-shi-nei/self/jiang-xiang-cun-dang.md)
   * [日常小记](zhi-shen-shi-nei/self/ri-chang-xiao-ji.md)
-
-## Debug
-
-* [Git](tools/git/README.md)
-  * [Page 1](tools/git/page-1.md)
-* [Docker](debug/docker/README.md)
-  * [Page 2](debug/docker/page-2.md)
-* [MySQL](debug/mysql/README.md)
-  * [重置初始密码](debug/mysql/zhong-zhi-chu-shi-mi-ma.md)
-  * [免输密码登录](debug/mysql/mian-shu-mi-ma-deng-lu.md)
-  * [低密码策略脚本](debug/mysql/di-mi-ma-ce-lve-jiao-ben.md)
-  * [DeBug](debug/mysql/debug.md)
