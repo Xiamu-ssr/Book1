@@ -82,8 +82,8 @@ sudo yum install -y mysql-community-server #安装mysql-server
 
 重置初始密码和免输密码登录
 
-{% content-ref url="../../debug/mysql/" %}
-[mysql](../../debug/mysql/)
+{% content-ref url="../../../debug/mysql/" %}
+[mysql](../../../debug/mysql/)
 {% endcontent-ref %}
 
 修改`/etc/my.cnf`添加以下配置
@@ -395,7 +395,7 @@ ambari-agent start #启动服务
 {% tab title="1-Select Version" %}
 HDP选3.1
 
-<figure><img src="../../.gitbook/assets/DTR$BF$8EX012@EBZ)BI1%D.png" alt="0"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/DTR$BF$8EX012@EBZ)BI1%D.png" alt="0"><figcaption></figcaption></figure>
 
 OS选Redhat7填入并移除所有其它条目输入节点主机名列表输入节点主机名列
 
@@ -403,13 +403,13 @@ HDP和HDP-UTILS就填/var/www/html/下的对应路径，然后把/var/www/html�
 
 最后两个选项不要勾选。
 
-<figure><img src="../../.gitbook/assets/XTVH8HW[2T5(XN@NALJ4BDD.png" alt="0"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/XTVH8HW[2T5(XN@NALJ4BDD.png" alt="0"><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="2-Install Options" %}
 输入节点主机名列表，并选择Perform manual registration on hosts and do not use SSH，因为我们刚才已经配置过了ambari-agent。
 
-<figure><img src="../../.gitbook/assets/X[V_2[B4W[}%JZACB8UPJ7K.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/X[V_2[B4W[}%JZACB8UPJ7K.png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="3-Confirm Hosts" %}
@@ -445,13 +445,13 @@ Spark：基于内存计算的大数据处理框架，支持批处理、流处理
 {% tab title="6-Assign Slaves and Clients" %}
 分配主节点和从节点，仅供参考
 
-<figure><img src="../../.gitbook/assets/T8JKRYQ)[KOFMZ&#x60;STKZD0TL.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/T8JKRYQ)[KOFMZ&#x60;STKZD0TL.png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="7-Customize Services" %}
 设置服务对应的密码
 
-<figure><img src="../../.gitbook/assets/)QX%A65OH$D@9%4&#x60;1WU]6}6.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/)QX%A65OH$D@9%4&#x60;1WU]6}6.png" alt=""><figcaption></figcaption></figure>
 
 配置大数据组件参数，这个根据需求配置即可，如果不了解大数据组件的相关配置可以先使用默认，后续可通过查证资料进行更改配置
 {% endtab %}
