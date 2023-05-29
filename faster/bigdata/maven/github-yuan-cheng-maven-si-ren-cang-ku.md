@@ -4,6 +4,10 @@
 
 {% embed url="https://docs.github.com/zh/packages/working-with-a-github-packages-registry/working-with-the-apache-maven-registry" %}
 
+### 前置步骤
+
+创建一个github public仓库，勾选Readme
+
 ### 修改\~/.m2/setting.xml
 
 没有这个文件就从`/usr/share/maven/conf/settings.xml`cp一份。
@@ -47,9 +51,9 @@
 
 ```
 
-### 修改pom.xml
+### 发布包
 
-这是项目里的xml，添加以下内容
+先修改pom.xml，这是项目里的xml，添加以下内容
 
 ```xml
   <distributionManagement>
@@ -62,10 +66,16 @@
   </distributionManagement>
 ```
 
-### 发布包
-
 `mvn deploy`就可以把包发布到github仓库了，网速不好用代理，遇到错误加`-X -e`
 
 ### 查看包
 
 <figure><img src="../../../.gitbook/assets/7OI0F~NJZ@Y}YMTBUTL9II8.png" alt="" width="563"><figcaption></figcaption></figure>
+
+### 使用包
+
+查看包步骤点进去，看到使用方法，也很简单，按照步骤
+
+把内容添加到pom.xml
+
+然后`mvn install`就可以了
