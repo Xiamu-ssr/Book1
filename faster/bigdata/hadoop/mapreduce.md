@@ -22,4 +22,4 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
 
 <figure><img src="../../../.gitbook/assets/X985~4Q4$FW}9}9]5HB77@G.jpg" alt=""><figcaption></figcaption></figure>
 
-map任务在歌手吊袜带&#x20;
+的
