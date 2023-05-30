@@ -22,4 +22,9 @@ MapReduce 作业通过将输入的数据集拆分为独立的块，这些块由 
 
 <figure><img src="../../../.gitbook/assets/X985~4Q4$FW}9}9]5HB77@G.jpg" alt=""><figcaption></figcaption></figure>
 
-的
+Input到Split可以由HDFS自主完成，分块存储。
+
+map任务所在节点从本地磁盘或者从远程获取数据，进行处理，得到键值对。
+
+shuffle操作就比较抽象了，
+
