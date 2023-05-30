@@ -25,6 +25,7 @@
     * [GitHub远程maven私人仓库](faster/bigdata/maven/github-yuan-cheng-maven-si-ren-cang-ku.md)
   * [Hadoop](faster/bigdata/hadoop/README.md)
     * [HDFS](faster/bigdata/hadoop/hdfs.md)
+    * [MapReduce](faster/bigdata/hadoop/mapreduce.md)
 * [编译原理-华为毕昇杯](<README (1).md>)
   * [第一章-概](bian-yi-yuan-li-hua-wei-bi-sheng-bei/bian-yi-yuan-li-gai-lun.md)
   * [第二章-前端](readme/di-er-zhang-qian-duan.md)

@@ -4,6 +4,14 @@ description: Hadoop分布式文件系统
 
 # HDFS
 
+{% embed url="https://static.googleusercontent.com/media/research.google.com/zh-CN/archive/gfs-sosp2003.pdf" %}
+GFS paper PDF
+{% endembed %}
+
+{% file src="../../../.gitbook/assets/document.pdf" %}
+HDFS paper PDF
+{% endfile %}
+
 ## 一、介绍
 
 **HDFS** （**Hadoop Distributed File System**）是 Hadoop 下的分布式文件系统，具有高容错、高吞吐量等特性，可以部署在低成本的硬件上。
