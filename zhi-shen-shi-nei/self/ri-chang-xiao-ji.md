@@ -18,7 +18,7 @@ description: source 2023/05/28。小记、琐事、随笔。
 
 #### 30
 
-把大数据的经典三论文看完了，浅读了一番，只能说，google确实6。
+浅读了一番大数据的经典三论文，google确实6。看了HDFS，MapReduce和YARN看了一部分
 
 </details>
 
