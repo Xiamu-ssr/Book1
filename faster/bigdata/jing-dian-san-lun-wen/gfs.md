@@ -4,6 +4,10 @@ description: Google File System浅读，标注
 
 # GFS
 
+{% embed url="https://static.googleusercontent.com/media/research.google.com/zh-CN/archive/gfs-sosp2003.pdf" %}
+GFS PDF
+{% endembed %}
+
 ## 1.INTRODUCTION
 
 首先，组件故障是常态，而不是例外。因此，持续监控、错误检测、容错和自动恢复必须是系统的组成部分。其次，大多数文件是通过附加新数据而不是覆盖现有数据来改变的。
@@ -108,7 +112,7 @@ GFS块大小采用64MB，比一般的文件系统大的多。这有诸多好处�
 
 滴水穿石非一日之功，讲述了项目过程更多细节，冲突，优化，创新。
 
-## 8.总结
+## 9.总结
 
 首先，考虑了成本问题，假设集群都是由低端机组成，所以故障将成为常态，以此又提出应对策略。
 
