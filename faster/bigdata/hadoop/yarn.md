@@ -8,11 +8,11 @@ description: 集群资源管理器
 
 **Apache YARN** (Yet Another Resource Negotiator) 是 hadoop 2.0 引入的集群资源管理系统。用户可以将各种服务框架部署在 YARN 上，由 YARN 进行统一地管理和资源分配。
 
-<figure><img src="../../../.gitbook/assets/VEB4O6@4CO0Z)}]GJP791IP.jpg" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/VEB4O6@4CO0Z)}]GJP791IP.jpg" alt=""><figcaption></figcaption></figure>
 
 ## 二、YARN架构
 
-<figure><img src="../../../.gitbook/assets/[3LLR%{[BDN43)ZMTY8Q_SG.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/[3LLR%{[BDN43)ZMTY8Q_SG.png" alt=""><figcaption></figcaption></figure>
 
 ### 1. ResourceManager
 
@@ -40,5 +40,14 @@ description: 集群资源管理器
 `Container` 是 YARN 中的资源抽象，它封装了某个节点上的多维度资源，如内存、CPU、磁盘、网络等。当 AM 向 RM 申请资源时，RM 为 AM 返回的资源是用 `Container` 表示的。YARN 会为每个任务分配一个 `Container`，该任务只能使用该 `Container` 中描述的资源。`ApplicationMaster` 可在 `Container` 内运行任何类型的任务。例如，`MapReduce ApplicationMaster` 请求一个容器来启动 map 或 reduce 任务，而 `Giraph ApplicationMaster` 请求一个容器来运行 Giraph 任务。
 
 {% hint style="info" %}
-Container和节点是一对多的关系。
+Container和节点是多对一的关系。
 {% endhint %}
+
+## 三、YARN工作原理简述
+
+<figure><img src="../../../.gitbook/assets/7@HU]~]M{M[6T@7[XV6][~X.jpg" alt=""><figcaption></figcaption></figure>
+
+1. `Client` 提交作业到 YARN 上；
+2. `Resource Manager` 选择一个 `Node Manager`，启动一个 `Container` 并运行 `Application Master` 实例；
+3. `Application Master` 根据实际需要向 `Resource Manager` 请求更多的 `Container` 资源（如果作业很小, 应用管理器会选择在其自己的 JVM 中运行任务）；
+4. `Application Master` 通过获取到的 `Container` 资源执行分布式计算。
