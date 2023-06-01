@@ -20,12 +20,18 @@ description: source 2023/05/28。小记、琐事、随笔。
 
 浅读了一番大数据的经典三论文，google确实6。看了HDFS，MapReduce和YARN看了一部分
 
+#### 31
+
+看完了YARN，内存条到了，出了点问题，重装了系统，win11，配了环境。
+
 </details>
 
 <details>
 
 <summary>2023/06</summary>
 
+#### 1
 
+配环境，旧磁盘识别不到了，需要硬盘盒当做U盘接入。配WSL。
 
 </details>
