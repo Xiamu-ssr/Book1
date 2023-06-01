@@ -47,7 +47,7 @@ mount /dev/sde /mnt/shool
 ```
 
 {% hint style="info" %}
-不知道是哪个dev，可以在powershell中`wsl --unmount \\.\PHYSICALDRIVE3`看哪个消失了就是哪个。
+不知道是哪个dev，先在wsl下**`lsblk`**，然后powershell中**`wsl --unmount \\.\PHYSICALDRIVE3`**，再**`lsblk`**，看哪个消失了就是哪个。
 {% endhint %}
 
 即可挂载成功，可以通过 `ls` 查看
