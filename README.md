@@ -15,3 +15,5 @@ mumu2663@163.com
 {% hint style="info" %}
 [https://github.com/Xiamu-ssr](https://github.com/Xiamu-ssr)
 {% endhint %}
+
+<figure><img src=".gitbook/assets/110D5B1AFC58E899DC9219866427AB29.jpg" alt="" width="375"><figcaption><p>about us</p></figcaption></figure>
