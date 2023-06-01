@@ -51,3 +51,9 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ```sh
 sudo docker run hello-world
 ```
+
+{% hint style="info" %}
+**sudo usermod -aG docker mumu**使普通用户可以使用docker，重新登陆并重启服务
+
+如果还是不行，使用**sudo chmod 666 /var/run/docker.sock**
+{% endhint %}
