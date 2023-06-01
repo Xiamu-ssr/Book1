@@ -74,6 +74,34 @@ export PATH=/home/mokanglong/usr/bin:$PATH
 ```
 {% endhint %}
 {% endtab %}
+
+{% tab title="WSL" %}
+如果使用wsl，可以用windows的clash子网代理。
+
+首先打开clash的ALLOW LAN
+
+编辑.bashrc，添加如下
+
+```sh
+#!/bin/bash
+host_ip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
+export http_proxy="http://$host_ip:7890"
+export https_proxy="http://$host_ip:7890
+```
+
+如果你安装了proxychains4，还可以添加如下
+
+```sh
+sudo sed -i '$d' /etc/proxychains4.conf
+# sudo sed -i '$d' /etc/proxychains4.conf
+# sudo sed -i '$a socks5 '${host_ip}' 7890' /etc/proxychains4.conf
+sudo sed -i '$a http '${host_ip}' 7890' /etc/proxychains4.conf
+```
+
+{% hint style="info" %}
+有需要自己改。
+{% endhint %}
+{% endtab %}
 {% endtabs %}
 
 
