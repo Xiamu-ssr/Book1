@@ -78,6 +78,8 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
 <pre class="language-sh"><code class="lang-sh"><strong>sudo yum install -y https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm #添加mysql到yum的安装列表中
 </strong>sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022 #添加对mysql安装的密钥
 sudo yum install -y mysql-community-server #安装mysql-server
+sudo systemctl start mysqld
+sudo systemctl enable mysqld
 </code></pre>
 
 重置初始密码和免输密码登录
