@@ -86,7 +86,7 @@ export PATH=/home/mokanglong/usr/bin:$PATH
 #!/bin/bash
 host_ip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
 export http_proxy="http://$host_ip:7890"
-export https_proxy="http://$host_ip:7890
+export https_proxy="http://$host_ip:7890"
 ```
 
 如果你安装了proxychains4，还可以添加如下
