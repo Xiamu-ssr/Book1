@@ -39,17 +39,17 @@
   * [第二章-面向公众的前后端](web-shi-jian-qhubl/di-er-zhang-mian-xiang-gong-zhong-de-qian-hou-duan.md)
   * [部署指导](faster/web-shi-jian-qhubl/bu-shu-zhi-dao.md)
 
-## Tools
+## Software
 
-* [Git](tools/git/README.md)
-  * [Page 1](tools/git/page-1.md)
-* [Docker](tools/docker/README.md)
-  * [Page 2](tools/docker/page-2.md)
-* [MySQL](tools/mysql/README.md)
-  * [重置初始密码](tools/mysql/zhong-zhi-chu-shi-mi-ma.md)
-  * [免输密码登录](tools/mysql/mian-shu-mi-ma-deng-lu.md)
-  * [低密码策略脚本](tools/mysql/di-mi-ma-ce-lve-jiao-ben.md)
-  * [DeBug](tools/mysql/debug.md)
+* [Git](software/git/README.md)
+  * [DeBug](software/git/debug.md)
+* [Docker](software/docker/README.md)
+  * [DeBug](software/docker/debug.md)
+* [MySQL](software/mysql/README.md)
+  * [重置初始密码](software/mysql/zhong-zhi-chu-shi-mi-ma.md)
+  * [免输密码登录](software/mysql/mian-shu-mi-ma-deng-lu.md)
+  * [低密码策略脚本](software/mysql/di-mi-ma-ce-lve-jiao-ben.md)
+  * [DeBug](software/mysql/debug.md)
 
 ## 置身事内
 

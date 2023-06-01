@@ -82,8 +82,8 @@ sudo yum install -y mysql-community-server #安装mysql-server
 
 重置初始密码和免输密码登录
 
-{% content-ref url="../../../tools/mysql/" %}
-[mysql](../../../tools/mysql/)
+{% content-ref url="../../../software/mysql/" %}
+[mysql](../../../software/mysql/)
 {% endcontent-ref %}
 
 修改`/etc/my.cnf`添加以下配置
