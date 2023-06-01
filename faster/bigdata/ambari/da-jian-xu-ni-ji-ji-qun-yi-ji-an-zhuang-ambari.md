@@ -52,7 +52,7 @@ sudo systemctl disable firewalld # 关闭防火墙开机自启
 readlink -f /usr/bin/java #查看java安装位置
 
 sudo vim /etc/profile
-export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.372.b07-1.el7_9.x86_64/jre
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.372.b07-1.el7_9.x86_64
 export PATH=$PATH:$JAVA_HOME/bin
 
 </code></pre>
