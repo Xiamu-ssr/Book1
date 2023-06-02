@@ -69,11 +69,16 @@ sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
 
 然后reboot重启，`sestatus`查看SELinux状态
 
-### 2.4克隆额外两台服务器
+### 2.4安装额外软件包
+
+* sshpass：用明文方式自动输入ssh密码，快速免密脚本需要。
+* pssh：同时对多个机器使用shh执行命令，方便管理后续集群。
+
+### 2.5克隆额外从节点服务器
 
 使用VMware克隆功能，选择完全克隆。
 
-### 2.5安装MySQL（主节点）
+### 2.6安装MySQL（主节点）
 
 <pre class="language-sh"><code class="lang-sh"><strong>sudo yum install -y https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm #添加mysql到yum的安装列表中
 </strong>sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022 #添加对mysql安装的密钥
@@ -102,7 +107,7 @@ netstat -nltp | grep 3306 # 查看mysql默认的3306端口号是否存在
 systemctl enable mysqld # 将mysql服务加入到开机自启
 ```
 
-### 2.6配置域名映射
+### 2.7配置域名映射（主节点）
 
 同时开启三台虚拟机，输入`ifconfig`查看各个的ip地址
 
@@ -114,23 +119,23 @@ systemctl enable mysqld # 将mysql服务加入到开机自启
 192.168.137.134 hdp3
 ```
 
-使用脚本将hosts文件传到所有其它主机
+使用脚本\[0]将hosts文件传到所有其它主机
 
 {% content-ref url="../../linux/jiao-ben.md" %}
 [jiao-ben.md](../../linux/jiao-ben.md)
 {% endcontent-ref %}
 
-### 2.7配置免密
+### 2.8配置免密
 
-用脚本快速配置所以主机互相免密
+用脚本\[1]快速配置所以主机互相免密
 
 {% content-ref url="../../linux/jiao-ben.md" %}
 [jiao-ben.md](../../linux/jiao-ben.md)
 {% endcontent-ref %}
 
-### 2.8时间同步
+### 2.9时间同步
 
-#### 2.8.1主服务器时间配置(主节点)
+#### 2.9.1主服务器时间配置(主节点)
 
 选一台服务器作时间服务器，这里以hdp1作为时间服务器，其他服务器以时间服务器时间为准
 
@@ -171,16 +176,25 @@ sudo systemctl start ntpd # 启动ntpd服务
 sudo systemctl enable ntpd # 配置ntpd服务开机自启
 ```
 
-#### 2.8.2其它服务器时间配置(从节点)
+#### 2.9.2其它服务器时间配置(主节点)
+
+创建一个host.txt文件，写入所有从节点
+
+```
+hdp1
+hdp2
+hdp3
+hdp4
+```
 
 ```sh
-sudo yum install -y ntpdate #安装时间同步包
-sudo ntpdate hdp1 #同步时间
+pssh -h host.txt -i yum install -y ntpdate #安装时间同步包
+pssh -h host.txt ntpdate hdp0 #同步时间
 
-#编写定时任务
+#编写定时任务,这个去从节点手动吧
 crontab -e 
 # 添加如下内容,每小时的第29分和59分同步一次时间
-29,59 * * * * /usr/sbin/ntpdate hdp1
+29,59 * * * * /usr/sbin/ntpdate hdp0
 ```
 
 ## 3.安装Ambari
