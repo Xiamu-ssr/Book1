@@ -190,11 +190,18 @@ hdp4
 ```sh
 pssh -h host.txt -i yum install -y ntpdate #安装时间同步包
 pssh -h host.txt ntpdate hdp0 #同步时间
+```
 
-#编写定时任务,这个去从节点手动吧
-crontab -e 
-# 添加如下内容,每小时的第29分和59分同步一次时间
+创建tmp.txt文件，写入以下内容，表示每小时的第29分和59分同步一次时间
+
+```
 29,59 * * * * /usr/sbin/ntpdate hdp0
+```
+
+然后使用pssh将这个内容写入所有从节点的crontab
+
+```sh
+pssh -h host.txt -t 10 -I < tmp.txt 'crontab -'
 ```
 
 ## 3.安装Ambari
