@@ -230,7 +230,7 @@ tar -zxf /opt/HDP-3.1.4.0-centos7-rpm.tar.gz -C /var/www/html/hdp
 tar -zxf /opt/HDP-UTILS-1.1.0.22-centos7.tar.gz -C /var/www/html/hdp-utils/
 ```
 
-配置yum源
+配置yum源，**ip记得改**
 
 ```sh
 # 配置ambari源
@@ -292,11 +292,11 @@ Query OK, 0 rows affected, 1 warning (0.00 sec) -- 授权
 mysql> use ambari; -- 使用已经创建好的ambari数据库
 Database changed
 
-mysql> source /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql -- 使用ambari-server提供的sql脚本创建相关表
+mysql> source /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql; -- 使用ambari-server提供的sql脚本创建相关表
 
 ```
 
-将jdbc驱动包放到指定目录
+下载jdbc驱动
 
 {% embed url="https://dev.mysql.com/downloads/connector/j/" %}
 下载驱动
@@ -305,6 +305,8 @@ mysql> source /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql -- �
 {% hint style="info" %}
 这里我使用最新版jdbc8.0.33之后可以运行ambari-server，但是和mysql5.7适配的jdbc5.1.44会一直遇到已耗尽最大连接次数和flush的问题，看了很多解决办法没解决掉。不过用8.0.33也没什么不好的。
 {% endhint %}
+
+将jdbc驱动包放到指定目录
 
 ```sh
 #查看安装位置和内容
@@ -389,7 +391,9 @@ Ambari Server 'setup' completed successfully.
 ambari-server start
 ```
 
-### 3.3 安装、配置ambari-agent节点（所有节点）
+### 3.3 安装、配置ambari-agent节点（所有节点Optional）
+
+你也可以在下一步的**2-Install Options**中选择Provide your SSH and autoconf就可以跳过这一步
 
 <pre class="language-sh"><code class="lang-sh"><strong>yum install -y ambari-agent #安装ambari-agent
 </strong>sudo vim /etc/ambari-agent/conf/ambari-agent.ini
