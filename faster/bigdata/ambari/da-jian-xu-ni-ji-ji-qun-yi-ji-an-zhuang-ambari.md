@@ -114,24 +114,19 @@ systemctl enable mysqld # 将mysql服务加入到开机自启
 192.168.137.134 hdp3
 ```
 
-通过scp命令将hosts文件同步到另外两台服务器
+使用脚本将hosts文件传到所有其它主机
 
-```sh
-sudo scp /etc/hosts hdp2:/etc/
-sudo scp /etc/hosts hdp3:/etc/
-```
+{% content-ref url="../../linux/jiao-ben.md" %}
+[jiao-ben.md](../../linux/jiao-ben.md)
+{% endcontent-ref %}
 
 ### 2.7配置免密
 
-```sh
-ssh-keygen #回车到底 
+用脚本快速配置所以主机互相免密
 
-ssh-copy-id -i hdp1
-ssh-copy-id -i hdp2
-ssh-copy-id -i hdp3
-```
-
-三台服务器都要重复以上步骤
+{% content-ref url="../../linux/jiao-ben.md" %}
+[jiao-ben.md](../../linux/jiao-ben.md)
+{% endcontent-ref %}
 
 ### 2.8时间同步
 
