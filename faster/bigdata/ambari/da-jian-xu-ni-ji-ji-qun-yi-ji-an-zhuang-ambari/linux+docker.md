@@ -21,7 +21,20 @@ Ambari、HDP、HDP-UTILS安装包下载链接如下
 **提取码：3rwq**
 {% endembed %}
 
-### 1.1 创建第一台虚拟机
+### 1.1 创建并初配置一台原型机
+
+后续主节点或从节点还需从这个容器打包后的镜像再延展。
+
+```sh
+docker pull centos:centos7.9.2009 #拉取centos79镜像
+docker run -it --name=bg-c79-init centos:centos7.9.2009 #从镜像创建容器
+```
+
+```sh
+yum update -y #更新源
+yum install epel-release -y && yum update -y #添加EPEL软件仓库(Extra Packages for Enterprise Linux)
+yum install -y htop sudo proxychains4 net-tools git wget curl initscripts
+```
 
 
 
@@ -30,9 +43,9 @@ Ambari、HDP、HDP-UTILS安装包下载链接如下
 ### 2.1关闭防火墙
 
 ```sh
-sudo systemctl status firewalld # 通过此命令查看防火墙状态
-sudo systemctl stop firewalld # 关闭防火墙
-sudo systemctl disable firewalld # 关闭防火墙开机自启
+service status firewalld # 通过此命令查看防火墙状态
+service stop firewalld # 关闭防火墙
+service disable firewalld # 关闭防火墙开机自启
 ```
 
 ### 2.2安装JDK
