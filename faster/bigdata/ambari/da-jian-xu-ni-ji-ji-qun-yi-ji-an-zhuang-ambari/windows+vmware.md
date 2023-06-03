@@ -465,12 +465,16 @@ Spark：基于内存计算的大数据处理框架，支持批处理、流处理
 
 {% tab title="5-Assign Masters" %}
 选择每个组件具体安装在哪个服务器上。
+
+ZooKeeper Server每个服务器都要安装
+
+Metrics Collector可以选择装两个
 {% endtab %}
 
 {% tab title="6-Assign Slaves and Clients" %}
 分配主节点和从节点，仅供参考
 
-<figure><img src="../../../../.gitbook/assets/T8JKRYQ)[KOFMZ&#x60;STKZD0TL.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/ZCU%[INJ5~A1~&#x60;APMF8H%YX.png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="7-Customize Services" %}
@@ -479,6 +483,10 @@ Spark：基于内存计算的大数据处理框架，支持批处理、流处理
 <figure><img src="../../../../.gitbook/assets/)QX%A65OH$D@9%4&#x60;1WU]6}6.png" alt=""><figcaption></figcaption></figure>
 
 配置大数据组件参数，这个根据需求配置即可，如果不了解大数据组件的相关配置可以先使用默认，后续可通过查证资料进行更改配置
+
+Java heap不要太大，20%左右吧。
+
+YARN的内存，50%吧。
 {% endtab %}
 
 {% tab title="8-Review" %}
