@@ -16,7 +16,8 @@
 
 | Virtual Machine Software | VMware 17  |
 | ------------------------ | ---------- |
-| OS                       | CentOS 7.9 |
+| OS                       | Windows 11 |
+| VM OS                    | CentOS 7.9 |
 | Ambari                   | 2.7.4.0    |
 | HDP                      | 3.1.4.0    |
 | HDP-UTILS                | 1.1.0.22   |

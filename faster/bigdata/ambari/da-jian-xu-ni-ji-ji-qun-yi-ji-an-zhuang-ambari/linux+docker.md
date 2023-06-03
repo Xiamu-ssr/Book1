@@ -2,14 +2,15 @@
 
 ## 1.环境及软件准备
 
-| Virtual Machine Software | Docker     |
-| ------------------------ | ---------- |
-| OS                       | CentOS 7.9 |
-| Ambari                   | 2.7.4.0    |
-| HDP                      | 3.1.4.0    |
-| HDP-UTILS                | 1.1.0.22   |
-| Java                     | JDK8       |
-| SQL                      | Mysql 5.7  |
+| Virtual Machine Software | Docker          |
+| ------------------------ | --------------- |
+| OS                       | Ubuntu 20.04LTS |
+| VM OS                    | CentOS 7.9      |
+| Ambari                   | 2.7.4.0         |
+| HDP                      | 3.1.4.0         |
+| HDP-UTILS                | 1.1.0.22        |
+| Java                     | JDK8            |
+| SQL                      | Mysql 5.7       |
 
 {% embed url="https://supportmatrix.cloudera.com/#Hortonworks" %}
 你可以在这里查询软件之间的版本支持度
@@ -65,9 +66,61 @@ export PATH=$PATH:$JAVA_HOME/bin
 * sshpass：用明文方式自动输入ssh密码，快速免密脚本需要。
 * pssh：同时对多个机器使用shh执行命令，方便管理后续集群。
 
-### 2.5克隆额外从节点服务器
+### 2.5配置集群内网并创建集群服务器
 
-使用VMware克隆功能，选择完全克隆。
+将原型机打包
+
+```sh
+#查看容器ID
+docker ps -a
+#把容器打包成镜像，同时可以选择上传到docker hub云端保存
+docker commit name[:tag] containerID
+```
+
+创建docker网络
+
+```sh
+docker network create bigdata --subnet=172.19.0.0/16 --gateway=172.19.0.1
+docker network list #查看所有网络
+docker network inspect bigdata #查看bigdata网络详细信息
+```
+
+{% hint style="info" %}
+这个命令的作用是在Docker中创建一个名为"bigdata"的网络，该网络的子网为172.19.0.0/16，网关为172.19.0.1。
+
+具体解释如下：
+
+* `docker network create`：创建Docker网络。
+* `bigdata`：指定网络的名称为"bigdata"。
+* `--subnet=172.19.0.0/16`：设置网络的子网为172.19.0.0/16。这意味着该网络可以分配65534个IP地址（172.19.0.0到172.19.255.255），其中172.19.0.1被指定为网关地址，不能使用作为容器IP地址。
+* `--gateway=172.19.0.1`：设置网络的网关地址为172.19.0.1。所有连接到该网络的容器都将使用该地址作为默认网关。
+{% endhint %}
+
+开启内核swap资源限制支持
+
+```sh
+sudo vim /etc/default/grub
+#添加以下值
+GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
+
+#保存文件后
+sudo update-grub
+sudo reboot
+```
+
+创建主节点
+
+```sh
+docker run --network bigdata --ip 172.19.0.2 -p 8080:8080 --name bg-c79-0 -it xiamussr/bigdata-base:1.0
+```
+
+创建从节点
+
+<pre class="language-sh"><code class="lang-sh"><strong>docker run --network bigdata --ip 172.19.0.3 --name bg-c79-1 -it xiamussr/bigdata-base:1.0
+</strong>docker run --network bigdata --ip 172.19.0.4 --name bg-c79-2 -it xiamussr/bigdata-base:1.0
+docker run --network bigdata --ip 172.19.0.5 --name bg-c79-3 -it xiamussr/bigdata-base:1.0
+docker run --network bigdata --ip 172.19.0.6 --name bg-c79-4 -it xiamussr/bigdata-base:1.0
+</code></pre>
 
 ### 2.6安装MySQL（主节点）
 

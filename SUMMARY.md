@@ -16,6 +16,7 @@
     * [WSL数据迁移](faster/linux/wsl/wsl-shu-ju-qian-yi.md)
     * [安装Docker Engine](faster/linux/wsl/an-zhuang-docker-engine.md)
   * [脚本](faster/linux/jiao-ben.md)
+  * [QA](faster/linux/qa.md)
 * [BigData](faster/bigdata/README.md)
   * [Ambari](faster/bigdata/ambari/README.md)
     * [搭建虚拟机集群以及安装Ambari](faster/bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/README.md)
