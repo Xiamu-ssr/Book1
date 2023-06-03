@@ -38,4 +38,10 @@ description: source 2023/05/28。小记、琐事、随笔。
 
 5个虚拟机，部署出来了！enjoy :-)，打算去学校服务器用docker试试。本机核太少了qwq。
 
+#### 3
+
+看了一些hive。实操了Linux+Docker搭建hadoop集群。
+
+<img src="../../.gitbook/assets/(&#x60;J}7RYP}I0Y26GVUVF03GK.png" alt="" data-size="original">
+
 </details>
