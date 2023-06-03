@@ -108,19 +108,38 @@ sudo update-grub
 sudo reboot
 ```
 
-创建主节点
+创建主节点，拥有以下属性
+
+* 属于bigdata局域网，ip为172.19.0.2
+* 对host主机开放8080端口
+* 分配shell命令行
+* 分配6cpu核
+* 分配16G内存
+* 拥有内核特权
+* 启动systemd服务管理器
 
 ```sh
-docker run --network bigdata --ip 172.19.0.2 -p 8080:8080 --name bg-c79-0 -it xiamussr/bigdata-base:1.0
+docker run --network bigdata --ip 172.19.0.2 -p 8080:8080 --name bg-c79-0 -it --cpus=6 -m 16G --privileged=true xiamussr/bigdata-base:1.0 /usr/sbin/init
 ```
 
-创建从节点
+等容器显示的一系列操作不再继续时，关闭此终端。容器仍会以启动的状态在后台
 
-<pre class="language-sh"><code class="lang-sh"><strong>docker run --network bigdata --ip 172.19.0.3 --name bg-c79-1 -it xiamussr/bigdata-base:1.0
-</strong>docker run --network bigdata --ip 172.19.0.4 --name bg-c79-2 -it xiamussr/bigdata-base:1.0
-docker run --network bigdata --ip 172.19.0.5 --name bg-c79-3 -it xiamussr/bigdata-base:1.0
-docker run --network bigdata --ip 172.19.0.6 --name bg-c79-4 -it xiamussr/bigdata-base:1.0
+创建从节点,，拥有以下属性
+
+* 属于bigdata局域网
+* 分配shell命令行
+* 分配4cpu核
+* 分配12G内存
+
+<pre class="language-sh"><code class="lang-sh"><strong>docker run --network bigdata --ip 172.19.0.3 --name bg-c79-1 -it --cpus=4 -m 12G xiamussr/bigdata-base:1.0
+</strong>docker run --network bigdata --ip 172.19.0.4 --name bg-c79-2 -it --cpus=4 -m 12G xiamussr/bigdata-base:1.0
+docker run --network bigdata --ip 172.19.0.5 --name bg-c79-3 -it --cpus=4 -m 12G xiamussr/bigdata-base:1.0
+docker run --network bigdata --ip 172.19.0.6 --name bg-c79-4 -it --cpus=4 -m 12G xiamussr/bigdata-base:1.0
 </code></pre>
+
+{% hint style="info" %}
+`docker stats containerID`监视容器资源使用
+{% endhint %}
 
 ### 2.6安装MySQL（主节点）
 
