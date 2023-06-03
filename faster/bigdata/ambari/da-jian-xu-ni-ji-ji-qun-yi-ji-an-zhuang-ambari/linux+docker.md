@@ -42,11 +42,7 @@ yum install -y htop sudo proxychains4 net-tools git wget curl initscripts
 
 ### 2.1关闭防火墙
 
-```sh
-service status firewalld # 通过此命令查看防火墙状态
-service stop firewalld # 关闭防火墙
-service disable firewalld # 关闭防火墙开机自启
-```
+默认没有，那就不用管。
 
 ### 2.2安装JDK
 
@@ -62,15 +58,7 @@ export PATH=$PATH:$JAVA_HOME/bin
 
 ### 2.3关闭SELinux
 
-```sh
-# 临时性关闭（立即生效，但是重启服务器后失效）
-setenforce 0 #设置selinux为permissive模式（即关闭）
-setenforce 1 #设置selinux为enforcing模式（即开启）
-# 永久性关闭（这样需要重启服务器后生效）
-sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
-```
-
-然后reboot重启，`sestatus`查看SELinux状态
+默认没有，那就不用管。
 
 ### 2.4安装额外软件包
 

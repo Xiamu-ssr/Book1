@@ -50,7 +50,7 @@
   * [磁盘扩容](software/vmware/ci-pan-kuo-rong.md)
 * [Docker](software/docker/README.md)
   * [WSL安装Docker Engine](software/docker/wsl-an-zhuang-docker-engine.md)
-  * [DeBug](software/docker/debug.md)
+  * [QA](software/docker/qa.md)
 * [MySQL](software/mysql/README.md)
   * [重置初始密码](software/mysql/zhong-zhi-chu-shi-mi-ma.md)
   * [免输密码登录](software/mysql/mian-shu-mi-ma-deng-lu.md)
