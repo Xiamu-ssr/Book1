@@ -31,15 +31,17 @@ docker pull centos:centos7.9.2009 #拉取centos79镜像
 docker run -it --name=bg-c79-init centos:centos7.9.2009 #从镜像创建容器
 ```
 
-因为docker的OS镜像都非常精简，所以我们必需提前安装好需要的软件包
+因为docker的OS镜像都非常精简，所以我们必需提前安装好一些软件包
 
 ```sh
 yum update -y #更新源
 yum install epel-release -y && yum update -y #添加EPEL软件仓库(Extra Packages for Enterprise Linux)
-yum install -y htop sudo proxychains4 net-tools git wget curl initscripts openssh openssh-server
+yum install -y htop sudo proxychains4 net-tools git wget curl initscripts openssh openssh-server cronie
 ```
 
-
+{% hint style="info" %}
+不用在这一步安装所有后面主从节点共同需要包，因为在配置好免密那一步之后，可以使用pssh来同时让所有节点执行相同的命令。
+{% endhint %}
 
 ## 2.准备工作
 
@@ -124,7 +126,7 @@ docker run --network bigdata --ip 172.19.0.2 -p 8080:8080 \
  --name bg-c79-0 -it --cpus=6 -m 16G --privileged=true \
   -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock \
    --stop-signal=RTMIN+3 \
-   xiamussr/bigdata-base:1.0 /usr/sbin/init
+   xiamussr/bigdata-base:1.1 /usr/sbin/init
 ```
 
 等容器显示的一系列操作不再继续时，关闭此终端。容器仍会以启动的状态在后台
@@ -136,14 +138,19 @@ docker run --network bigdata --ip 172.19.0.2 -p 8080:8080 \
 * 分配4cpu核
 * 分配12G内存
 
-<pre class="language-sh"><code class="lang-sh"><strong>docker run --network bigdata --ip 172.19.0.3 --name bg-c79-1 -it --cpus=4 -m 12G xiamussr/bigdata-base:1.0
-</strong>docker run --network bigdata --ip 172.19.0.4 --name bg-c79-2 -it --cpus=4 -m 12G xiamussr/bigdata-base:1.0
-docker run --network bigdata --ip 172.19.0.5 --name bg-c79-3 -it --cpus=4 -m 12G xiamussr/bigdata-base:1.0
-docker run --network bigdata --ip 172.19.0.6 --name bg-c79-4 -it --cpus=4 -m 12G xiamussr/bigdata-base:1.0
-</code></pre>
+```sh
+docker run --network bigdata --ip 172.19.0.3 --name bg-c79-1 -it --cpus=4 -m 12G --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 xiamussr/bigdata-base:1.1 /usr/sbin/init
+docker run --network bigdata --ip 172.19.0.4 --name bg-c79-2 -it --cpus=4 -m 12G --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 xiamussr/bigdata-base:1.1 /usr/sbin/init
+docker run --network bigdata --ip 172.19.0.5 --name bg-c79-3 -it --cpus=4 -m 12G --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 xiamussr/bigdata-base:1.1 /usr/sbin/init
+docker run --network bigdata --ip 172.19.0.6 --name bg-c79-4 -it --cpus=4 -m 12G --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 xiamussr/bigdata-base:1.1 /usr/sbin/init
+```
 
 {% hint style="info" %}
 `docker stats containerID`监视容器资源使用
+{% endhint %}
+
+{% hint style="info" %}
+`docker exec -it containerID /bin/bash` 开启容器命令行
 {% endhint %}
 
 ### 2.6安装MySQL（主节点）
@@ -195,7 +202,7 @@ systemctl enable mysqld # 将mysql服务加入到开机自启
 
 ### 2.8配置免密
 
-用脚本\[1]快速配置所以主机互相免密
+用脚本\[1]快速配置所有主机互相免密
 
 {% content-ref url="../../../linux/jiao-ben.md" %}
 [jiao-ben.md](../../../linux/jiao-ben.md)
@@ -208,7 +215,7 @@ systemctl enable mysqld # 将mysql服务加入到开机自启
 选一台服务器作时间服务器，这里以hdp1作为时间服务器，其他服务器以时间服务器时间为准
 
 ```sh
-sudo yum install ntp
+sudo yum install ntp -y
 sudo vim /etc/ntp.conf
 ```
 
@@ -285,7 +292,7 @@ sudo systemctl start httpd
 sudo systemctl enable httpd
 ```
 
-上传安装包并解压那三个压缩包
+使用`docker cp`将压缩包放入主节点容器内
 
 ```sh
 # 先在/var/www/html目录下创建ambari、hdp、hdp-utils文件夹

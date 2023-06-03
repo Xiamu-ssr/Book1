@@ -33,9 +33,9 @@ for i in {0..4}; do
     host="hdp$i"
     # 判断输入路径是文件还是目录
     if [ -d "$input" ]; then
-        scp -r "$input" $host:"$output"
+        scp -o StrictHostKeyChecking=no -r "$input" $host:"$output"
     else
-        scp "$input" $host:"$output"
+        scp -o StrictHostKeyChecking=no "$input" $host:"$output"
     fi
 done
 ```
