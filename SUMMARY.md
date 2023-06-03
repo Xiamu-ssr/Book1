@@ -33,6 +33,7 @@
     * [HDFS常用命令](faster/bigdata/hadoop/hdfs-chang-yong-ming-ling.md)
   * [Hive](faster/bigdata/hive/README.md)
     * [Hive简介及核心概念](faster/bigdata/hive/hive-jian-jie-ji-he-xin-gai-nian.md)
+    * [Hive CLI和Beeline命令行的基本使用](faster/bigdata/hive/hive-cli-he-beeline-ming-ling-hang-de-ji-ben-shi-yong.md)
 * [编译原理-华为毕昇杯](<README (1).md>)
   * [第一章-概](bian-yi-yuan-li-hua-wei-bi-sheng-bei/bian-yi-yuan-li-gai-lun.md)
   * [第二章-前端](readme/di-er-zhang-qian-duan.md)
