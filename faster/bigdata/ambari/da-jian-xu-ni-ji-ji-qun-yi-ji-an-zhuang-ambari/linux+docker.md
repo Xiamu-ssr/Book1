@@ -355,7 +355,7 @@ yum install -y ambari-server #安装ambari-server
 # 登录已经安装好的mysql
 mysql -u root
 
-mysql>  CREATE USER 'ambari'@'%' IDENTIFIED BY 'MKLmkl11@@'; -- 创建ambari用户
+mysql>  CREATE USER 'ambari'@'%' IDENTIFIED BY 'bigdata'; -- 创建ambari用户
 Query OK, 0 rows affected (0.00 sec)
 
 mysql> create database ambari;
