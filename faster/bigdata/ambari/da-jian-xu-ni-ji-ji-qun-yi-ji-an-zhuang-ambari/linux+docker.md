@@ -31,10 +31,12 @@ docker pull centos:centos7.9.2009 #拉取centos79镜像
 docker run -it --name=bg-c79-init centos:centos7.9.2009 #从镜像创建容器
 ```
 
+因为docker的OS镜像都非常精简，所以我们必需提前安装好需要的软件包
+
 ```sh
 yum update -y #更新源
 yum install epel-release -y && yum update -y #添加EPEL软件仓库(Extra Packages for Enterprise Linux)
-yum install -y htop sudo proxychains4 net-tools git wget curl initscripts
+yum install -y htop sudo proxychains4 net-tools git wget curl initscripts openssh openssh-server
 ```
 
 
@@ -115,11 +117,14 @@ sudo reboot
 * 分配shell命令行
 * 分配6cpu核
 * 分配16G内存
-* 拥有内核特权
-* 启动systemd服务管理器
+* 配置了systemd服务
 
 ```sh
-docker run --network bigdata --ip 172.19.0.2 -p 8080:8080 --name bg-c79-0 -it --cpus=6 -m 16G --privileged=true xiamussr/bigdata-base:1.0 /usr/sbin/init
+docker run --network bigdata --ip 172.19.0.2 -p 8080:8080 \
+ --name bg-c79-0 -it --cpus=6 -m 16G --privileged=true \
+  -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock \
+   --stop-signal=RTMIN+3 \
+   xiamussr/bigdata-base:1.0 /usr/sbin/init
 ```
 
 等容器显示的一系列操作不再继续时，关闭此终端。容器仍会以启动的状态在后台
