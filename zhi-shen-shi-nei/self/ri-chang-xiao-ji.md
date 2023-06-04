@@ -44,4 +44,8 @@ description: source 2023/05/28。小记、琐事、随笔。
 
 <img src="../../.gitbook/assets/(&#x60;J}7RYP}I0Y26GVUVF03GK.png" alt="" data-size="original">
 
+#### 4
+
+比了icpc丝绸之路，银奖到手。不过太早，睡眠不足。今天linuxdocker安装hive出现了玄学bug，hive get不到mysql配置页面。。。然后ambari server restart莫名其妙把ambari集群配置重置了？？？nothing left，然后重新装的时候，在一开始选择hive就可以装上，是时候重新来一遍了，一定要记得打包传docker hub。windowsVM就可以get到mysql，但是呢？连不上。oh shit。linuxdocker hive可以用了，不错不错。
+
 </details>
