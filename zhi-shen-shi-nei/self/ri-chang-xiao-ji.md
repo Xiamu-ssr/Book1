@@ -52,6 +52,6 @@ description: source 2023/05/28。小记、琐事、随笔。
 
 重新搞了一遍linux+docker部署hadoop，并且录了视频，发到了b站。知乎，csdn也相继更新。
 
-从bigdata-base镜像做了主节点和从节点镜像，下次部署linux+docker就更方便了。
+从bigdata-base镜像做了主节点和从节点镜像，传到了docker hub，下次部署linux+docker就更方便了。
 
 </details>
