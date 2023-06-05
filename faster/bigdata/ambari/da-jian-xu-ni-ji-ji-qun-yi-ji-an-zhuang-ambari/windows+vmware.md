@@ -235,7 +235,7 @@ tar -zxf /opt/HDP-UTILS-1.1.0.22-centos7.tar.gz -C /var/www/html/hdp-utils/
 
 ```sh
 # 配置ambari源
-vi /etc/yum.repos.d/ambari.repo
+vim /etc/yum.repos.d/ambari.repo
 
 #内容如下
 [ambari]
@@ -245,7 +245,7 @@ gpgcheck=0
 ```
 
 <pre class="language-sh"><code class="lang-sh"># 配置hdp和hdp-utils源
-vi /etc/yum.repos.d/hdp.repo
+vim /etc/yum.repos.d/hdp.repo
 
 # 内容如下
 <strong>[HDP]

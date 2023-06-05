@@ -9,7 +9,7 @@
 ```sql
 mysql -u root #进入mysql命令行
 CREATE DATABASE hive; #创建Hive数据库
-CREATE USER 'hive'@'%' IDENTIFIED BY 'hive'; #创建Hive用户并设置密码为hive
+CREATE USER 'hive'@'%' IDENTIFIED BY 'hive%123'; #创建Hive用户并设置密码为hive
 GRANT ALL PRIVILEGES ON hive.* TO 'hive'@'%'; #授予Hive用户对Hive数据库的所有权限
 FLUSH PRIVILEGES;
 quit;
