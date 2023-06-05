@@ -65,7 +65,11 @@ ASC世界大学生超级计算机竞赛（ASC Student Supercomputer Challenge，
 ASC超算公众号原文
 {% endembed %}
 
+<figure><img src="../../.gitbook/assets/DCCCD33B390DD36B649DAAD294BA62BF.jpg" alt="" width="563"><figcaption></figcaption></figure>
+
 <figure><img src="../../.gitbook/assets/640.jpg" alt="" width="375"><figcaption></figcaption></figure>
+
+### ICPC丝绸之路银奖
 {% endtab %}
 {% endtabs %}
 
