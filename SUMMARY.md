@@ -21,7 +21,7 @@
   * [Ambari](faster/bigdata/ambari/README.md)
     * [搭建虚拟机集群以及安装Ambari](faster/bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/README.md)
       * [Windows+VMware](faster/bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/windows+vmware.md)
-      * [Linux+Docker](faster/bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/linux+docker/README.md)
+      * [Linux+Docker](faster/bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/linux+docker.md)
         * [从镜像简易部署](faster/bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/linux+docker/cong-jing-xiang-jian-yi-bu-shu.md)
     * [DeBug](faster/bigdata/ambari/debug.md)
   * [Maven](faster/bigdata/maven/README.md)
