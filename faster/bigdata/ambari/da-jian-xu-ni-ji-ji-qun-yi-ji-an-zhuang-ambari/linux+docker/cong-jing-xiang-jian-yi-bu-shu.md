@@ -71,6 +71,13 @@ yum install -y ambari-server
 ### 7. 配置ambari server
 
 ```sh
+#进入mysql给ambari数据库载入Ambari-DDL-MySQL-CREATE.sql
+mysql -u root -p
+>use ambari;
+>source /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql;
+>SHOW TABLES;
+>quit;
+
 ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
 #在配置一遍刚才配置的之外的
 ambari-server setup
