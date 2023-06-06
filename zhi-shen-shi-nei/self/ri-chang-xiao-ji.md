@@ -54,4 +54,8 @@ description: source 2023/05/28。小记、琐事、随笔。
 
 从bigdata-base镜像做了主节点和从节点镜像，传到了docker hub，下次部署linux+docker就更方便了。
 
+**6**
+
+学了点HQL。做了从镜像简易部署的文档和视频，都已发布。突然发现，windows+docker真是个不错的选择，轻量级，比WSL快，更省地方，关键是可以打包传云端。先用一段时间，如果没有什么特大的缺陷，打算代替WSL2和VMware了，至少在部署hadoop集群方面。
+
 </details>
