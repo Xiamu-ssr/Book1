@@ -34,7 +34,41 @@ docker run --network bigdata --ip 172.19.0.6 --name bg-c79-4 -it --cpus=4 -m 12G
 
 ### 4. 集群通信
 
-写好/etc/hosts，发送给每个slave。
+写好/etc/hosts，发送给每个slave
 
-执行脚本配置互相免密。
+配置互相免密
+
+### 5. 解压ambari安装包
+
+```sh
+# 这里的-C是指定解压目录
+tar -zxf ambari-2.7.4.0-centos7.tar.gz -C /var/www/html/ambari 
+tar -zxf HDP-3.1.4.0-centos7-rpm.tar.gz -C /var/www/html/hdp
+tar -zxf HDP-UTILS-1.1.0.22-centos7.tar.gz -C /var/www/html/hdp-utils/
+```
+
+### 6.加入yum并安装
+
+```sh
+# yum创建缓存
+yum clean all
+yum makecache
+
+# 通过yum repolist命令验证即可
+yum repolist
+#安装
+yum install -y ambari-server
+```
+
+### 7. 配置ambari server
+
+```sh
+ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
+#在配置一遍刚才配置的之外的
+ambari-server setup
+#启动
+ambari-server start
+```
+
+后面的过程就把赘述了。
 
