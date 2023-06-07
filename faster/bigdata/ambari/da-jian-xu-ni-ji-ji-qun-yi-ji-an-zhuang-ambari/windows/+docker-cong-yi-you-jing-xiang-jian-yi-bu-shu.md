@@ -31,19 +31,25 @@ docker network inspect bigdata #查看bigdata网络详细信息
 
 ### 3. 创建容器
 
+首先在用户目录下创建`.wslconfig`文件，写入以下来限制每台虚拟机资源。
+
+```tsconfig
+[wsl2]
+memory=12GB 
+processors=2
+```
+
 ```
 docker run --network bigdata --ip 172.19.0.2 -p 8080:8080 `
- --name bg-c79-0 -it --cpus=6 -m 16G --privileged=true `
+ --name bg-c79-0 -it --privileged=true `
   -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock `
    --stop-signal=RTMIN+3 `
    xiamussr/bigdata-master:1.1 /usr/sbin/init
 ```
 
 ```sh
-docker run --network bigdata --ip 172.19.0.3 --name bg-c79-1 -it --cpus=4 -m 12G --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 xiamussr/bigdata-slave:1.1 /usr/sbin/init
-docker run --network bigdata --ip 172.19.0.4 --name bg-c79-2 -it --cpus=4 -m 12G --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 xiamussr/bigdata-slave:1.1 /usr/sbin/init
-docker run --network bigdata --ip 172.19.0.5 --name bg-c79-3 -it --cpus=4 -m 12G --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 xiamussr/bigdata-slave:1.1 /usr/sbin/init
-docker run --network bigdata --ip 172.19.0.6 --name bg-c79-4 -it --cpus=4 -m 12G --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 xiamussr/bigdata-slave:1.1 /usr/sbin/init
+docker run --network bigdata --ip 172.19.0.3 --name bg-c79-1 -it --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 xiamussr/bigdata-slave:1.1 /usr/sbin/init
+docker run --network bigdata --ip 172.19.0.4 --name bg-c79-2 -it --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 xiamussr/bigdata-slave:1.1 /usr/sbin/init
 ```
 
 ### 4. 集群通信
