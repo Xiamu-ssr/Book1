@@ -78,8 +78,8 @@ sudo systemctl enable mysqld
 
 重置初始密码和免输密码登录
 
-{% content-ref url="../../../../../software/mysql/" %}
-[mysql](../../../../../software/mysql/)
+{% content-ref url="../../../../linux/mysql/" %}
+[mysql](../../../../linux/mysql/)
 {% endcontent-ref %}
 
 修改`/etc/my.cnf`添加以下配置
@@ -110,16 +110,16 @@ systemctl enable mysqld # 将mysql服务加入到开机自启
 
 使用脚本\[0]将hosts文件传到所有其它主机
 
-{% content-ref url="../../../../linux/jiao-ben.md" %}
-[jiao-ben.md](../../../../linux/jiao-ben.md)
+{% content-ref url="../../../../linux/linux/jiao-ben.md" %}
+[jiao-ben.md](../../../../linux/linux/jiao-ben.md)
 {% endcontent-ref %}
 
 ### 2.8配置免密
 
 用脚本\[1]快速配置所以主机互相免密
 
-{% content-ref url="../../../../linux/jiao-ben.md" %}
-[jiao-ben.md](../../../../linux/jiao-ben.md)
+{% content-ref url="../../../../linux/linux/jiao-ben.md" %}
+[jiao-ben.md](../../../../linux/linux/jiao-ben.md)
 {% endcontent-ref %}
 
 ### 2.9时间同步
@@ -406,7 +406,7 @@ ambari-agent start #启动服务
 {% tab title="1-Select Version" %}
 HDP选3.1
 
-<figure><img src="../../../../../.gitbook/assets/DTR$BF$8EX012@EBZ)BI1%D.png" alt="0"><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/DTR$BF$8EX012@EBZ)BI1%D.png" alt="0"><figcaption></figcaption></figure>
 
 OS选Redhat7填入并移除所有其它条目输入节点主机名列表输入节点主机名列
 
@@ -414,13 +414,13 @@ HDP和HDP-UTILS就填/var/www/html/下的对应路径，然后把/var/www/html�
 
 最后两个选项不要勾选。
 
-<figure><img src="../../../../../.gitbook/assets/XTVH8HW[2T5(XN@NALJ4BDD.png" alt="0"><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/XTVH8HW[2T5(XN@NALJ4BDD.png" alt="0"><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="2-Install Options" %}
 输入节点主机名列表，并选择Perform manual registration on hosts and do not use SSH，因为我们刚才已经配置过了ambari-agent。
 
-<figure><img src="../../../../../.gitbook/assets/X[V_2[B4W[}%JZACB8UPJ7K.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/X[V_2[B4W[}%JZACB8UPJ7K.png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="3-Confirm Hosts" %}
@@ -462,13 +462,13 @@ Metrics Collector可以选择装两个
 {% tab title="6-Assign Slaves and Clients" %}
 分配主节点和从节点，仅供参考
 
-<figure><img src="../../../../../.gitbook/assets/ZCU%[INJ5~A1~&#x60;APMF8H%YX.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/ZCU%[INJ5~A1~&#x60;APMF8H%YX.png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="7-Customize Services" %}
 设置服务对应的密码
 
-<figure><img src="../../../../../.gitbook/assets/)QX%A65OH$D@9%4&#x60;1WU]6}6.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/)QX%A65OH$D@9%4&#x60;1WU]6}6.png" alt=""><figcaption></figcaption></figure>
 
 配置大数据组件参数，这个根据需求配置即可，如果不了解大数据组件的相关配置可以先使用默认，后续可通过查证资料进行更改配置
 

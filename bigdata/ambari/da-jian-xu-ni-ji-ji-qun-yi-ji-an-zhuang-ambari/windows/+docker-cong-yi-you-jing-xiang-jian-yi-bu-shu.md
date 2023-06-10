@@ -56,14 +56,14 @@ docker run --network bigdata --ip 172.19.0.4 --name bg-c79-2 -it --privileged=tr
 
 写好/etc/hosts，发送给每个slave，参考以下脚本\[0]
 
-{% content-ref url="../../../../linux/jiao-ben.md" %}
-[jiao-ben.md](../../../../linux/jiao-ben.md)
+{% content-ref url="../../../../linux/linux/jiao-ben.md" %}
+[jiao-ben.md](../../../../linux/linux/jiao-ben.md)
 {% endcontent-ref %}
 
 配置互相免密，参考以下脚本\[1]
 
-{% content-ref url="../../../../linux/jiao-ben.md" %}
-[jiao-ben.md](../../../../linux/jiao-ben.md)
+{% content-ref url="../../../../linux/linux/jiao-ben.md" %}
+[jiao-ben.md](../../../../linux/linux/jiao-ben.md)
 {% endcontent-ref %}
 
 ### 5. 解压ambari安装包
