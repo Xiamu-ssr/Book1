@@ -3,9 +3,9 @@
 ## 一、Database
 
 ```sql
-#显示所有数据库
+--显示所有数据库
 show databases;
-#使用指定数据库
+--使用指定数据库
 USE database_name;
 ```
 
@@ -139,3 +139,111 @@ CREATE [TEMPORARY] [EXTERNAL] TABLE [IF NOT EXISTS] [db_name.]table_name     --�
     ROW FORMAT DELIMITED FIELDS TERMINATED BY "\t"
     LOCATION '/hive/emp_bucket';
 ```
+
+### 2.6 倾斜表
+
+通过指定一个或者多个列经常出现的值（严重偏斜），Hive 会自动将涉及到这些值的数据拆分为单独的文件。在查询时，如果涉及到倾斜值，它就直接从独立文件中获取数据，而不是扫描所有文件，这使得性能得到提升。
+
+```sql
+  CREATE EXTERNAL TABLE emp_skewed(
+    empno INT,
+    ename STRING,
+    job STRING,
+    mgr INT,
+    hiredate TIMESTAMP,
+    sal DECIMAL(7,2),
+    comm DECIMAL(7,2)
+    )
+    SKEWED BY (empno) ON (66,88,100)  --指定 empno 的倾斜值 66,88,100
+    ROW FORMAT DELIMITED FIELDS TERMINATED BY "\t"
+    LOCATION '/hive/emp_skewed';   
+```
+
+### 2.7 临时表
+
+临时表仅对当前 session 可见，临时表的数据将存储在用户的暂存目录中，并在会话结束后删除。
+
+```sql
+  CREATE TEMPORARY TABLE emp_temp(
+    empno INT,
+    ename STRING,
+    job STRING,
+    mgr INT,
+    hiredate TIMESTAMP,
+    sal DECIMAL(7,2),
+    comm DECIMAL(7,2)
+    )
+    ROW FORMAT DELIMITED FIELDS TERMINATED BY "\t";
+```
+
+### 2.8 CTAS创建表
+
+支持从查询语句的结果创建表：
+
+```sql
+CREATE TABLE emp_copy AS SELECT * FROM emp WHERE deptno='20';
+```
+
+### 2.9 复制表结构
+
+语法：
+
+```
+CREATE [TEMPORARY] [EXTERNAL] TABLE [IF NOT EXISTS] [db_name.]table_name  --创建表表名
+   LIKE existing_table_or_view_name  --被复制表的表名
+   [LOCATION hdfs_path]; --存储位置
+```
+
+示例：
+
+```sql
+CREATE TEMPORARY EXTERNAL TABLE  IF NOT EXISTS  emp_co  LIKE emp
+```
+
+## 三、修改表
+
+```sql
+--重命名表
+ALTER TABLE emp_temp RENAME TO new_emp;
+--新增列
+ALTER TABLE emp_temp ADD COLUMNS (address STRING COMMENT 'home address');
+```
+
+### 3.2 修改列
+
+```
+ALTER TABLE table_name [PARTITION partition_spec] CHANGE [COLUMN] col_old_name col_new_name column_type
+  [COMMENT col_comment] [FIRST|AFTER column_name] [CASCADE|RESTRICT];
+```
+
+```sql
+-- 修改字段名和类型
+ALTER TABLE emp_temp CHANGE empno empno_new INT;
+ 
+-- 修改字段 sal 的名称 并将其放置到 empno 字段后
+ALTER TABLE emp_temp CHANGE sal sal_new decimal(7,2)  AFTER ename;
+
+-- 为字段增加注释
+ALTER TABLE emp_temp CHANGE mgr mgr_new INT COMMENT 'this is column mgr';
+```
+
+## 四、清空表/删除表
+
+### 4.1 清空表
+
+```sql
+-- 清空整个表或表指定分区中的数据
+TRUNCATE TABLE table_name [PARTITION (partition_column = partition_col_value,  ...)];
+```
+
+### 4.2 删除表
+
+```sql
+DROP TABLE [IF EXISTS] table_name [PURGE]; 
+```
+
+{% hint style="info" %}
+* 内部表：不仅会删除表的元数据，同时会删除 HDFS 上的数据；
+* 外部表：只会删除表的元数据，不会删除 HDFS 上的数据；
+* 删除视图引用的表时，不会给出警告（但视图已经无效了，必须由用户删除或重新创建）。
+{% endhint %}
