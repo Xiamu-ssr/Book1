@@ -39,6 +39,8 @@
     * [Hive简介及核心概念](faster/bigdata/hive/hive-jian-jie-ji-he-xin-gai-nian.md)
     * [Hive CLI和Beeline命令行的基本使用](faster/bigdata/hive/hive-cli-he-beeline-ming-ling-hang-de-ji-ben-shi-yong.md)
     * [ambari安装Hive](faster/bigdata/hive/ambari-an-zhuang-hive.md)
+  * [项目实践](faster/bigdata/xiang-mu-shi-jian/README.md)
+    * [1 亿条淘宝用户行为数据分析](faster/bigdata/xiang-mu-shi-jian/1-yi-tiao-tao-bao-yong-hu-hang-wei-shu-ju-fen-xi.md)
 * [编译原理-华为毕昇杯](<README (1).md>)
   * [第一章-概](bian-yi-yuan-li-hua-wei-bi-sheng-bei/bian-yi-yuan-li-gai-lun.md)
   * [第二章-前端](readme/di-er-zhang-qian-duan.md)
