@@ -2,7 +2,7 @@
 description: 集群资源管理器
 ---
 
-# YARN
+# YARN介绍
 
 ## 一、hadoop yarn 简介
 

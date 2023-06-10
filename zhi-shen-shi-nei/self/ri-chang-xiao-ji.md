@@ -66,4 +66,12 @@ description: source 2023/05/28。小记、琐事、随笔。
 
 windows+docker实践过了，已发布。打算先做个基础的，电商平台信息分析。还在找数据。
 
+**9**
+
+嗯？漏了一天？
+
+**10**
+
+更新了master和slave镜像。在本地搭建了一个比较满意的hadoop集群。
+
 </details>

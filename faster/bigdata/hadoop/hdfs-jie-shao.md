@@ -2,7 +2,7 @@
 description: Hadoop分布式文件系统
 ---
 
-# HDFS
+# HDFS介绍
 
 {% embed url="https://static.googleusercontent.com/media/research.google.com/zh-CN/archive/gfs-sosp2003.pdf" %}
 GFS paper PDF
