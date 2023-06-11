@@ -30,7 +30,7 @@
   * [Hive常用DDL操作](bigdata/hive/hive-chang-yong-ddl-cao-zuo.md)
   * [Hive分区表和分桶表](bigdata/hive/hive-fen-qu-biao-he-fen-tong-biao.md)
   * [Hive 视图和索引](bigdata/hive/hive-shi-tu-he-suo-yin.md)
-  * [Page 1](bigdata/hive/page-1.md)
+  * [Hive 常用DML操作](bigdata/hive/hive-chang-yong-dml-cao-zuo.md)
 * [帮助](bigdata/bang-zhu/README.md)
   * [常用端口](bigdata/bang-zhu/chang-yong-duan-kou.md)
   * [常用命令](bigdata/bang-zhu/chang-yong-ming-ling.md)
