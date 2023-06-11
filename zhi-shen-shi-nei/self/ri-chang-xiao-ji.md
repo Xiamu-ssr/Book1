@@ -74,4 +74,8 @@ windows+docker实践过了，已发布。打算先做个基础的，电商平台
 
 更新了master和slave镜像。在本地搭建了一个比较满意的hadoop集群。
 
+**11**
+
+一边修理host，一边熟悉ambari-server ui。CRIT是真多。
+
 </details>
