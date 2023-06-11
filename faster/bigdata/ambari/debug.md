@@ -10,8 +10,10 @@
 
 <details>
 
-<summary>容器重启后ambari-server遇到mysql连不上问题</summary>
+<summary>容器重启后需要注意的一系列问题</summary>
 
-需要重新ambari-server setup一遍
+首先是/etc/hosts的问题，容器重启后会被重置，建议备份，写入.bashrc自动恢复。
+
+然后是想要ambari-server start前需要重新setup一遍
 
 </details>
