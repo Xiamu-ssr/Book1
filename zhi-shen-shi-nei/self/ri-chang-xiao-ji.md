@@ -76,6 +76,10 @@ windows+docker实践过了，已发布。打算先做个基础的，电商平台
 
 **11**
 
-一边修理host，一边熟悉ambari-server ui。CRIT是真多。把Hive看完了。
+一边修理host，一边熟悉ambari-server ui。CRIT是真多。把Hive看完了。纪念一下
+
+<img src="../../.gitbook/assets/image (1).png" alt="" data-size="original">
+
+
 
 </details>
