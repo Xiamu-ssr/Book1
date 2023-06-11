@@ -29,6 +29,7 @@
   * [ambari安装Hive](faster/bigdata/hive/ambari-an-zhuang-hive.md)
   * [Hive常用DDL操作](bigdata/hive/hive-chang-yong-ddl-cao-zuo.md)
   * [Hive分区表和分桶表](bigdata/hive/hive-fen-qu-biao-he-fen-tong-biao.md)
+  * [Hive 视图和索引](bigdata/hive/hive-shi-tu-he-suo-yin.md)
 * [帮助](bigdata/bang-zhu/README.md)
   * [常用端口](bigdata/bang-zhu/chang-yong-duan-kou.md)
   * [常用命令](bigdata/bang-zhu/chang-yong-ming-ling.md)
@@ -78,3 +79,4 @@
   * [电脑应用](zhi-shen-shi-nei/self/dian-nao-ying-yong.md)
   * [奖项存档](zhi-shen-shi-nei/self/jiang-xiang-cun-dang.md)
   * [日常小记](zhi-shen-shi-nei/self/ri-chang-xiao-ji.md)
+  * [一些有趣的东西](zhi-shen-shi-nei/self/yi-xie-you-qu-de-dong-xi.md)
