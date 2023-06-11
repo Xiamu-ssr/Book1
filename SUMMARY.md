@@ -29,6 +29,7 @@
   * [Hive CLI和Beeline命令行的基本使用](faster/bigdata/hive/hive-cli-he-beeline-ming-ling-hang-de-ji-ben-shi-yong.md)
   * [ambari安装Hive](faster/bigdata/hive/ambari-an-zhuang-hive.md)
   * [Hive常用DDL操作](bigdata/hive/hive-chang-yong-ddl-cao-zuo.md)
+  * [Hive分区表和分桶表](bigdata/hive/hive-fen-qu-biao-he-fen-tong-biao.md)
 
 ## Project
 
