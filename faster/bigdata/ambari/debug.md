@@ -16,4 +16,10 @@
 
 然后是想要ambari-server start前需要重新setup一遍
 
+```sh
+## bk hosts
+yes | cp -i /etc/hosts.bk /etc/hosts
+bash /root/Shell/scp_to_all.sh /etc/hosts /etc
+```
+
 </details>
