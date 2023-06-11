@@ -30,6 +30,9 @@
   * [ambari安装Hive](faster/bigdata/hive/ambari-an-zhuang-hive.md)
   * [Hive常用DDL操作](bigdata/hive/hive-chang-yong-ddl-cao-zuo.md)
   * [Hive分区表和分桶表](bigdata/hive/hive-fen-qu-biao-he-fen-tong-biao.md)
+* [帮助](bigdata/bang-zhu/README.md)
+  * [常用端口](bigdata/bang-zhu/chang-yong-duan-kou.md)
+  * [常用命令](bigdata/bang-zhu/chang-yong-ming-ling.md)
 
 ## Project
 
