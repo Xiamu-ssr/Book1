@@ -15,7 +15,6 @@
     * [Linux](faster/bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/linux/README.md)
       * [+Docker从头完全部署](faster/bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/linux/+docker-cong-tou-wan-quan-bu-shu.md)
       * [+Docker从已有镜像简易部署](faster/bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/linux/+docker-cong-yi-you-jing-xiang-jian-yi-bu-shu.md)
-  * [DeBug](faster/bigdata/ambari/debug.md)
 * [Maven](faster/bigdata/maven/README.md)
   * [一个简单的项目](faster/bigdata/maven/yi-ge-jian-dan-de-xiang-mu.md)
   * [GitHub远程maven私人仓库](faster/bigdata/maven/github-yuan-cheng-maven-si-ren-cang-ku.md)
@@ -33,6 +32,7 @@
 * [帮助](bigdata/bang-zhu/README.md)
   * [常用端口](bigdata/bang-zhu/chang-yong-duan-kou.md)
   * [常用命令](bigdata/bang-zhu/chang-yong-ming-ling.md)
+  * [DeBug](bigdata/bang-zhu/debug.md)
 
 ## Project
 
