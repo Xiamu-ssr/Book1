@@ -14,7 +14,9 @@
 
 首先是/etc/hosts的问题，容器重启后会被重置，建议备份，写入.bashrc自动恢复。
 
-然后是想要ambari-server start前需要重新setup一遍
+然后是想要ambari-server restart前需要重新setup一遍
+
+最后是需要重启所有ambari-agent。
 
 ```sh
 ## bk hosts
