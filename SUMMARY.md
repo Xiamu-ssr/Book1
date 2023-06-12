@@ -67,6 +67,7 @@
 * [Docker](software/docker/README.md)
   * [WSL安装Docker Engine](software/docker/wsl-an-zhuang-docker-engine.md)
   * [优雅的上代理](software/docker/you-ya-de-shang-dai-li.md)
+  * [优雅地给容器新添端口](linux/docker/you-ya-di-gei-rong-qi-xin-tian-duan-kou.md)
   * [QA](software/docker/qa.md)
 * [MySQL](software/mysql/README.md)
   * [重置初始密码](software/mysql/zhong-zhi-chu-shi-mi-ma.md)
