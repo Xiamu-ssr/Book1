@@ -427,7 +427,7 @@ HDP和HDP-UTILS就填/var/www/html/下的对应路径，然后把/var/www/html�
 等待服务器注册，并检查潜在的error，然后点击NEXT
 
 {% hint style="info" %}
-遇到过一个，[已记录在DeBug中](../../../../../bigdata/bang-zhu/debug.md#error-occured-during-stack-advisor-command-invocation-cannot-create-var-run-ambari-server-stack-reco)。
+遇到过一个，[已记录在DeBug中](../../../../../bigdata/bang-zhu/qa.md#error-occured-during-stack-advisor-command-invocation-cannot-create-var-run-ambari-server-stack-reco)。
 {% endhint %}
 {% endtab %}
 

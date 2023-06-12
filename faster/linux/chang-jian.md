@@ -10,10 +10,13 @@ apt update && apt install vim sudo proxychains4 net-tools git wget curl htop ope
 
 ## 用户相关
 
-创建新用户并赋予sudo权限
-
 ```sh
+#创建新用户并赋予sudo权限
 adduser mumu && usermod -aG sudo mumu
+#查看用户属于哪些组
+groups user
+#查看一个组里都有哪些用户
+getent group g
 ```
 
 ## CentOS

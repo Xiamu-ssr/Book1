@@ -1,4 +1,4 @@
-# DeBug
+# QA
 
 <details>
 
@@ -22,6 +22,30 @@
 ## bk hosts
 yes | cp -i /etc/hosts.bk /etc/hosts
 bash /root/Shell/scp_to_all.sh /etc/hosts /etc
+```
+
+</details>
+
+<details>
+
+<summary>怎么给hdfs新建一个用户，并且有基本的权限。</summary>
+
+```bash
+# 在Linux系统上创建user1，并加入到hadoop组
+useradd mumu -G hadoop
+#把mumu加入hdfs组
+usermod -aG hdfs mumu
+
+# 在hdfs的/user目录下创建user1的主目录
+su - hdfs -c "hdfs dfs -mkdir /user/mumu"
+
+# 修改user1主目录的所有者和权限
+su - hdfs -c "hdfs dfs -chown mumu:hadoop /user/mumu"
+su - hdfs -c "hdfs dfs -chmod 755 /user/mumu"
+
+# 刷新namenode的用户和组的映射
+hdfs dfsadmin -refreshUserToGroupsMappings
+
 ```
 
 </details>
