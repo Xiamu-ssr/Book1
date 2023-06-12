@@ -35,7 +35,7 @@
 * [帮助](bigdata/bang-zhu/README.md)
   * [常用端口](bigdata/bang-zhu/chang-yong-duan-kou.md)
   * [常用命令](bigdata/bang-zhu/chang-yong-ming-ling.md)
-  * [QA](bigdata/bang-zhu/qa.md)
+  * [QA](bigdata/bang-zhu/debug.md)
 
 ## Project
 

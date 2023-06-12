@@ -80,6 +80,8 @@ windows+docker实践过了，已发布。打算先做个基础的，电商平台
 
 <img src="../../.gitbook/assets/image (1) (1).png" alt="" data-size="original">
 
+**12**
 
+hive，集群，各种bug。。。
 
 </details>
