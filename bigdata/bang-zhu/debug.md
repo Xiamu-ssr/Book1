@@ -55,3 +55,26 @@ hdfs dfsadmin -refreshUserToGroupsMappings
 ```
 
 </details>
+
+<details>
+
+<summary>ambari的CRIT之Ulimit for open files (-n) is 800000 which is higher or equal than critical value of 800000</summary>
+
+#### 临时方案
+
+```bash
+ulimit -n 800000
+```
+
+#### 永久方案
+
+```bash
+sudo vi /etc/security/limits.conf
+#写入或修改为
+* soft nofile 1000000
+* hard nofile 1000000
+# 退出后让系统重新加载配置文件
+sudo sysctl -p
+```
+
+</details>
