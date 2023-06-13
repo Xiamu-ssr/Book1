@@ -12,16 +12,22 @@
 
 <summary>容器重启后需要注意的一系列问题</summary>
 
-首先是/etc/hosts的问题，容器重启后会被重置，建议备份，写入.bashrc自动恢复。
+首先是/etc/hosts的问题，容器重启后会被重置，建议备份。
 
 然后是想要ambari-server restart前需要重新setup一遍
 
 最后是需要重启所有ambari-agent。
 
+写一个脚本，每天第一次启动执行一下
+
 ```sh
-## bk hosts
+#init.sh
 yes | cp -i /etc/hosts.bk /etc/hosts
 bash /root/Shell/scp_to_all.sh /etc/hosts /etc
+
+ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
+pssh -h /root/Downloads/host.txt ambari-agent restart
+ambari-server restart
 ```
 
 </details>
