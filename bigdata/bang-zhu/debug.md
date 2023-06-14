@@ -1,5 +1,7 @@
 # QA
 
+## Ambari
+
 <details>
 
 <summary>Error occured during stack advisor command invocation: Cannot create /var/run/ambari-server/stack-recommendations</summary>
@@ -34,6 +36,31 @@ ambari-server restart
 
 <details>
 
+<summary>ambari的CRIT之Ulimit for open files (-n) is 800000 which is higher or equal than critical value of 800000</summary>
+
+#### 临时方案
+
+```bash
+ulimit -n 800000
+```
+
+#### 永久方案
+
+```bash
+sudo vi /etc/security/limits.conf
+#写入或修改为
+* soft nofile 1000000
+* hard nofile 1000000
+# 退出后让系统重新加载配置文件
+sudo sysctl -p
+```
+
+</details>
+
+## Hadoop
+
+<details>
+
 <summary>怎么给hdfs新建一个用户，并且有基本的权限。</summary>
 
 ```bash
@@ -56,25 +83,36 @@ hdfs dfsadmin -refreshUserToGroupsMappings
 
 </details>
 
+## Hive3
+
 <details>
 
-<summary>ambari的CRIT之Ulimit for open files (-n) is 800000 which is higher or equal than critical value of 800000</summary>
+<summary>怎么从0到1，弄出第一个管理员</summary>
 
-#### 临时方案
+如果你使用ambari安装的hive，那么请在ambari web ui中设置hive的config，key和value对应如下：
 
-```bash
-ulimit -n 800000
+如果你可以直接修改hive-site.xml就能起作用，那么使用对应格式设置如下key和value：
+
+```
+hive.server2.enable.doAs=false
+hive.security.authorization.enabled=true
+hive.security.authorization.manager=org.apache.hadoop.hive.ql.security.authorization.plugin.sqlstd.SQLStdHiveAuthorizerFactory
+hive.security.authenticator.manager=org.apache.hadoop.hive.ql.security.SessionStateUserAuthenticator
+hive.users.in.admin.role=<admin user>
 ```
 
-#### 永久方案
+\<admin user>用英文逗号,分割
 
-```bash
-sudo vi /etc/security/limits.conf
-#写入或修改为
-* soft nofile 1000000
-* hard nofile 1000000
-# 退出后让系统重新加载配置文件
-sudo sysctl -p
+然后beeline使用admin user登录，在命令行中输入以下即可将当前用户设置为管理员
+
 ```
+set role ADMIN;
+```
+
+chk参考资料
+
+[https://community.cloudera.com/t5/Support-Questions/hive-with-SQL-Standard-based-Authorization/td-p/111505](https://community.cloudera.com/t5/Support-Questions/hive-with-SQL-Standard-based-Authorization/td-p/111505)
+
+[https://stackoverflow.com/questions/30080203/grant-permission-in-hive](https://stackoverflow.com/questions/30080203/grant-permission-in-hive)
 
 </details>
