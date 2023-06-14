@@ -8,18 +8,38 @@ DCL（Data Control Language，数据控制语言）是一种用于控制数据�
 4. AUDIT：对用户对数据库对象的访问进行审计。
 5. COMMENT：对数据库对象添加注释或备注信息。
 
-## 一、Grant
-
 ### 1. 查询
+
+查看所有admin用户
+
+```sql
+SELECT * FROM sys.role_map;
+```
 
 查询某个用户在某个库上的权限
 
 ```sql
-SHOW GRANT ON DATABASE database_name TO user_name;
+SHOW GRANT USER hive on DATABASE mumu;
 ```
 
-查看某个用户在所有库的权限
+### 2.授权
 
+授权某个用户或角色为admin
+
+```sql
+GRANT ADMIN TO USER xx;
 ```
-// Some code
+
+授权某个用户在某个数据库的权限
+
+```sql
+GRANT ALL ON DATABASE mumu TO USER xx;
+```
+
+### 3.移除&#x20;
+
+移除某个用户或者角色的admin
+
+```sql
+REVOKE ADMIN FROM USER xx;
 ```

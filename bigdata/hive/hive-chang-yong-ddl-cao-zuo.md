@@ -248,5 +248,3 @@ DROP TABLE [IF EXISTS] table_name [PURGE];
 * 删除视图引用的表时，不会给出警告（但视图已经无效了，必须由用户删除或重新创建）。
 {% endhint %}
 
-## 五、用户和组
-
