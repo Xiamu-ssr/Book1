@@ -105,11 +105,17 @@ hive.users.in.admin.role=<admin user>
 
 然后beeline使用admin user登录，在命令行中输入以下即可将当前用户设置为管理员
 
-```
+```sql
 set role ADMIN;
 ```
 
-chk参考资料
+查看当前用户角色
+
+```sql
+show current role;
+```
+
+**参考资料**
 
 [https://community.cloudera.com/t5/Support-Questions/hive-with-SQL-Standard-based-Authorization/td-p/111505](https://community.cloudera.com/t5/Support-Questions/hive-with-SQL-Standard-based-Authorization/td-p/111505)
 
