@@ -1,4 +1,4 @@
-# Hive 常用DML操作
+# Hive常用DML操作
 
 ## 一、加载文件数据到表
 
@@ -109,7 +109,7 @@ INSERT OVERWRITE TABLE emp_ptn PARTITION (deptno=20)
 SELECT empno,ename,job,mgr,hiredate,sal,comm FROM emp WHERE deptno=20;
 ```
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 4. 接着演示动态分区：
 

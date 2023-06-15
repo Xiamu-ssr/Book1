@@ -78,7 +78,7 @@ windows+docker实践过了，已发布。打算先做个基础的，电商平台
 
 一边修理host，一边熟悉ambari-server ui。CRIT是真多。看了一些Hive。纪念一下
 
-<img src="../../.gitbook/assets/image (1) (1).png" alt="" data-size="original">
+<img src="../../.gitbook/assets/image (1) (1) (1).png" alt="" data-size="original">
 
 **12**
 

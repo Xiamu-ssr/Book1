@@ -361,9 +361,9 @@ centos7-cdh `
 
 ```
 172.10.0.2      cm.hadoop cm
-172.10.0.3      cdh01.hadoop
-172.10.0.4      cdh02.hadoop
-172.10.0.5      cdh03.hadoop
+172.10.0.3      cdh01.hadoop cdh01
+172.10.0.4      cdh02.hadoop cdh02
+172.10.0.5      cdh03.hadoop cdh03
 ```
 
 按照下面指示创建脚本文件
@@ -379,5 +379,168 @@ bash scp_to_all.sh /etc/hosts /etc/
 bash scp_to_all.sh /root/Shell /root
 ```
 
+配置主节点到所有节点的免密
+
+```bash
+bash ssh_one_to_all.sh
+```
+
+创建host.txt文件，写入从节点名称
+
+```
+cdh01.hadoop
+cdh02.hadoop
+cdh03.hadoop
+```
+
+### 3.3装基本工具
+
+给所有从节点安装常用证书
+
+```bash
+pssh -h host.txt yum install -y ca-certificates
+```
+
+创建tmp.sh，写入以下内容
+
+```
+sed -e 's|^mirrorlist=|#mirrorlist=|g' \
+         -e 's|^#baseurl=http://mirror.centos.org/centos|baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos|g' \
+         -i.bak \
+         /etc/yum.repos.d/CentOS-*.repo
+```
+
+让从节点都执行这个本地(主节点)脚本，来更新清华源
+
+```bash
+pssh -h host.txt -I < tmp.sh 
+pssh -h host.txt -t 360 yum makecache -y
+pssh -h host.txt -t 360 yum update -y
+pssh -h host.txt -t 360 yum upgrade -y
+```
+
+安装基础软件包
+
+```bash
+pssh -h host.txt -t 360 yum -y install kde-l10n-Chinese telnet reinstall glibc-common vim wget ntp net-tools
+pssh -h host.txt -t 360 yum -y clean all
+```
+
+### 3.4配置中文环境变量
+
+将以下内容写入tmp.sh
+
+```
+(
+cat <<EOF
+export LC_ALL=zh_CN.utf8
+export LANG=zh_CN.utf8
+export LANGUAGE=zh_CN.utf8
+EOF
+) >> ~/.bashrc \
+&& localedef -c -f UTF-8 -i zh_CN zh_CN.utf8 \
+&& source ~/.bashrc \
+&& echo $LANG
+```
+
+```bash
+pssh -h host.txt -I < tmp.sh
+```
+
+### 3.5配置NTP时间同步服务
+
+更改四个时钟服务器
+
+```bash
+bash scp_to_all.sh /etc/ntp.conf /etc
+```
+
+调整时区
+
+```bash
+pssh -h host.txt cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+```
+
+启动ntp服务，将以下写入sh
+
+```bash
+systemctl start ntpd && \
+systemctl enable ntpd && \
+ntpdate -u 0.cn.pool.ntp.org && \
+hwclock --systohc && \
+date
+```
+
+```bash
+pssh -h host.txt -I < tmp.sh
+```
+
+{% hint style="info" %}
+这里出现Failure并不代表从节点调整时间失败，可以手动检查一下
+{% endhint %}
+
+### 3.6配置MySQL JDBC
+
+写入sh后pssh
+
+```
+mkdir -p /usr/share/java/ \
+&& wget -O /usr/share/java/mysql-connector-java-5.1.48.tar.gz \
+https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.48.tar.gz \
+&& cd /usr/share/java/;tar -zxvf mysql-connector-java-5.1.48.tar.gz \
+&& cp /usr/share/java/mysql-connector-java-5.1.48/mysql-connector-java-5.1.48-bin.jar /usr/share/java/mysql-connector-java.jar \
+&& rm -rf mysql-connector-java-5.1.48 mysql-connector-java-5.1.48.tar.gz \
+&& ls /usr/share/java/
+```
+
+## 四、CM管理平台创建CDH集群
+
+### 4.1登陆CM管理平台
+
+[http://IP:7180](https://links.jianshu.com/go?to=http%3A%2F%2FIP%3A7180%2Fcmf%2Flogin)
+
+账号密码：admin/admin
+
+### 4.2欢迎页
+
+同意协议并选择免费套餐
+
+### 4.3集群安装
+
+{% tabs %}
+{% tab title="1" %}
+填集群名字
+{% endtab %}
+
+{% tab title="2" %}
+主机名称填 172.10.0.\[2-5]，端口默认22，然后点击搜索，继续
 
 
+{% endtab %}
+
+{% tab title="3" %}
+<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+自定义存储库：[http://172.10.0.2/cloudera-repos](https://links.jianshu.com/go?to=http%3A%2F%2F172.10.0.2%2Fcloudera-repos)
+{% endtab %}
+
+{% tab title="4" %}
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+Jdk安装
+{% endtab %}
+
+{% tab title="5" %}
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+用户为root，密码为容器root用户的登录密码。
+{% endtab %}
+
+{% tab title="6" %}
+等待安装agent服务。
+{% endtab %}
+
+{% tab title="7" %}
+等待Parcel 下载并安装。
+{% endtab %}
+{% endtabs %}
