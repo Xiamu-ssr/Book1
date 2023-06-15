@@ -519,7 +519,7 @@ https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.48.tar.
 {% endtab %}
 
 {% tab title="3" %}
-<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
 自定义存储库：[http://172.10.0.2/cloudera-repos](https://links.jianshu.com/go?to=http%3A%2F%2F172.10.0.2%2Fcloudera-repos)
 {% endtab %}
@@ -531,7 +531,7 @@ Jdk安装
 {% endtab %}
 
 {% tab title="5" %}
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
 用户为root，密码为容器root用户的登录密码。
 {% endtab %}
@@ -542,5 +542,45 @@ Jdk安装
 
 {% tab title="7" %}
 等待Parcel 下载并安装。
+{% endtab %}
+
+{% tab title="8" %}
+检查集群，如果出现warn或error，根据提示修复或完善。
+{% endtab %}
+{% endtabs %}
+
+### 4.4集群设置
+
+{% tabs %}
+{% tab title="1" %}
+<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+自定义服务
+{% endtab %}
+
+{% tab title="2" %}
+<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+各个组件具体安装在哪，仅供参考
+{% endtab %}
+
+{% tab title="3" %}
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+数据库选择。数据库，用户名，密码，在2.7的脚本里看。
+{% endtab %}
+
+{% tab title="4" %}
+Datanode-> /dfs/datanode&#x20;
+
+Namenode-> /dfs/namenode&#x20;
+
+HDFS检查点-> /dfs/checkpoint&#x20;
+
+NodeManager 本地目录-> /dfs/nodemanager
+{% endtab %}
+
+{% tab title="5" %}
+首次运行，并检查所有服务
 {% endtab %}
 {% endtabs %}
