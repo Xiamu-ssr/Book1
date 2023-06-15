@@ -101,6 +101,29 @@ hive.security.authenticator.manager=org.apache.hadoop.hive.ql.security.SessionSt
 hive.users.in.admin.role=<admin user>
 ```
 
+```xml
+  <property>
+    <name>hive.server2.enable.doAs</name>
+    <value>false</value>
+  </property>
+  <property>
+    <name>hive.security.authorization.enabled</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>hive.security.authorization.manager</name>
+    <value>org.apache.hadoop.hive.ql.security.authorization.plugin.sqlstd.SQLStdHiveAuthorizerFactory</value>
+  </property>
+  <property>
+    <name>hive.security.authenticator.manager</name>
+    <value>org.apache.hadoop.hive.ql.security.SessionStateUserAuthenticator</value>
+  </property>
+  <property>
+    <name>hive.users.in.admin.role</name>
+    <value>hive</value>
+  </property>
+```
+
 \<admin user>用英文逗号,分割
 
 然后beeline使用admin user登录，在命令行中输入以下即可将当前用户设置为管理员
