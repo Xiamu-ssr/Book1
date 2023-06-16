@@ -125,6 +125,10 @@ grant all on ambari.* to ambari@'%';
 use ambari;
 source /var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql;
 show tables;
+CREATE DATABASE hive;
+CREATE USER 'hive'@'%' IDENTIFIED BY 'hive%123';
+GRANT ALL PRIVILEGES ON hive.* TO 'hive'@'%';
+FLUSH PRIVILEGES;
 ```
 
 ```
