@@ -37,41 +37,29 @@ SET GLOBAL validate_password_special_char_count=0;
 SHOW VARIABLES LIKE 'validate_password%';
 ```
 
-安装配置ntp
+安装配置chrony
 
 ```
-yum install ntp -y && vi /etc/ntp.conf
-```
-
-```
-#修改
-#restrict 192.168.1.0 mask 255.255.255.0 nomodify notrap
-#为
-restrict 172.19.0.0 mask 255.255.255.0 nomodify notrap
-
-#注释
-#server 0.centos.pool.ntp.org iburst
-#server 1.centos.pool.ntp.org iburst
-#server 2.centos.pool.ntp.org iburst
-#server 3.centos.pool.ntp.org iburst
-# 添加如下，使用阿里云服务器时间
-server ntp1.aliyun.com iburst
-server ntp2.aliyun.com iburst
-server ntp3.aliyun.com iburst
-server ntp4.aliyun.com iburst
-server ntp5.aliyun.com iburst
-server ntp6.aliyun.com iburst
-server ntp7.aliyun.com iburst
-
-#追加，当该节点丢失网络连接，依然可以采用本地时间作为时间服务器为集群中的其他节点提供时间同步
-server 127.127.1.0
-fudge 127.127.1.0 stratum 10
+yum install chrony -y && vi /etc/chrony.conf
 ```
 
 ```
-systemctl start ntpd && \
-systemctl enable ntpd && \
-systemctl status ntpd
+# 找到 server 部分，添加以下行
+# Use public NTP servers
+server 0.centos.pool.ntp.org iburst
+server 1.centos.pool.ntp.org iburst
+server 2.centos.pool.ntp.org iburst
+server 3.centos.pool.ntp.org iburst
+
+# Allow network access to the time server
+allow 172.19.0.0/16
+```
+
+```
+systemctl start chronyd && \
+systemctl enable chronyd && \
+systemctl status chronyd && \
+chronyc sources
 ```
 
 安装http

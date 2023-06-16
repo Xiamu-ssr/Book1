@@ -12,6 +12,7 @@
     * [self](bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/self/README.md)
       * [构建b](bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/self/gou-jian-b.md)
       * [构建m](bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/self/gou-jian-m.md)
+      * [构建s](bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/self/gou-jian-s.md)
       * [构建集群](bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/self/gou-jian-ji-qun.md)
     * [Windows](faster/bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/windows/README.md)
       * [+VMware从头完全部署](faster/bigdata/ambari/da-jian-xu-ni-ji-ji-qun-yi-ji-an-zhuang-ambari/windows/+vmware-cong-tou-wan-quan-bu-shu.md)

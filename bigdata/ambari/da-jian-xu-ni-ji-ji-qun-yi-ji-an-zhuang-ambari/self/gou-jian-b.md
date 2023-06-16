@@ -8,6 +8,12 @@ docker run --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --
 ```
 {% endcode %}
 
+设置密码1009
+
+```
+passwd
+```
+
 换源
 
 ```
