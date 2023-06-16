@@ -112,6 +112,8 @@ bash /root/Shell/scp_to_all.sh /etc/yum.repos.d/hdp.repo /etc/yum.repos.d/
 yum install -y ambari-server && mysql -u root -p
 ```
 
+配置数据库
+
 ```
 SET GLOBAL validate_password_policy='LOW';
 SET GLOBAL validate_password_length=6;
@@ -130,6 +132,8 @@ CREATE USER 'hive'@'%' IDENTIFIED BY 'hive%123';
 GRANT ALL PRIVILEGES ON hive.* TO 'hive'@'%';
 FLUSH PRIVILEGES;
 ```
+
+安装jdbc
 
 ```
 cd /root/Downloads && \
