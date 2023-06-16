@@ -4,7 +4,8 @@
 
 {% code overflow="wrap" %}
 ```
-docker run --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 -it --name=bginit centos:centos7 /usr/sbin/init
+docker run --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 -d --name=bginit centos:centos7 /usr/sbin/init ;`
+docker exec -it bginit /bin/bash
 ```
 {% endcode %}
 

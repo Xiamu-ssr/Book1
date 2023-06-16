@@ -4,7 +4,8 @@
 
 {% code overflow="wrap" %}
 ```
-docker run --network bigdata --ip 172.19.0.2 -p 8080:8080 -p 8088:8088 -p 3000:3000 --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 -it --name=bgm xiamussr/bg-b:1.0 /usr/sbin/init
+docker run --privileged=true -v /sys/fs/cgroup:/sys/fs/cgroup:ro --tmpfs /run --tmpfs /run/lock --stop-signal=RTMIN+3 -d --name=bgm xiamussr/bg-b:1.0 /usr/sbin/init; `
+docker exec -it bgm /bin/bash
 ```
 {% endcode %}
 

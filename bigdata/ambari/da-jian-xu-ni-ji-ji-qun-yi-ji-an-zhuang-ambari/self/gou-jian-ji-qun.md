@@ -62,16 +62,3 @@ bash scp_to_all.sh /root/Shell /root && \
 bash ssh_all_to_all.sh
 ```
 
-给从节点配置ntp
-
-```
-echo -e "bgs1\nbgs2\nbgs3" > host.txt && \
-pssh -h host.txt -i yum install -y ntpdate && \
-pssh -h host.txt ntpdate bgm && \
-echo "29,59 * * * * /usr/sbin/ntpdate bgm" > tmp.txt && \
-pssh -h host.txt -t 10 -I < tmp.txt 'crontab -' && \
-pssh -h host.txt -i date && \
-pssh -h host.txt systemctl start ntpdate && \
-pssh -h host.txt systemctl enable ntpdate && \
-pssh -h host.txt -i date
-```
