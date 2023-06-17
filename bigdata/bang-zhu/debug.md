@@ -1,6 +1,6 @@
 # QA
 
-## Ambari
+### Ambari
 
 <details>
 
@@ -57,7 +57,7 @@ sudo sysctl -p
 
 </details>
 
-## Hadoop
+### Hadoop
 
 <details>
 
@@ -83,7 +83,7 @@ hdfs dfsadmin -refreshUserToGroupsMappings
 
 </details>
 
-## Hive3
+### Hive3
 
 <details>
 
@@ -143,5 +143,25 @@ show current role;
 [https://community.cloudera.com/t5/Support-Questions/hive-with-SQL-Standard-based-Authorization/td-p/111505](https://community.cloudera.com/t5/Support-Questions/hive-with-SQL-Standard-based-Authorization/td-p/111505)
 
 [https://stackoverflow.com/questions/30080203/grant-permission-in-hive](https://stackoverflow.com/questions/30080203/grant-permission-in-hive)
+
+</details>
+
+### MapReduce
+
+<details>
+
+<summary>mapreduce check test finish 100% but error end with Unknown Job</summary>
+
+If the job fails with unknown job exception frequently , disable the log aggregation for YARN.
+
+The following steps will disable the log aggregation
+
+1\. Login to Ambari
+
+2\. Select YARN -> Configs ->Advanced
+
+3\. Uncheck Enable Log Aggregation.
+
+4\. Restart YARN and all the dependent services.
 
 </details>
