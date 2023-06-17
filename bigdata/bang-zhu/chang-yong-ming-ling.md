@@ -21,3 +21,8 @@ hdfs dfsadmin -report
 #检查某个文件或文件夹在hdfs上是否健康
 hadoop fsck path
 ```
+
+```bash
+# 连接hive
+beeline -u jdbc:hive2://<ip>:<port> -n hive -p hive
+```
