@@ -96,8 +96,12 @@ hive的问题解决了，又遇上了Tez的bug，难以解决，有点恶心，�
 
 废了，CDH虽然部署成功了，但是小bug和细节比ambari还多，而且感觉不太友好。。。
 
-16
+**16**
 
 重头来一遍ambari，对细节理解更深刻了 。发现可能不是Tez的问题，因为mapreduce组件也通不过测试程序，即使ambari都显示它们为良好。这可能是docker容器的原因或者centos，因为网络是肯定没有问题的，但是datastream总是将datanode标记为无效。
+
+**17**
+
+虽然有进展，但是感觉只是error换了个样子。Tez还是没能解决，摸鱼了一天，明天打算用回VMware，如果还是有问题，就要去寻找在线hive了。
 
 </details>
