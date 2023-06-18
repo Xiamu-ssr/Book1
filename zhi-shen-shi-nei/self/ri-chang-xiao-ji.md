@@ -78,7 +78,7 @@ windows+docker实践过了，已发布。打算先做个基础的，电商平台
 
 一边修理host，一边熟悉ambari-server ui。CRIT是真多。看了一些Hive。纪念一下
 
-<img src="../../.gitbook/assets/image (1) (1) (1).png" alt="" data-size="original">
+<img src="../../.gitbook/assets/image (1) (1) (1) (1).png" alt="" data-size="original">
 
 **12**
 
@@ -103,5 +103,13 @@ hive的问题解决了，又遇上了Tez的bug，难以解决，有点恶心，�
 **17**
 
 虽然有进展，但是感觉只是error换了个样子。Tez还是没能解决，摸鱼了一天，明天打算用回VMware，如果还是有问题，就要去寻找在线hive了。
+
+**18**
+
+![](../../.gitbook/assets/image.png)
+
+0红，Tez测试也轻松过了，fuck，就该用VMware完全虚拟化。docker对于大数据或许很重要，但是并不适合部署集群。
+
+
 
 </details>
