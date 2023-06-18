@@ -108,7 +108,7 @@ hive的问题解决了，又遇上了Tez的bug，难以解决，有点恶心，�
 
 ![](../../.gitbook/assets/image.png)
 
-0红，Tez测试也轻松过了，fuck，就该用VMware完全虚拟化。docker对于大数据或许很重要，但是并不适合部署集群。
+0红，Tez测试也轻松过了，fuck，就该用VMware完全虚拟化。docker对于大数据或许很重要，但是并不适合部署集群。剪辑了视频。
 
 
 
