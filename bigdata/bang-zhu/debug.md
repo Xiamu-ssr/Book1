@@ -160,6 +160,22 @@ beeline属于Hive CLI或HiveServer2接口。
 
 </details>
 
+<details>
+
+<summary>SemanticException Invalid path '"/root/HiveTest/emp.txt"': No files matching path </summary>
+
+文件存在，被说不存在，一般是因为beeline里的用户对这个文件没有权限。
+
+</details>
+
+<details>
+
+<summary>Error: The file that you are trying to load does not match the file format of the destination table. </summary>
+
+
+
+</details>
+
 ### MapReduce
 
 <details>

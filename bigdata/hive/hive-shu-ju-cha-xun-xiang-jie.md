@@ -8,7 +8,7 @@
 为了演示查询操作，这里需要预先创建三张表，并加载测试数据。
 
 {% hint style="info" %}
-数据文件 emp.txt 和 dept.txt 可以从本仓库的[resources](https://github.com/heibaiying/BigData-Notes/tree/master/resources) 目录下载。
+数据文件 emp.txt 和 dept.txt 可以从本仓库的[resources](https://github.com/heibaiying/BigData-Notes/tree/master/resources) 目录下载。把'\t'都改成','
 {% endhint %}
 
 ### 1.1 员工表
@@ -24,7 +24,7 @@
      sal DECIMAL(7,2),  --工资
      comm DECIMAL(7,2),
      deptno INT)   --部门编号
-    ROW FORMAT DELIMITED FIELDS TERMINATED BY "\t";
+    ROW FORMAT DELIMITED FIELDS TERMINATED BY "," stored as textfile;
 
   --加载数据
 LOAD DATA LOCAL INPATH "/usr/file/emp.txt" OVERWRITE INTO TABLE emp;
@@ -39,7 +39,7 @@ LOAD DATA LOCAL INPATH "/usr/file/emp.txt" OVERWRITE INTO TABLE emp;
      dname STRING,  --部门名称
      loc STRING    --部门所在的城市
  )
- ROW FORMAT DELIMITED FIELDS TERMINATED BY "\t";
+ ROW FORMAT DELIMITED FIELDS TERMINATED BY "," stored as textfile;
  
  --加载数据
  LOAD DATA LOCAL INPATH "/usr/file/dept.txt" OVERWRITE INTO TABLE dept;
@@ -50,7 +50,7 @@ LOAD DATA LOCAL INPATH "/usr/file/emp.txt" OVERWRITE INTO TABLE emp;
 这里需要额外创建一张分区表，主要是为了演示分区查询：
 
 ```sql
-CREATE EXTERNAL TABLE emp_ptn(
+CREATE TABLE emp_ptn(
       empno INT,
       ename STRING,
       job STRING,
@@ -60,14 +60,11 @@ CREATE EXTERNAL TABLE emp_ptn(
       comm DECIMAL(7,2)
   )
  PARTITIONED BY (deptno INT)   -- 按照部门编号进行分区
- ROW FORMAT DELIMITED FIELDS TERMINATED BY "\t";
+ ROW FORMAT DELIMITED FIELDS TERMINATED BY "," stored as textfile;
 
 
 --加载数据
-LOAD DATA LOCAL INPATH "/usr/file/emp.txt" OVERWRITE INTO TABLE emp_ptn PARTITION (deptno=20)
-LOAD DATA LOCAL INPATH "/usr/file/emp.txt" OVERWRITE INTO TABLE emp_ptn PARTITION (deptno=30)
-LOAD DATA LOCAL INPATH "/usr/file/emp.txt" OVERWRITE INTO TABLE emp_ptn PARTITION (deptno=40)
-LOAD DATA LOCAL INPATH "/usr/file/emp.txt" OVERWRITE INTO TABLE emp_ptn PARTITION (deptno=50)
+insert into emp_ptn partition(deptno) select * from emp;
 ```
 
 ### 二、单表查询
