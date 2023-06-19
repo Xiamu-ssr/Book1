@@ -146,6 +146,20 @@ show current role;
 
 </details>
 
+<details>
+
+<summary>Metastore Authorization api invocation for remote metastore is disabled in this configuration.Run commands via jdbc/odbc clients via HiveServer2 that is using embedded metastore.</summary>
+
+正在使用embedded metastore，而不是独立的metastore，这将无法使用授权命令。
+
+`hive.security.metastore.authorization.manager`参数中，值`org.apache.hadoop.hive.ql.security.authorization.StorageBasedAuthorizationProvider`授权管理器提供了基于Hive存储层的授权机制，可以通过Hive CLI或HiveServer2接口进行授权操作。而`org.apache.hadoop.hive.ql.security.authorization.MetaStoreAuthzAPIAuthorizerEmbedOnly`授权管理器则提供了基于SQL语句的授权机制，并且只能通过Metastore API进行授权操作，无法通过Hive CLI或HiveServer2接口进行授权操作。
+
+beeline属于Hive CLI或HiveServer2接口。
+
+移除`org.apache.hadoop.hive.ql.security.authorization.MetaStoreAuthzAPIAuthorizerEmbedOnly`然后重启服务即可
+
+</details>
+
 ### MapReduce
 
 <details>
