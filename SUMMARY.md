@@ -71,6 +71,7 @@
   * [虚拟机代理](software/vmware/xu-ni-ji-dai-li.md)
   * [双向复制粘贴](software/vmware/shuang-xiang-fu-zhi-nian-tie.md)
   * [磁盘扩容](software/vmware/ci-pan-kuo-rong.md)
+  * [QA](linux/vmware/qa.md)
 * [Docker](software/docker/README.md)
   * [WSL安装Docker Engine](software/docker/wsl-an-zhuang-docker-engine.md)
   * [优雅的上代理](software/docker/you-ya-de-shang-dai-li.md)
