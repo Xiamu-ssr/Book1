@@ -216,6 +216,23 @@ beeline属于Hive CLI或HiveServer2接口。
 
 <summary>Error: The file that you are trying to load does not match the file format of the destination table. </summary>
 
+在Hive命令行中，用于指定不同的表存储格式的关键词如下
 
+* 文本格式：TEXTFILE
+* 序列化文件格式：SEQUENCEFILE
+* RC文件格式：RCFILE
+* ORC文件格式：ORC
+* AVRO文件格式：AVRO
+* Parquet文件格式：PARQUET
+
+这些存储格式在Hive中主要有以下区别：
+
+1. 存储方式：不同的存储格式采用不同的存储方式，如文本格式以纯文本形式存储，序列化文件格式以二进制序列化形式存储，ORC文件格式以行列混合存储形式存储等。
+2. 存储效率：不同的存储格式对存储效率有不同的影响，如序列化文件格式和ORC文件格式采用列式存储，可以大幅减少IO操作的次数，提高存储效率；而文本格式则不支持列式存储，效率相对较低。
+3. 压缩支持：不同的存储格式对压缩有不同的支持，如ORC文件格式和RC文件格式支持多种压缩算法，可以在减少存储空间的同时提高IO效率；而文本格式则不支持压缩。
+4. 兼容性：不同的存储格式对兼容性有不同的要求，如Avro文件格式支持多种语言的序列化和反序列化，并支持架构演化，适用于多语言环境下的数据交换；而其他存储格式则可能不支持跨语言的数据交换。
+5. 处理方式：不同的存储格式在查询和处理时可能有不同的方式，如列式存储的数据在执行聚合查询时效率更高，因为只需要扫描需要的列；而行式存储的数据则在执行全表扫描时效率更高，因为只需要扫描一行的数据。
+
+Error: The file that you are trying to load does not match the file format of the destination table. 遇到这个error的原因是table的存储格式不适用，可能是因为没指定存储格式，所以hive用了默认的，或者指定的不合适。
 
 </details>
