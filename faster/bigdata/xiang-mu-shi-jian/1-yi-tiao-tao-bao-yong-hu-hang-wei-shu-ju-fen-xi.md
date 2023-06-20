@@ -144,7 +144,7 @@ select * from user_behavior limit 10;
 
 ```sql
 -- 查看时间是否有异常值
-select date(datetime) as day from user_behavior group by date(datetime) order by day;
+select date(datetime), COUNT(*) as day from user_behavior group by date(datetime) order by day;
 
 -- 会发现大量不在2017-11-25 到 2017-12-03日期的数据，接下来删除它们
 insert overwrite table user_behavior
@@ -153,7 +153,7 @@ from user_behavior
 where cast(datetime as date) between '2017-11-25' and '2017-12-03';
 
 -- 再次查看时间是否有异常值
-select date(datetime) as day from user_behavior group by date(datetime) order by day;
+select date(datetime), COUNT(*) as day from user_behavior group by date(datetime) order by day;
 ```
 
 {% hint style="info" %}
