@@ -23,7 +23,7 @@
 
 ORC文件格式和Parquet文件格式都支持多种压缩算法，并且Hive默认会对这些文件格式进行自动压缩和解压。Hive提供了一些配置参数，可以指定默认的压缩算法和压缩级别，以及是否对所有文件进行压缩。
 
-在命令行使用`SET hive.exec.compress.output=true`启用语法输出压缩，仅在当前会话有效，创建表时可以使用`STORED AS ORC TBLPROPERTIES("orc.compress"="SNAPPY")`的语法指定ORC文件格式使用SNAPPY压缩算法；
+在命令行使用`SET hive.exec.compress.output=true`设置默认语法输出压缩为true，仅在当前会话有效。创建表时可以使用`STORED AS ORC TBLPROPERTIES("orc.compress"="SNAPPY")`的语法指定ORC文件格式使用SNAPPY压缩算法；
 
 除了SNAPPY压缩算法，ORC文件格式和Parquet文件格式还支持多种其他的压缩算法，包括但不限于：
 
