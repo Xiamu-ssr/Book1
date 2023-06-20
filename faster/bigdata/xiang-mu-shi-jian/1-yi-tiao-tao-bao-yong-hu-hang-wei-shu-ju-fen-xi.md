@@ -12,18 +12,7 @@
 | Memory    | 12GB               | 12GB               |
 | Disk      | 150GB              | 100GB              |
 
-集群安装的hadoop生态组件如下
-
-| HDFS           | 3.1.1.3.1         |
-| -------------- | ----------------- |
-| YARN           | 3.1.1             |
-| MapReduce2     | 3.1.1             |
-| Tez            | 0.9.1             |
-| Hive           | 3.1.0             |
-| HBase          | 2.0.2             |
-| ZooKeeper      | 3.4.6             |
-| Ambari Metrics | 0.1.0             |
-| SmartSense     | 1.5.1.2.7.4.0-118 |
+集群安装的hadoop生态组件如下q
 
 ## 2. 数据集下载
 
@@ -43,12 +32,13 @@
 
 ## 3. 数据处理
 
-### 2.1 数据导入
+### 2.1 表格结构权衡和数据导入
 
 `beeline -n hive -p`进入hql命令行
 
+创建用户行为表。
+
 ```sql
--- 建表
 drop table if exists user_behavior;
 create table user_behavior (
 `user_id` string comment 'user ID',
@@ -60,13 +50,43 @@ create table user_behavior (
 row format delimited
 fields terminated by ','
 lines terminated by '\n'
-stored as textfile;
-
--- 加载数据
-LOAD DATA LOCAL INPATH '/root/Hive/UserBehavior.csv' OVERWRITE INTO TABLE user_behavior ;
+STORED AS ORC
+TBLPROPERTIES ("orc.compress"="SNAPPY");
 ```
 
-一共有100150807条数据
+{% hint style="info" %}
+这里使用以列优先的存储格式，定义压缩算法为snappy，对于像电商分析这样主要查询列的项目，会提高很多效率。
+{% endhint %}
+
+创建一个临时表，并加载csv数据文件加载到其中。
+
+```sql
+CREATE TEMPORARY TABLE temp_user_behavior (
+`user_id` string comment 'user ID',
+`item_id` string comment 'item ID',
+`category_id` string comment 'category ID',
+`behavior_type` string  comment 'behavior type among pv, buy, cart, fav',
+`timestamp` int comment 'timestamp',
+`datetime` string comment 'date')
+row format delimited
+fields terminated by ','
+lines terminated by '\n'
+STORED AS TEXTFILE;
+
+LOAD DATA LOCAL INPATH '/root/Hive/UserBehavior.csv' OVERWRITE INTO TABLE temp_user_behavior ;
+```
+
+使用TRANSPOSE函数和INSERT INTO SELECT语句将转置后的数据插入到ORC表中
+
+```sql
+INSERT INTO TABLE user_behavior
+SELECT TRANSPOSE(col) FROM (
+  SELECT ARRAY(user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`) 
+  AS col FROM temp_user_behavior
+) s;
+```
+
+查看一共多少条数据。
 
 ```
 select count(*) from user_behavior;

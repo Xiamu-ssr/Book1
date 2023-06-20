@@ -236,3 +236,23 @@ beeline属于Hive CLI或HiveServer2接口。
 Error: The file that you are trying to load does not match the file format of the destination table. 遇到这个error的原因是table的存储格式不适用，可能是因为没指定存储格式，所以hive用了默认的，或者指定的不合适。
 
 </details>
+
+<details>
+
+<summary>怎么清除hive很多语句在hdfs上留下的缓存</summary>
+
+Hive在执行查询时会缓存中间结果和元数据信息，以提高查询性能。但是，这些缓存可能会占用大量的磁盘空间，并导致HDFS上的存储空间不足。为了清除这些缓存，您可以按照以下步骤操作：
+
+1. 清除Hive客户端中的缓存
+
+```
+rm -rf /tmp/hive-*
+```
+
+2. 删除Hive在HDFS上存储的缓存
+
+```
+hadoop fs -rm -r /tmp/hive/*
+```
+
+</details>
