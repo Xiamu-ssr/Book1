@@ -8,7 +8,7 @@
 
 |           | namenode \* 1      | datanode \* 3      |
 | --------- | ------------------ | ------------------ |
-| i5-12450H | 2 core \* 1 thread | 1 core \* 1 thread |
+| i5-12450H | 2 core \* 1 thread | 2 core \* 1 thread |
 | Memory    | 12GB               | 12GB               |
 | Disk      | 150GB              | 100GB              |
 
@@ -77,6 +77,29 @@ select count(*) from user_behavior;
 +------------+
 ```
 
+{% hint style="info" %}
+在Hadoop MapReduce中，`GROUP BY` 操作通常是在Reduce端完成的，因为需要将具有相同key的记录汇总到一起进行聚合计算。由于Reduce端需要处理大量的数据，因此在处理大数据集时，可能会导致Reduce阶段的运行时间过长，影响整个作业的性能。
+
+为了提高MapReduce作业的性能，可以采用以下方法：
+
+1. 增加Reduce任务的数量：通过增加Reduce任务的数量，可以将数据均匀地分配到多个Reduce任务中，从而减少每个Reduce任务需要处理的数据量，提高作业的运行效率。
+
+```sql
+set mapreduce.job.reduces = 10;
+```
+
+2. 使用Combiner函数：Combiner函数可以在Map端进行数据聚合，从而减少Reduce端需要处理的数据量。Combiner函数可以执行一些简单的聚合操作，如求和、计数、求最大值或最小值等。
+
+```sql
+set hive.map.aggr=true;
+INSERT OVERWRITE TABLE user_behavior
+SELECT user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`, COUNT(*)
+FROM user_behavior
+GROUP BY user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`
+;
+```
+{% endhint %}
+
 ### 2.2 数据清洗
 
 ```sql
@@ -94,4 +117,48 @@ select count(*) from user_behavior;
 | 100150758  |
 +------------+
 ```
+
+```sql
+--数据清洗，时间戳格式化成 datetime
+insert overwrite table user_behavior
+select user_id, item_id, category_id, behavior_type, `timestamp`, from_unixtime(`timestamp`, 'yyyy-MM-dd HH:mm:ss')
+from user_behavior;
+
+-- check一下
+select * from user_behavior limit 10;
++------------------------+------------------------+----------------------------+------------------------------+--------------------------+-------------------------+
+| user_behavior.user_id  | user_behavior.item_id  | user_behavior.category_id  | user_behavior.behavior_type  | user_behavior.timestamp  | user_behavior.datetime  |
++------------------------+------------------------+----------------------------+------------------------------+--------------------------+-------------------------+
+| 1                      | 1305059                | 2520771                    | pv                           | 1511911930               | 2017-11-28 23:32:10     |
+| 1                      | 1323189                | 3524510                    | pv                           | 1512149435               | 2017-12-01 17:30:35     |
+| 1                      | 1338525                | 149192                     | pv                           | 1511773214               | 2017-11-27 09:00:14     |
+| 1                      | 1340922                | 4690421                    | pv                           | 1512041260               | 2017-11-30 11:27:40     |
+| 1                      | 1531036                | 2920476                    | pv                           | 1511733732               | 2017-11-26 22:02:12     |
+| 1                      | 2028434                | 4801426                    | pv                           | 1512224248               | 2017-12-02 14:17:28     |
+| 1                      | 2041056                | 4801426                    | pv                           | 1512187543               | 2017-12-02 04:05:43     |
+| 1                      | 2087357                | 2131531                    | pv                           | 1511975142               | 2017-11-29 17:05:42     |
+| 1                      | 2087357                | 2131531                    | pv                           | 1512004568               | 2017-11-30 01:16:08     |
+| 1                      | 2104483                | 4756105                    | pv                           | 1512194830               | 2017-12-02 06:07:10     |
++------------------------+------------------------+----------------------------+------------------------------+--------------------------+-------------------------
+```
+
+```sql
+-- 查看时间是否有异常值
+select date(datetime) as day from user_behavior group by date(datetime) order by day;
+
+-- 会发现大量不在2017-11-25 到 2017-12-03日期的数据，接下来删除它们
+insert overwrite table user_behavior
+select user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`
+from user_behavior
+where cast(datetime as date) between '2017-11-25' and '2017-12-03';
+
+-- 再次查看时间是否有异常值
+select date(datetime) as day from user_behavior group by date(datetime) order by day;
+```
+
+{% hint style="info" %}
+Q:为什么不能是select date(datetime) as day from user\_behavior group by day  order by day;
+
+A:在 SQL 查询中，`SELECT` 子句中定义的别名或计算字段并不能直接在 `GROUP BY` 子句中使用，因为 `GROUP BY` 子句是在 `SELECT` 子句之后执行的。也就是说，在查询执行过程中，`GROUP BY` 子句并不知道 `SELECT` 子句中定义的别名或计算字段，因此需要在 `GROUP BY` 子句中使用实际的列名或表达式。
+{% endhint %}
 
