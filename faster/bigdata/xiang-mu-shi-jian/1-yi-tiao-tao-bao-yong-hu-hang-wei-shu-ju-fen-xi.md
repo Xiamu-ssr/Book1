@@ -144,7 +144,7 @@ select * from user_behavior limit 10;
 
 ```sql
 -- 查看时间是否有异常值
-select date(datetime), COUNT(*) as day from user_behavior group by date(datetime) order by day;
+select date(datetime) as day, COUNT(*) from user_behavior group by date(datetime) order by day;
 
 -- 会发现大量不在2017-11-25 到 2017-12-03日期的数据，接下来删除它们
 insert overwrite table user_behavior
@@ -153,12 +153,107 @@ from user_behavior
 where cast(datetime as date) between '2017-11-25' and '2017-12-03';
 
 -- 再次查看时间是否有异常值
-select date(datetime), COUNT(*) as day from user_behavior group by date(datetime) order by day;
+select date(datetime) as day, COUNT(*) from user_behavior group by date(datetime) order by day;
+
++-------------+-----------+
+|     _c0     |    day    |
++-------------+-----------+
+| 2017-11-28  | 9884185   |
+| 2017-11-27  | 10013455  |
+| 2017-11-29  | 10319060  |
+| 2017-11-25  | 10511597  |
+| 2017-11-30  | 10541695  |
+| 2017-11-26  | 10571039  |
+| 2017-12-01  | 11171505  |
+| 2017-12-03  | 11961006  |
+| 2017-12-02  | 13940942  |
++-------------+-----------+
 ```
 
 {% hint style="info" %}
 Q:为什么不能是select date(datetime) as day from user\_behavior group by day  order by day;
 
 A:在 SQL 查询中，`SELECT` 子句中定义的别名或计算字段并不能直接在 `GROUP BY` 子句中使用，因为 `GROUP BY` 子句是在 `SELECT` 子句之后执行的。也就是说，在查询执行过程中，`GROUP BY` 子句并不知道 `SELECT` 子句中定义的别名或计算字段，因此需要在 `GROUP BY` 子句中使用实际的列名或表达式。
+{% endhint %}
+
+```sql
+--查看 behavior_type 是否有异常值
+select behavior_type, COUNT(*) from user_behavior group by behavior_type;
+
++----------------+-----------+
+| behavior_type  |    _c1    |
++----------------+-----------+
+| cart           | 5466118   |
+| pv             | 88596886  |
+| buy            | 1998944   |
+| fav            | 2852536   |
++----------------+-----------+
+```
+
+## 3.数据分析可视化
+
+### 3.1 用户流量及购物情况
+
+```sql
+--总访问量PV，总用户量UV
+select sum(case when behavior_type = 'pv' then 1 else 0 end) as pv,
+       count(distinct user_id) as uv
+from user_behavior;
+```
+
+{% hint style="info" %}
+Q : CASE WHEN除了上述的CASE WHEN THEN ELSE，还有什么用法
+
+A :
+
+1. 多重条件判断
+
+{% code lineNumbers="true" %}
+```sql
+SELECT
+  CASE
+    WHEN score >= 90 THEN 'A'
+    WHEN score >= 80 THEN 'B'
+    ELSE 'C'
+  END AS grade
+FROM students;
+```
+{% endcode %}
+
+2. 嵌套使用
+
+{% code lineNumbers="true" %}
+```sql
+SELECT
+  CASE
+    WHEN score >= 90 THEN 'A'
+    ELSE
+      CASE
+        WHEN score >= 80 THEN 'B'
+        ELSE 'C'
+      END
+  END AS grade
+FROM students;
+```
+{% endcode %}
+
+
+
+3. 结合WHERE子句使用
+
+{% code lineNumbers="true" %}
+```sql
+SELECT *
+FROM students
+WHERE
+  CASE
+    WHEN gender = 'male' THEN score >= 80
+    WHEN gender = 'female' THEN score >= 90
+    ELSE score >= 70
+  END;
+```
+{% endcode %}
+
+其中男生成绩大于等于80分，女生成绩大于等于90分，其他学生成绩大于等于70分
 {% endhint %}
 
