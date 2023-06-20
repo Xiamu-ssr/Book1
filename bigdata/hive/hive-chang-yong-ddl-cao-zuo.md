@@ -75,6 +75,17 @@ CREATE [TEMPORARY] [EXTERNAL] TABLE [IF NOT EXISTS] [db_name.]table_name     --�
   [AS select_statement];   --从查询结果创建表
 ```
 
+{% hint style="info" %}
+file\_format包括以下:
+
+* 文本格式 TEXTFILE
+* 序列化文件格式 SEQUENCEFILE
+* RC文件格式 RCFILE
+* ORC文件格式 ORC
+* AVRO文件格式 AVRO
+* Parquet文件格式 PARQUET
+{% endhint %}
+
 ### 2.2 内部表
 
 ```sql

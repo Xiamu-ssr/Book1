@@ -51,17 +51,38 @@
 -- 建表
 drop table if exists user_behavior;
 create table user_behavior (
-`user_id` string comment '用户ID',
-`item_id` string comment '商品ID',
-`category_id` string comment '商品类目ID',
-`behavior_type` string  comment '行为类型，枚举类型，包括(pv, buy, cart, fav)',
-`timestamp` int comment '行为时间戳',
-`datetime` string comment '行为时间')
+`user_id` string comment 'user ID',
+`item_id` string comment 'item ID',
+`category_id` string comment 'category ID',
+`behavior_type` string  comment 'behavior type among pv, buy, cart, fav',
+`timestamp` int comment 'timestamp',
+`datetime` string comment 'date')
 row format delimited
 fields terminated by ','
-lines terminated by '\n';
+lines terminated by '\n'
+stored as textfile;
 
 -- 加载数据
-LOAD DATA LOCAL INPATH '/home/getway/UserBehavior.csv'
-OVERWRITE INTO TABLE user_behavior ;
+LOAD DATA LOCAL INPATH '/root/Hive/UserBehavior.csv' OVERWRITE INTO TABLE user_behavior ;
+```
+
+一共有100150807条数据
+
+```
+select count(*) from user_behavior;
++------------+
+|    _c0     |
++------------+
+| 100150807  |
++------------+
+```
+
+### 2.2 数据清洗
+
+```sql
+-- 去掉完全重复的数据
+insert overwrite table user_behavior
+select user_id, item_id, category_id, behavior_type, timestamp, datetime
+from user_behavior
+group by user_id, item_id, category_id, behavior_type, timestamp, datetime;
 ```
