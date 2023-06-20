@@ -57,7 +57,7 @@ sudo sysctl -p
 
 </details>
 
-### Hadoop
+### HDFS
 
 <details>
 
@@ -80,6 +80,50 @@ su - hdfs -c "hdfs dfs -chmod 755 /user/mumu"
 hdfs dfsadmin -refreshUserToGroupsMappings
 
 ```
+
+</details>
+
+<details>
+
+<summary>怎么查看一个文件在hdfs被分成多少块，每个块的位置</summary>
+
+```
+hdfs fsck /path/to/file -files -blocks -locations
+```
+
+`hdfs fsck`命令用于检查Hadoop分布式文件系统(HDFS)中特定路径下的文件和目录的健康状态。除了 `-files`，`-blocks`和`-locations`参数外，还有其他一些可用的参数，这些参数的含义如下：
+
+* `-openforwrite`: 仅检查当前正在写入或打开以进行写入操作的块。
+* `-list-corruptfileblocks`: 列出所有已损坏的块及其所在文件的详细信息。
+* `-move`: 将损坏的块移动到垃圾桶，以便稍后进行进一步分析。
+* `-delete`: 删除所有已损坏的块。
+* `-files -blocks -locations`: 分别列出文件、块和块的位置信息。
+
+`-files`参数用于列出指定路径下的所有文件及其相关信息，包括文件大小、块大小、副本数等。
+
+`-blocks`参数用于列出指定路径下每个文件的所有块及其相关信息，如块ID、块大小、副本位置等。
+
+`-locations`参数用于列出指定路径下每个块的副本位置信息，包括数据节点的IP地址和端口号。
+
+</details>
+
+### MapReduce
+
+<details>
+
+<summary>mapreduce check test finish 100% but error end with Unknown Job</summary>
+
+If the job fails with unknown job exception frequently , disable the log aggregation for YARN.
+
+The following steps will disable the log aggregation
+
+1\. Login to Ambari
+
+2\. Select YARN -> Configs ->Advanced
+
+3\. Uncheck Enable Log Aggregation.
+
+4\. Restart YARN and all the dependent services.
 
 </details>
 
@@ -173,25 +217,5 @@ beeline属于Hive CLI或HiveServer2接口。
 <summary>Error: The file that you are trying to load does not match the file format of the destination table. </summary>
 
 
-
-</details>
-
-### MapReduce
-
-<details>
-
-<summary>mapreduce check test finish 100% but error end with Unknown Job</summary>
-
-If the job fails with unknown job exception frequently , disable the log aggregation for YARN.
-
-The following steps will disable the log aggregation
-
-1\. Login to Ambari
-
-2\. Select YARN -> Configs ->Advanced
-
-3\. Uncheck Enable Log Aggregation.
-
-4\. Restart YARN and all the dependent services.
 
 </details>

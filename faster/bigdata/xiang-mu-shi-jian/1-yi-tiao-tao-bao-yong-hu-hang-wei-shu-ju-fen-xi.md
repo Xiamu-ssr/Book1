@@ -199,6 +199,12 @@ select behavior_type, COUNT(*) from user_behavior group by behavior_type;
 select sum(case when behavior_type = 'pv' then 1 else 0 end) as pv,
        count(distinct user_id) as uv
 from user_behavior;
+
++-----------+---------+
+|    pv     |   uv    |
++-----------+---------+
+| 88596886  | 987984  |
++-----------+---------+
 ```
 
 {% hint style="info" %}
