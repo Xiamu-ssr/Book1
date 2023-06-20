@@ -76,14 +76,10 @@ STORED AS TEXTFILE;
 LOAD DATA LOCAL INPATH '/root/Hive/UserBehavior.csv' OVERWRITE INTO TABLE temp_user_behavior ;
 ```
 
-使用TRANSPOSE函数和INSERT INTO SELECT语句将转置后的数据插入到ORC表中
+将数据导入到ORC表中，hive会自动执行 行列转化
 
 ```sql
-INSERT INTO TABLE user_behavior
-SELECT TRANSPOSE(col) FROM (
-  SELECT ARRAY(user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`) 
-  AS col FROM temp_user_behavior
-) s;
+insert into table user_behavior select * from temp_user_behavior;
 ```
 
 查看一共多少条数据。
