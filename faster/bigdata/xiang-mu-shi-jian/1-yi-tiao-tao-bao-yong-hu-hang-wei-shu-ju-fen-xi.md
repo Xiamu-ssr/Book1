@@ -30,9 +30,9 @@
 | 行为类型（Behavior Type） | “pv”（浏览）、“buy”（购买）、“cart”（加入购物车）、“fav”（收藏） |
 | 时间戳（Timestamp）      | 一个整数，通常以秒为单位。                              |
 
-## 3. 数据处理
+## 3. 数据处理和表优化
 
-### 2.1 表格结构权衡和数据导入
+### 2.1 数据导入
 
 `beeline -n hive -p`进入hql命令行
 
@@ -204,6 +204,24 @@ select behavior_type, COUNT(*) from user_behavior group by behavior_type;
 | buy            | 1998944   |
 | fav            | 2852536   |
 +----------------+-----------+
+```
+
+### 2.3 表分区
+
+```sql
+create table user_behavior (
+`user_id` string comment 'user ID',
+`item_id` string comment 'item ID',
+`category_id` string comment 'category ID',
+`behavior_type` string  comment 'behavior type among pv, buy, cart, fav',
+`timestamp` int comment 'timestamp',
+`datetime` string comment 'date')
+parition ()
+row format delimited
+fields terminated by ','
+lines terminated by '\n'
+STORED AS ORC
+TBLPROPERTIES ("orc.compress"="SNAPPY");
 ```
 
 ## 3.数据分析可视化

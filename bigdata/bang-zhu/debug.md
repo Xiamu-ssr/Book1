@@ -107,6 +107,28 @@ hdfs fsck /path/to/file -files -blocks -locations
 
 </details>
 
+<details>
+
+<summary>NameNode启动卡在Retrying after 10 seconds. Reason: Execution of '/usr/hdp/current/hadoop-hdfs-namenode/bin/hdfs dfsadmin -fs hdfs://bgm:8020 -safemode get | grep 'Safe mode is OFF'' returned 1</summary>
+
+[https://cwiki.apache.org/confluence/display/HADOOP2/ConnectionRefused](https://cwiki.apache.org/confluence/display/HADOOP2/ConnectionRefused)
+
+更多时候是因为hdfs无法退出safe mode而导致服务无法进一步执行，可以选择手动关闭安全模式。
+
+```bash
+hdfs dfsadmin -fs hdfs://bgm:8020 -safemode leave
+```
+
+查看safe mode是否开启
+
+```bash
+/usr/hdp/current/hadoop-hdfs-namenode/bin/hdfs dfsadmin -fs hdfs://bgm:8020 -safemode get
+```
+
+还是建议排查为什么会一直处于safe mode，因为属于是hdfs保护机制。
+
+</details>
+
 ### MapReduce
 
 <details>
