@@ -82,7 +82,7 @@ insert into table user_behavior1 select * from temp_user_behavior;
 
 查看一共多少条数据。
 
-```
+```sql
 select count(*) from user_behavior1;
 +------------+
 |    _c0     |
@@ -198,6 +198,7 @@ TBLPROPERTIES ("orc.compress"="SNAPPY");
 
 ```sql
 -- 去掉完全重复的数据
+DISTINCT
 insert overwrite table user_behavior
 select user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`
 from user_behavior
