@@ -36,17 +36,33 @@
 
 `beeline -n hive -p`进入hql命令行
 
-创建用户行为表。
+创建一个临时表，并加载csv数据文件加载到其中。
 
 ```sql
-drop table if exists user_behavior;
+CREATE TEMPORARY TABLE temp_user_behavior (
+`user_id` string comment 'user ID',
+`item_id` string comment 'item ID',
+`category_id` string comment 'category ID',
+`behavior_type` string  comment 'behavior type among pv, buy, cart, fav',
+`timestamp` int comment 'timestamp')
+row format delimited
+fields terminated by ','
+lines terminated by '\n'
+STORED AS TEXTFILE;
+
+LOAD DATA LOCAL INPATH '/root/Hive/UserBehavior.csv' OVERWRITE INTO TABLE temp_user_behavior ;
+```
+
+创建用户行为表1。
+
+```sql
+drop table if exists user_behavior1;
 create table user_behavior (
 `user_id` string comment 'user ID',
 `item_id` string comment 'item ID',
 `category_id` string comment 'category ID',
 `behavior_type` string  comment 'behavior type among pv, buy, cart, fav',
-`timestamp` int comment 'timestamp',
-`datetime` string comment 'date')
+`timestamp` int comment 'timestamp')
 row format delimited
 fields terminated by ','
 lines terminated by '\n'
@@ -57,24 +73,6 @@ TBLPROPERTIES ("orc.compress"="SNAPPY");
 {% hint style="info" %}
 这里使用以列优先的存储格式，定义压缩算法为snappy，对于像电商分析这样主要查询列的项目，会提高很多效率。
 {% endhint %}
-
-创建一个临时表，并加载csv数据文件加载到其中。
-
-```sql
-CREATE TEMPORARY TABLE temp_user_behavior (
-`user_id` string comment 'user ID',
-`item_id` string comment 'item ID',
-`category_id` string comment 'category ID',
-`behavior_type` string  comment 'behavior type among pv, buy, cart, fav',
-`timestamp` int comment 'timestamp',
-`datetime` string comment 'date')
-row format delimited
-fields terminated by ','
-lines terminated by '\n'
-STORED AS TEXTFILE;
-
-LOAD DATA LOCAL INPATH '/root/Hive/UserBehavior.csv' OVERWRITE INTO TABLE temp_user_behavior ;
-```
 
 将数据导入到ORC表中，hive会自动执行 行列转化
 
@@ -93,46 +91,47 @@ select count(*) from user_behavior;
 +------------+
 ```
 
-{% hint style="info" %}
-在Hadoop MapReduce中，`GROUP BY` 操作通常是在Reduce端完成的，因为需要将具有相同key的记录汇总到一起进行聚合计算。由于Reduce端需要处理大量的数据，因此在处理大数据集时，可能会导致Reduce阶段的运行时间过长，影响整个作业的性能。
-
-为了提高MapReduce作业的性能，可以采用以下方法：
-
-1. 增加Reduce任务的数量：通过增加Reduce任务的数量，可以将数据均匀地分配到多个Reduce任务中，从而减少每个Reduce任务需要处理的数据量，提高作业的运行效率。
-
-```sql
-set mapreduce.job.reduces = 10;
-```
-
-2. 使用Combiner函数：Combiner函数可以在Map端进行数据聚合，从而减少Reduce端需要处理的数据量。Combiner函数可以执行一些简单的聚合操作，如求和、计数、求最大值或最小值等。
-
-```sql
-set hive.map.aggr=true;
-INSERT OVERWRITE TABLE user_behavior
-SELECT user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`, COUNT(*)
-FROM user_behavior
-GROUP BY user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`
-;
-```
-{% endhint %}
-
 ### 2.2 数据清洗
 
-```sql
--- 去掉完全重复的数据
-insert overwrite table user_behavior
-select user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`
-from user_behavior
-group by user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`;
+<pre class="language-sql"><code class="lang-sql">-- 确定2017-11-25 和 2017-12-03的时间戳
+SELECT unix_timestamp('2017-11-25', 'yyyy-MM-dd');
++-------------+
+|     _c0     |
++-------------+
+| 1511568000  |
++-------------+
+SELECT unix_timestamp('2017-12-03 23:59:59');
++-------------+
+|     _c0     |
++-------------+
+| 1512345599  |
++-------------+
 
--- 查看目前多少条
-select count(*) from user_behavior;
-+------------+
-|    _c0     |
-+------------+
-| 100150758  |
-+------------+
-```
+select date(datetime) as day, COUNT(*) from user_behavior group by date(datetime) order by day;
+
+<strong>-- 删除不在2017-11-25 到 2017-12-03日期的数据
+</strong>insert overwrite table user_behavior
+select user_id, item_id, category_id, behavior_type, `timestamp`
+from user_behavior
+where datetime between 1511568000 and 1512345599;
+
+-- 再次查看时间是否有异常值
+select date(datetime) as day, COUNT(*) from user_behavior group by date(datetime) order by day;
+
++-------------+-----------+
+|     _c0     |    day    |
++-------------+-----------+
+| 2017-11-28  | 9884185   |
+| 2017-11-27  | 10013455  |
+| 2017-11-29  | 10319060  |
+| 2017-11-25  | 10511597  |
+| 2017-11-30  | 10541695  |
+| 2017-11-26  | 10571039  |
+| 2017-12-01  | 11171505  |
+| 2017-12-03  | 11961006  |
+| 2017-12-02  | 13940942  |
++-------------+-----------+
+</code></pre>
 
 ```sql
 --数据清洗，时间戳格式化成 datetime
@@ -156,34 +155,6 @@ select * from user_behavior limit 10;
 | 1                      | 2087357                | 2131531                    | pv                           | 1512004568               | 2017-11-30 01:16:08     |
 | 1                      | 2104483                | 4756105                    | pv                           | 1512194830               | 2017-12-02 06:07:10     |
 +------------------------+------------------------+----------------------------+------------------------------+--------------------------+-------------------------
-```
-
-```sql
--- 查看时间是否有异常值
-select date(datetime) as day, COUNT(*) from user_behavior group by date(datetime) order by day;
-
--- 会发现大量不在2017-11-25 到 2017-12-03日期的数据，接下来删除它们
-insert overwrite table user_behavior
-select user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`
-from user_behavior
-where cast(datetime as date) between '2017-11-25' and '2017-12-03';
-
--- 再次查看时间是否有异常值
-select date(datetime) as day, COUNT(*) from user_behavior group by date(datetime) order by day;
-
-+-------------+-----------+
-|     _c0     |    day    |
-+-------------+-----------+
-| 2017-11-28  | 9884185   |
-| 2017-11-27  | 10013455  |
-| 2017-11-29  | 10319060  |
-| 2017-11-25  | 10511597  |
-| 2017-11-30  | 10541695  |
-| 2017-11-26  | 10571039  |
-| 2017-12-01  | 11171505  |
-| 2017-12-03  | 11961006  |
-| 2017-12-02  | 13940942  |
-+-------------+-----------+
 ```
 
 {% hint style="info" %}
@@ -223,6 +194,45 @@ lines terminated by '\n'
 STORED AS ORC
 TBLPROPERTIES ("orc.compress"="SNAPPY");
 ```
+
+```sql
+-- 去掉完全重复的数据
+insert overwrite table user_behavior
+select user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`
+from user_behavior
+group by user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`;
+
+-- 查看目前多少条
+select count(*) from user_behavior;
++------------+
+|    _c0     |
++------------+
+| 100150758  |
++------------+
+```
+
+{% hint style="info" %}
+在Hadoop MapReduce中，`GROUP BY` 操作通常是在Reduce端完成的，因为需要将具有相同key的记录汇总到一起进行聚合计算。由于Reduce端需要处理大量的数据，因此在处理大数据集时，可能会导致Reduce阶段的运行时间过长，影响整个作业的性能。
+
+为了提高MapReduce作业的性能，可以采用以下方法：
+
+1. 增加Reduce任务的数量：通过增加Reduce任务的数量，可以将数据均匀地分配到多个Reduce任务中，从而减少每个Reduce任务需要处理的数据量，提高作业的运行效率。
+
+```sql
+set mapreduce.job.reduces = 10;
+```
+
+2. 使用Combiner函数：Combiner函数可以在Map端进行数据聚合，从而减少Reduce端需要处理的数据量。Combiner函数可以执行一些简单的聚合操作，如求和、计数、求最大值或最小值等。
+
+```sql
+set hive.map.aggr=true;
+INSERT OVERWRITE TABLE user_behavior
+SELECT user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`, COUNT(*)
+FROM user_behavior
+GROUP BY user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`
+;
+```
+{% endhint %}
 
 ## 3.数据分析可视化
 
