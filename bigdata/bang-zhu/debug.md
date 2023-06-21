@@ -57,6 +57,21 @@ sudo sysctl -p
 
 </details>
 
+<details>
+
+<summary>hdfs dfs -du -s -h /*为什么提示No such file or directory</summary>
+
+因为/\*会被会被本地shell解释为通配符，表示本地文件系统根目录下的所有文件和目录。
+
+需要使用反斜杠`\`对`/*`进行转义，以防止本地shell对其进行解释
+
+```sql
+hdfs dfs -du -s -h /\*
+hdfs dfs -ls /\*
+```
+
+</details>
+
 ### HDFS
 
 <details>

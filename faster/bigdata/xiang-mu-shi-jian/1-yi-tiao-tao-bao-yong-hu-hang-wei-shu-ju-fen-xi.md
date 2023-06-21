@@ -57,7 +57,7 @@ LOAD DATA LOCAL INPATH '/root/Hive/UserBehavior.csv' OVERWRITE INTO TABLE temp_u
 
 ```sql
 drop table if exists user_behavior1;
-create table user_behavior (
+create table user_behavior1 (
 `user_id` string comment 'user ID',
 `item_id` string comment 'item ID',
 `category_id` string comment 'category ID',
@@ -77,13 +77,13 @@ TBLPROPERTIES ("orc.compress"="SNAPPY");
 将数据导入到ORC表中，hive会自动执行 行列转化
 
 ```sql
-insert into table user_behavior select * from temp_user_behavior;
+insert into table user_behavior1 select * from temp_user_behavior;
 ```
 
 查看一共多少条数据。
 
 ```
-select count(*) from user_behavior;
+select count(*) from user_behavior1;
 +------------+
 |    _c0     |
 +------------+
@@ -107,7 +107,8 @@ SELECT unix_timestamp('2017-12-03 23:59:59');
 | 1512345599  |
 +-------------+
 
-select date(datetime) as day, COUNT(*) from user_behavior group by date(datetime) order by day;
+-- 查看时间-数据分布情况，是否有异常值
+select date(datetime) as day, COUNT(*) from user_behavior1 group by date(datetime) order by day;
 
 <strong>-- 删除不在2017-11-25 到 2017-12-03日期的数据
 </strong>insert overwrite table user_behavior
@@ -116,7 +117,7 @@ from user_behavior
 where datetime between 1511568000 and 1512345599;
 
 -- 再次查看时间是否有异常值
-select date(datetime) as day, COUNT(*) from user_behavior group by date(datetime) order by day;
+select date(datetime) as day, COUNT(*) from user_behavior1 group by date(datetime) order by day;
 
 +-------------+-----------+
 |     _c0     |    day    |
