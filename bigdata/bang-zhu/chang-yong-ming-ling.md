@@ -20,6 +20,12 @@ yarn node -list
 hdfs dfsadmin -report
 #检查某个文件或文件夹在hdfs上是否健康
 hadoop fsck path
+#列出HDFS中有损坏副本的块
+hdfs fsck / -list-corruptfileblocks
+#查询文件详细信息，包括哪些数据节点上有这个文件的块，以及哪些块是损坏的等等
+hdfs fsck /path/to/corrupt/file -locations -blocks -files
+#删除所有已经missing的块
+hdfs fsck -delete
 ```
 
 ```bash
