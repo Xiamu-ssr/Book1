@@ -190,8 +190,7 @@ DISTRIBUTE BY `date`, `behavior_type`这个是用来指定数据分发的策略�
 
 ### 3.1 用户流量及购物情况
 
-```sql
---总访问量PV，总用户量UV
+<pre class="language-sql"><code class="lang-sql">--总访问量PV，总用户量UV
 create table res_pv_uv
 comment "page views and unique visitor"
 row format delimited
@@ -199,72 +198,48 @@ fields terminated by ','
 lines terminated by '\n'
 STORED AS TEXTFILE
 as
-select sum(case when behavior_type = 'pv' then 1 else 0 end) as pv,
-       count(distinct user_id) as uv
-from user_behavior1;
-
+select pv, uv
+from (
+    select count(*) as pv from user_behavior1 where behavior_type='pv'
+) t1
+join(
+<strong>    select count(distinct user_id) as uv from user_behavior1
+</strong><strong>) t2
+</strong><strong>on 1=1;
+</strong>
 select * from res_pv_uv;
 +-----------+---------+
 |    pv     |   uv    |
 +-----------+---------+
 | 88596886  | 987984  |
 +-----------+---------+
-```
+</code></pre>
 
 {% hint style="info" %}
-Q : CASE WHEN除了上述的CASE WHEN THEN ELSE，还有什么用法
-
-A :
-
-1. 多重条件判断
+思考以下select语句的优劣和正确性，和上面的语句谁能更好的发挥分区表的优势
 
 {% code lineNumbers="true" %}
 ```sql
-SELECT
-  CASE
-    WHEN score >= 90 THEN 'A'
-    WHEN score >= 80 THEN 'B'
-    ELSE 'C'
-  END AS grade
-FROM students;
+select sum(pv) as pv, count(distinct uv) as uv from (
+    select count(*) as pv, distinct user_id as uv from user_behavior1 where behavior_type='pv'
+    union all
+    select 0 as pv, distinct user_id as uv from user_behavior1 where behavior_type='buy'
+    union all
+    select 0 as pv, distinct user_id as uv from user_behavior1 where behavior_type='cart'
+    union all
+    select 0 as pv, distinct user_id as uv from user_behavior1 where behavior_type='fav'
+) t;
+
 ```
 {% endcode %}
-
-2. 嵌套使用
 
 {% code lineNumbers="true" %}
 ```sql
-SELECT
-  CASE
-    WHEN score >= 90 THEN 'A'
-    ELSE
-      CASE
-        WHEN score >= 80 THEN 'B'
-        ELSE 'C'
-      END
-  END AS grade
-FROM students;
+select sum(case when behavior_type = 'pv' then 1 else 0 end) as pv,
+       count(distinct user_id) as uv
+from user_behavior1;
 ```
 {% endcode %}
-
-
-
-3. 结合WHERE子句使用
-
-{% code lineNumbers="true" %}
-```sql
-SELECT *
-FROM students
-WHERE
-  CASE
-    WHEN gender = 'male' THEN score >= 80
-    WHEN gender = 'female' THEN score >= 90
-    ELSE score >= 70
-  END;
-```
-{% endcode %}
-
-其中男生成绩大于等于80分，女生成绩大于等于90分，其他学生成绩大于等于70分
 {% endhint %}
 
 ```sql
@@ -276,10 +251,27 @@ fields terminated by ','
 lines terminated by '\n'
 STORED AS TEXTFILE
 as
-select cast(datetime as date) as day,
-       sum(case when behavior_type = 'pv' then 1 else 0 end) as pv,
-       count(distinct user_id) as uv
-from user_behavior
-group by cast(datetime as date)
-order by day;
+select t1.`date` as `date`, pv, uv
+from(
+    select `date`, count(*) as pv from user_behavior1 group by `date` order by `date`
+) t1
+join(
+    select `date`, count(distinct user_id) as uv from user_behavior1 group by `date` order by `date`
+) t2
+on t1.`date`=t2.`date`;
+
+select * from res_pv_uv_per_day;
++-------------------------+-----------------------+-----------------------+
+| res_pv_uv_per_day.date  | res_pv_uv_per_day.pv  | res_pv_uv_per_day.uv  |
++-------------------------+-----------------------+-----------------------+
+| 2017-12-03              | 11961006              | 917531                |
+| 2017-11-29              | 10319060              | 719356                |
+| 2017-11-27              | 10013455              | 709207                |
+| 2017-11-30              | 10541695              | 730809                |
+| 2017-11-26              | 10571039              | 713522                |
+| 2017-12-01              | 11171505              | 753166                |
+| 2017-11-28              | 9884185               | 708339                |
+| 2017-12-02              | 13940942              | 941709                |
+| 2017-11-25              | 10511597              | 705571                |
++-------------------------+-----------------------+-----------------------+
 ```
