@@ -11,8 +11,20 @@
 | i5-12450H | 2 core \* 1 thread | 2 core \* 1 thread |
 | Memory    | 12GB               | 12GB               |
 | Disk      | 150GB              | 100GB              |
+| 额外软件包     | openJDK8、Mysql5.7  | openJDK8           |
 
-集群安装的hadoop生态组件如下q
+集群安装的hadoop生态组件如下
+
+|                |           |
+| -------------- | --------- |
+| HDFS           | 3.1.1.3.1 |
+| YARN           | 3.1.1     |
+| MapReduce2     | 3.1.1     |
+| Tez            | 0.9.1     |
+| Hive           | 3.1.0     |
+| HBase          | 2.0.2     |
+| ZooKeeper      | 3.4.6     |
+| Ambari Metrics | 0.1.0     |
 
 ## 2. 数据集下载
 
