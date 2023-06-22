@@ -73,8 +73,9 @@ create table user_behavior1 (
 `user_id` string comment 'user ID',
 `item_id` string comment 'item ID',
 `category_id` string comment 'category ID',
-`behavior_type` string  comment 'behavior type among pv, buy, cart, fav',
-`timestamp` int comment 'timestamp')
+`timestamp` timestamp comment 'timestamp'
+)
+PARTITIONED BY (`date` date, `behavior_type` string comment 'behavior type among pv, buy, cart, fav')
 row format delimited
 fields terminated by ','
 lines terminated by '\n'
@@ -83,13 +84,22 @@ TBLPROPERTIES ("orc.compress"="SNAPPY");
 ```
 
 {% hint style="info" %}
-这里使用以列优先的存储格式，定义压缩算法为snappy，对于像电商分析这样主要查询列的项目，会提高很多效率。
+这里使用以列优先的存储格式，定义压缩算法为snappy，对于像电商分析这样主要查询列的项目，会提高很多效率。同时对日期date进行分区，以及用户行为behavior\_type进行分区是一种合理的分区方法，在后续分析过程中将大大提高查询速度。
 {% endhint %}
 
 将数据导入到ORC表中，hive会自动执行 行列转化
 
 ```sql
-insert into table user_behavior1 select * from temp_user_behavior;
+INSERT OVERWRITE TABLE user_behavior1 PARTITION (`date`, behavior_type)
+SELECT
+  user_id,
+  item_id,
+  category_id,
+  from_unixtime(`timestamp`) AS `timestamp`,
+  date(from_unixtime(`timestamp`)) AS `date`,
+  behavior_type
+FROM
+  temp_user_behavior;
 ```
 
 查看一共多少条数据。
@@ -120,13 +130,13 @@ SELECT unix_timestamp('2017-12-03 23:59:59');
 +-------------+
 
 -- 查看时间-数据分布情况，是否有异常值
-select date(datetime) as day, COUNT(*) from user_behavior1 group by date(datetime) order by day;
+select date(`timestamp`) as day, COUNT(*) from user_behavior1 group by date(`timestamp`) order by day;
 
 <strong>-- 删除不在2017-11-25 到 2017-12-03日期的数据
-</strong>insert overwrite table user_behavior
+</strong>insert overwrite table user_behavior1
 select user_id, item_id, category_id, behavior_type, `timestamp`
-from user_behavior
-where datetime between 1511568000 and 1512345599;
+from user_behavior1
+where `timestamp` between 1511568000 and 1512345599;
 
 -- 再次查看时间是否有异常值
 select date(datetime) as day, COUNT(*) from user_behavior1 group by date(datetime) order by day;
