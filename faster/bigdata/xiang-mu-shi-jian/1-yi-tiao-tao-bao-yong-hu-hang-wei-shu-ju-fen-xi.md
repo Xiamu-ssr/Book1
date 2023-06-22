@@ -125,98 +125,51 @@ select count(*) from user_behavior1;
 </strong>select `date`, COUNT(*) from user_behavior1 group by `date` order by `date`;
 
 <strong>-- 删除不在2017-11-25 到 2017-12-03日期的数据
-</strong>insert overwrite table user_behavior1
-select user_id, item_id, category_id, behavior_type, `timestamp`
-from user_behavior1
-where `timestamp` between 1511568000 and 1512345599;
+</strong>alter table user_behavior1 
+drop IF EXISTS partition (`date`&#x3C;'2017-11-25'), partition (`date`>'2017-12-03');
 
 -- 再次查看时间是否有异常值
-select date(datetime) as day, COUNT(*) from user_behavior1 group by date(datetime) order by day;
+select `date`, COUNT(*) from user_behavior1 group by `date` order by `date`;
 
 +-------------+-----------+
-|     _c0     |    day    |
+|    date     |    _c1    |
 +-------------+-----------+
-| 2017-11-28  | 9884185   |
-| 2017-11-27  | 10013455  |
-| 2017-11-29  | 10319060  |
-| 2017-11-25  | 10511597  |
-| 2017-11-30  | 10541695  |
-| 2017-11-26  | 10571039  |
-| 2017-12-01  | 11171505  |
-| 2017-12-03  | 11961006  |
-| 2017-12-02  | 13940942  |
+| 2017-11-25  | 10511605  |
+| 2017-11-26  | 10571046  |
+| 2017-11-27  | 10013457  |
+| 2017-11-28  | 9884189   |
+| 2017-11-29  | 10319066  |
+| 2017-11-30  | 10541698  |
+| 2017-12-01  | 11171515  |
+| 2017-12-02  | 13940949  |
+| 2017-12-03  | 11961008  |
 +-------------+-----------+
 </code></pre>
 
 ```sql
---数据清洗，时间戳格式化成 datetime
-insert overwrite table user_behavior
-select user_id, item_id, category_id, behavior_type, `timestamp`, from_unixtime(`timestamp`, 'yyyy-MM-dd HH:mm:ss')
-from user_behavior;
-
--- check一下
-select * from user_behavior limit 10;
-+------------------------+------------------------+----------------------------+------------------------------+--------------------------+-------------------------+
-| user_behavior.user_id  | user_behavior.item_id  | user_behavior.category_id  | user_behavior.behavior_type  | user_behavior.timestamp  | user_behavior.datetime  |
-+------------------------+------------------------+----------------------------+------------------------------+--------------------------+-------------------------+
-| 1                      | 1305059                | 2520771                    | pv                           | 1511911930               | 2017-11-28 23:32:10     |
-| 1                      | 1323189                | 3524510                    | pv                           | 1512149435               | 2017-12-01 17:30:35     |
-| 1                      | 1338525                | 149192                     | pv                           | 1511773214               | 2017-11-27 09:00:14     |
-| 1                      | 1340922                | 4690421                    | pv                           | 1512041260               | 2017-11-30 11:27:40     |
-| 1                      | 1531036                | 2920476                    | pv                           | 1511733732               | 2017-11-26 22:02:12     |
-| 1                      | 2028434                | 4801426                    | pv                           | 1512224248               | 2017-12-02 14:17:28     |
-| 1                      | 2041056                | 4801426                    | pv                           | 1512187543               | 2017-12-02 04:05:43     |
-| 1                      | 2087357                | 2131531                    | pv                           | 1511975142               | 2017-11-29 17:05:42     |
-| 1                      | 2087357                | 2131531                    | pv                           | 1512004568               | 2017-11-30 01:16:08     |
-| 1                      | 2104483                | 4756105                    | pv                           | 1512194830               | 2017-12-02 06:07:10     |
-+------------------------+------------------------+----------------------------+------------------------------+--------------------------+-------------------------
-```
-
-{% hint style="info" %}
-Q:为什么不能是select date(datetime) as day from user\_behavior group by day  order by day;
-
-A:在 SQL 查询中，`SELECT` 子句中定义的别名或计算字段并不能直接在 `GROUP BY` 子句中使用，因为 `GROUP BY` 子句是在 `SELECT` 子句之后执行的。也就是说，在查询执行过程中，`GROUP BY` 子句并不知道 `SELECT` 子句中定义的别名或计算字段，因此需要在 `GROUP BY` 子句中使用实际的列名或表达式。
-{% endhint %}
-
-```sql
 --查看 behavior_type 是否有异常值
-select behavior_type, COUNT(*) from user_behavior group by behavior_type;
+select behavior_type, COUNT(*) from user_behavior1 group by behavior_type;
 
 +----------------+-----------+
 | behavior_type  |    _c1    |
 +----------------+-----------+
 | cart           | 5466118   |
-| pv             | 88596886  |
-| buy            | 1998944   |
+| pv             | 88596903  |
+| buy            | 1998976   |
 | fav            | 2852536   |
 +----------------+-----------+
 ```
 
-### 2.3 表分区
-
-```sql
-create table user_behavior (
-`user_id` string comment 'user ID',
-`item_id` string comment 'item ID',
-`category_id` string comment 'category ID',
-`behavior_type` string  comment 'behavior type among pv, buy, cart, fav',
-`timestamp` int comment 'timestamp',
-`datetime` string comment 'date')
-parition ()
-row format delimited
-fields terminated by ','
-lines terminated by '\n'
-STORED AS ORC
-TBLPROPERTIES ("orc.compress"="SNAPPY");
-```
-
 ```sql
 -- 去掉完全重复的数据
-DISTINCT
-insert overwrite table user_behavior
-select user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`
-from user_behavior
-group by user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`;
+set hive.exec.dynamic.partition=true;
+set hive.exec.dynamic.partition.mode=nonstrict;
+
+INSERT OVERWRITE TABLE user_behavior1
+PARTITION (`date`, `behavior_type`)
+SELECT DISTINCT `user_id`, `item_id`, `category_id`, `timestamp`, `date`, `behavior_type`
+FROM user_behavior1
+DISTRIBUTE BY `date`, `behavior_type`;
 
 -- 查看目前多少条
 select count(*) from user_behavior;
@@ -228,26 +181,9 @@ select count(*) from user_behavior;
 ```
 
 {% hint style="info" %}
-在Hadoop MapReduce中，`GROUP BY` 操作通常是在Reduce端完成的，因为需要将具有相同key的记录汇总到一起进行聚合计算。由于Reduce端需要处理大量的数据，因此在处理大数据集时，可能会导致Reduce阶段的运行时间过长，影响整个作业的性能。
+DISTRIBUTE BY `date`, `behavior_type`这个是用来指定数据分发的策略，它会根据分区键的值将数据分发到不同的reduce任务中，每个reduce任务只处理一个分区的数据。这样就可以在每个分区内部去重，而不需要到全局数据去比较，所以效率高很多。在hdfs上，表按照 `date`, `behavior_type`分区后，分区的文件夹数量= `date`分区数\* `behavior_type`分区数。当DISTRIBUTE BY `date`, `behavior_type`;时，可以理解为是在`date`分区数\* `behavior_type`分区数 这么多个局部中比较去重。
 
-为了提高MapReduce作业的性能，可以采用以下方法：
-
-1. 增加Reduce任务的数量：通过增加Reduce任务的数量，可以将数据均匀地分配到多个Reduce任务中，从而减少每个Reduce任务需要处理的数据量，提高作业的运行效率。
-
-```sql
-set mapreduce.job.reduces = 10;
-```
-
-2. 使用Combiner函数：Combiner函数可以在Map端进行数据聚合，从而减少Reduce端需要处理的数据量。Combiner函数可以执行一些简单的聚合操作，如求和、计数、求最大值或最小值等。
-
-```sql
-set hive.map.aggr=true;
-INSERT OVERWRITE TABLE user_behavior
-SELECT user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`, COUNT(*)
-FROM user_behavior
-GROUP BY user_id, item_id, category_id, behavior_type, `timestamp`, `datetime`
-;
-```
+同时如果DISTRIBUTE BY `date`, `behavior_type`粒度划分的太细，导致启动的容器太多，计算时间占比较低，可以选择只DISTRIBUTE BY一个。
 {% endhint %}
 
 ## 3.数据分析可视化
