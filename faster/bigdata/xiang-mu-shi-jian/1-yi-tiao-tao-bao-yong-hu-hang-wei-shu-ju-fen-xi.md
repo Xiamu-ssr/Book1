@@ -26,6 +26,12 @@
 | ZooKeeper      | 3.4.6     |
 | Ambari Metrics | 0.1.0     |
 
+{% hint style="info" %}
+**服务器调优**
+
+关于YARN和总内存、总vcore和单个容器的内存、vocre分配需要自行选择合适的参数，尽量不浪费资源。
+{% endhint %}
+
 ## 2. 数据集下载
 
 {% embed url="https://pan.baidu.com/s/1CPD5jpmvOUvg1LETAVETGw" %}
@@ -115,22 +121,8 @@ select count(*) from user_behavior1;
 
 ### 2.2 数据清洗
 
-<pre class="language-sql"><code class="lang-sql">-- 确定2017-11-25 和 2017-12-03的时间戳
-SELECT unix_timestamp('2017-11-25', 'yyyy-MM-dd');
-+-------------+
-|     _c0     |
-+-------------+
-| 1511568000  |
-+-------------+
-SELECT unix_timestamp('2017-12-03 23:59:59');
-+-------------+
-|     _c0     |
-+-------------+
-| 1512345599  |
-+-------------+
-
--- 查看时间-数据分布情况，是否有异常值
-select date(`timestamp`) as day, COUNT(*) from user_behavior1 group by date(`timestamp`) order by day;
+<pre class="language-sql"><code class="lang-sql"><strong>-- 查看时间-数据分布情况，是否有异常值
+</strong>select `date`, COUNT(*) from user_behavior1 group by `date` order by `date`;
 
 <strong>-- 删除不在2017-11-25 到 2017-12-03日期的数据
 </strong>insert overwrite table user_behavior1
