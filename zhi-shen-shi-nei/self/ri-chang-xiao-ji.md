@@ -126,7 +126,7 @@ hive的问题解决了，又遇上了Tez的bug，难以解决，有点恶心，�
 
 &#x20;边做边优化。在bgs3安装了dataease，需要的资源真多啊。
 
-![](<../../.gitbook/assets/image (6).png>)
+![](<../../.gitbook/assets/image (5).png>)
 
 
 

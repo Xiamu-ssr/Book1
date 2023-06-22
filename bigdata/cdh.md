@@ -531,7 +531,7 @@ Jdk安装
 {% endtab %}
 
 {% tab title="5" %}
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 用户为root，密码为容器root用户的登录密码。
 {% endtab %}
