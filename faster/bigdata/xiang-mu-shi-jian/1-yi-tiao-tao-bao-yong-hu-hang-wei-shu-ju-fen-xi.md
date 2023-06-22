@@ -172,12 +172,12 @@ FROM user_behavior1
 DISTRIBUTE BY `date`, `behavior_type`;
 
 -- 查看目前多少条
-select count(*) from user_behavior;
-+------------+
-|    _c0     |
-+------------+
-| 100150758  |
-+------------+
+select count(*) from user_behavior1;
++-----------+
+|    _c0    |
++-----------+
+| 98914484  |
++-----------+
 ```
 
 {% hint style="info" %}
@@ -192,10 +192,18 @@ DISTRIBUTE BY `date`, `behavior_type`这个是用来指定数据分发的策略�
 
 ```sql
 --总访问量PV，总用户量UV
+create table res_pv_uv
+comment "page views and unique visitor"
+row format delimited
+fields terminated by ','
+lines terminated by '\n'
+STORED AS TEXTFILE
+as
 select sum(case when behavior_type = 'pv' then 1 else 0 end) as pv,
        count(distinct user_id) as uv
-from user_behavior;
+from user_behavior1;
 
+select * from res_pv_uv;
 +-----------+---------+
 |    pv     |   uv    |
 +-----------+---------+
@@ -259,3 +267,19 @@ WHERE
 其中男生成绩大于等于80分，女生成绩大于等于90分，其他学生成绩大于等于70分
 {% endhint %}
 
+```sql
+--日均访问量，日均用户量
+create table res_pv_uv_per_day
+comment "page views and unique visitor each day"
+row format delimited
+fields terminated by ','
+lines terminated by '\n'
+STORED AS TEXTFILE
+as
+select cast(datetime as date) as day,
+       sum(case when behavior_type = 'pv' then 1 else 0 end) as pv,
+       count(distinct user_id) as uv
+from user_behavior
+group by cast(datetime as date)
+order by day;
+```
