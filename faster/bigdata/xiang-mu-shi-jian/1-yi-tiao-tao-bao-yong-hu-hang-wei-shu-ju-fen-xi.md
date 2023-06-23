@@ -547,7 +547,7 @@ group by user_id;
 ```
 
 ```sql
--- R-F按照10个等级划分，然后计算每个用户的价值score
+-- R-F按照5-15个等级划分，因为本人认为value-F > value-R，然后计算每个用户的价值score
 create table res_user_score
 comment "page views and unique visitor each day"
 row format delimited
@@ -558,9 +558,63 @@ as
 select user_id, R, R_rank, R_score, F, F_rank, F_score,  R_score + F_score AS score
 from(
 select *,
-       ntile(10) over(order by R_rank desc) as R_score
-       ntile(10) over(order by F_rank desc) as F_score
+       ntile(5) over(order by R_rank desc) as R_score,
+       ntile(15) over(order by F_rank desc) as F_score
 from temp_cte
-)
+) t
 order by score desc;
+
++-------------------------+-------------------+------------------------+-------------------------+-------------------+------------------------+-------------------------+-----------------------+
+| res_user_score.user_id  | res_user_score.r  | res_user_score.r_rank  | res_user_score.r_score  | res_user_score.f  | res_user_score.f_rank  | res_user_score.f_score  | res_user_score.score  |
++-------------------------+-------------------+------------------------+-------------------------+-------------------+------------------------+-------------------------+-----------------------+
+| 180128                  | 1                 | 1                      | 5                       | 7                 | 81                     | 15                      | 20                    |
+| 180131                  | 1                 | 1                      | 5                       | 7                 | 81                     | 15                      | 20                    |
+| 935417                  | 1                 | 1                      | 5                       | 7                 | 81                     | 15                      | 20                    |
+| 925900                  | 1                 | 1                      | 5                       | 7                 | 81                     | 15                      | 20                    |
+| 590239                  | 1                 | 1                      | 5                       | 9                 | 79                     | 15                      | 20                    |
+| 307773                  | 1                 | 1                      | 5                       | 7                 | 81                     | 15                      | 20                    |
+| 856339                  | 1                 | 1                      | 5                       | 14                | 74                     | 15                      | 20                    |
+| 178301                  | 1                 | 1                      | 5                       | 9                 | 79                     | 15                      | 20                    |
+| 804543                  | 1                 | 1                      | 5                       | 7                 | 81                     | 15                      | 20                    |
+| 327112                  | 1                 | 1                      | 5                       | 7                 | 81                     | 15                      | 20                    |
++-------------------------+-------------------+------------------------+-------------------------+-------------------+------------------------+-------------------------+-----------------------+
+```
+
+```sql
+-- 计算每层价值用户有多少人
+create table res_user_score_count
+comment "page views and unique visitor each day"
+row format delimited
+fields terminated by ','
+lines terminated by '\n'
+STORED AS TEXTFILE
+as
+select score, count(*) as count 
+from res_user_score 
+group by score 
+order by score desc;
+
++-----------------------------+-----------------------------+
+| res_user_score_count.score  | res_user_score_count.count  |
++-----------------------------+-----------------------------+
+| 20                          | 22104                       |
+| 19                          | 22648                       |
+| 18                          | 33199                       |
+| 17                          | 31014                       |
+| 16                          | 41697                       |
+| 15                          | 32152                       |
+| 14                          | 71802                       |
+| 13                          | 34853                       |
+| 12                          | 47973                       |
+| 11                          | 20117                       |
+| 10                          | 25696                       |
+| 9                           | 36893                       |
+| 8                           | 39444                       |
+| 7                           | 63359                       |
+| 6                           | 30289                       |
+| 5                           | 29306                       |
+| 4                           | 41855                       |
+| 3                           | 36437                       |
+| 2                           | 9532                        |
++-----------------------------+-----------------------------+
 ```
