@@ -360,20 +360,27 @@ fields terminated by ','
 lines terminated by '\n'
 STORED AS TEXTFILE
 as
-select t.weekday as weekday,
-       collect_list(map(t.behavior_type, 
-              (case when weekday=6 then ceil(t.count/2)
-              when weekday=7 then ceil(t.count/2)
-              else t.count end)
-       )) as tc
-from (
-select pmod(datediff(`date`, '2017-11-25')+5, 7)+1 as weekday,
-       behavior_type,
-       COUNT(*) as count
-from user_behavior1
-group by behavior_type , pmod(datediff(`date`, '2017-11-25')+5, 7)+1
-) t
-group by weekday
+select t1.weekday as weekday ,
+       collect_list(map(t1.behavior_type ,
+       (case when weekday=6 then ceil(t1.count/2)
+              when weekday=7 then ceil(t1.count/2)
+              else t1.count end)
+       )) as ct
+from(
+       select pmod(datediff(t.d, '2017-11-25')+5, 7)+1 as weekday,
+              t.behavior_type as behavior_type ,
+              sum(t.count) as count
+       from (
+              select `date` as d,
+                     behavior_type,
+                     COUNT(*) as count
+              from user_behavior1
+              group by behavior_type , `date`
+       ) t
+       group by pmod(datediff(t.d, '2017-11-25')+5, 7)+1, t.behavior_type
+       order by weekday
+) t1
+group by t1.weekday
 order by weekday;
 
 +----------+----------------------------------------------------+
@@ -404,25 +411,45 @@ group by pmod(datediff(`date`, '2017-11-25')+5, 7)+1
 order by weekday;
 ```
 {% endcode %}
+
+{% code lineNumbers="true" %}
+```sql
+select t.weekday as weekday,
+       collect_list(map(t.behavior_type, 
+              (case when weekday=6 then ceil(t.count/2)
+              when weekday=7 then ceil(t.count/2)
+              else t.count end)
+       )) as tc
+from (
+select pmod(datediff(`date`, '2017-11-25')+5, 7)+1 as weekday,
+       behavior_type,
+       COUNT(*) as count
+from user_behavior1
+group by behavior_type , pmod(datediff(`date`, '2017-11-25')+5, 7)+1
+) t
+group by weekday
+order by weekday;
+```
+{% endcode %}
 {% endhint %}
 
 ### 3.2 用户行为转换率
 
 ```sql
 --点击/(加购物车+收藏)/购买 , 各环节转化率
-select a.pv,
-       a.fav,
-       a.cart,
-       a.fav + a.cart as `fav+cart`,
-       a.buy,
-       round((a.fav + a.cart) / a.pv, 4) as pv2favcart,
-       round(a.buy / (a.fav + a.cart), 4) as favcart2buy,
-       round(a.buy / a.pv, 4) as pv2buy
+select (case when t.behavior_type='pv' then t.count else 0 end) as pv,
 from(
-select sum(pv) as pv,   --点击数
-       sum(fav) as fav,  --收藏数
-       sum(cart) as cart,  --加购物车数
-       sum(buy) as buy  --购买数
-from user_behavior1
-) as a;
+       select behavior_type,
+              COUNT(*) as count
+       from user_behavior1
+       group by behavior_type
+) t;
+
+select TRANSPOSE(MAP(t.behavior_type, t.count))
+from(
+       select behavior_type,
+              COUNT(*) as count
+       from user_behavior1
+       group by behavior_type
+) t;
 ```
