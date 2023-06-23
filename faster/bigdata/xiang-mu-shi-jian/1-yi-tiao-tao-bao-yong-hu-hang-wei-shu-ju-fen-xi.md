@@ -188,7 +188,7 @@ DISTRIBUTE BY `date`, `behavior_type`这个是用来指定数据分发的策略�
 
 ## 3.数据分析可视化
 
-### 3.1 用户流量及购物情况
+### 3.1 基于时间的用户行为分析
 
 <pre class="language-sql"><code class="lang-sql">--总访问量PV，总用户量UV
 create table res_pv_uv
@@ -274,4 +274,23 @@ select * from res_pv_uv_per_day;
 | 2017-12-02              | 13940942              | 941709                |
 | 2017-11-25              | 10511597              | 705571                |
 +-------------------------+-----------------------+-----------------------+
+```
+
+```sql
+-- 一天的活跃时段分布
+create table res_behavior_per_hour
+comment "page views and unique visitor each day"
+row format delimited
+fields terminated by ','
+lines terminated by '\n'
+STORED AS TEXTFILE
+as
+select hour(`timestamp`) as hour,
+       sum(case when behavior_type = 'pv' then 1 else 0 end) as pv,   --点击数
+       sum(case when behavior_type = 'fav' then 1 else 0 end) as fav,  --收藏数
+       sum(case when behavior_type = 'cart' then 1 else 0 end) as cart,  --加购物车数
+       sum(case when behavior_type = 'buy' then 1 else 0 end) as buy  --购买数
+from user_behavior1
+group by hour(`timestamp`)
+order by hour;
 ```

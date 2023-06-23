@@ -137,7 +137,7 @@ hdfs dfsadmin -fs hdfs://bgm:8020 -safemode leave
 查看safe mode是否开启
 
 ```bash
-/usr/hdp/current/hadoop-hdfs-namenode/bin/hdfs dfsadmin -fs hdfs://bgm:8020 -safemode get
+hdfs dfsadmin -fs hdfs://bgm:8020 -safemode get
 ```
 
 还是建议排查为什么会一直处于safe mode，因为属于是hdfs保护机制。
