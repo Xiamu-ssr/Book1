@@ -437,19 +437,130 @@ order by weekday;
 
 ```sql
 --点击/(加购物车+收藏)/购买 , 各环节转化率
-select (case when t.behavior_type='pv' then t.count else 0 end) as pv,
+create table res_conversion_rate
+comment "page views and unique visitor each day"
+row format delimited
+fields terminated by ','
+lines terminated by '\n'
+STORED AS TEXTFILE
+as
+select pv, fav, cart, fav_cart, buy,
+       round(fav_cart/pv, 4) as pv2favcart,
+       round(buy/fav_cart, 4) as favcart2buy,
+       round(buy/pv, 4) as pv2buy
 from(
-       select behavior_type,
-              COUNT(*) as count
-       from user_behavior1
-       group by behavior_type
-) t;
+       select cast(gm['pv'] as int) as pv,
+              cast(gm['fav'] as int) as fav,
+              cast(gm['cart'] as int) as cart,
+              cast(gm['fav']+gm['cart'] as int) as fav_cart,
+              cast(gm['buy'] as int) as buy
+       from(
+              select collect(cast(behavior_type as string), cast(count as string)) as gm
+              from(
+                     select behavior_type,
+                            COUNT(*) as count
+                     from user_behavior1
+                     group by behavior_type
+              )t1
+       ) t2
+) t3;
 
-select TRANSPOSE(MAP(t.behavior_type, t.count))
++-----------+----------+----------+------------+----------+-------------+--------------+---------+
+|    pv     |   fav    |   cart   |  fav_cart  |   buy    | pv2favcart  | favcart2buy  | pv2buy  |
++-----------+----------+----------+------------+----------+-------------+--------------+---------+
+| 88596886  | 2852536  | 5466118  | 8318654.0  | 1998944  | 0.0939      | 0.2403       | 0.0226  |
++-----------+----------+----------+------------+----------+-------------+--------------+---------+
+```
+
+{% hint style="info" %}
+这里使用了Brickhouse UDF，用collect UDF便捷实现了TRANSPOSE
+{% endhint %}
+
+### 3.3 复购率
+
+```sql
+--每个用户的购物情况，加工到 user_behavior_count
+create table res_doublebuy_rate
+comment "page views and unique visitor each day"
+row format delimited
+fields terminated by ','
+lines terminated by '\n'
+STORED AS TEXTFILE
+as
+select round(t2.count/uv,6) as rate
 from(
-       select behavior_type,
-              COUNT(*) as count
-       from user_behavior1
-       group by behavior_type
-) t;
+    select count(*) as count
+    from(
+        select count(*) as count
+        from user_behavior1
+        where behavior_type='buy'
+        group by user_id
+    ) t1
+    where t1.count>1
+) t2
+join(
+    select uv from res_pv_uv
+) t3;
+
++--------------------------+
+| res_doublebuy_rate.rate  |
++--------------------------+
+| 0.446562                 |
++--------------------------+
+```
+
+### 3.4 基于 RFM 模型找出有价值的用户
+
+RFM 模型是衡量客户价值和客户创利能力的重要工具和手段，其中由3个要素构成了数据分析最好的指标，分别是：
+
+* R-Recency（最近一次购买时间）
+* F-Frequency（消费频率）
+* ~~M-Money（消费金额）~~
+
+```sql
+-- 创建一个临时表，记录每个用户的R-F排名
+create temporary table temp_cte
+as
+select user_id,
+       datediff('2017-12-04', max(`date`)) as R,
+       dense_rank() over(order by datediff('2017-12-04', max(`date`))) as R_rank,
+       count(*) as F,
+       dense_rank() over(order by count(*) desc) as F_rank
+from user_behavior1
+where behavior_type = 'buy'
+group by user_id;
+
++--------------+--------+-------------+--------+-------------+
+| cte.user_id  | cte.r  | cte.r_rank  | cte.f  | cte.f_rank  |
++--------------+--------+-------------+--------+-------------+
+| 486458       | 1      | 1           | 262    | 1           |
+| 866670       | 2      | 2           | 175    | 2           |
+| 702034       | 1      | 1           | 159    | 3           |
+| 107013       | 1      | 1           | 130    | 4           |
+| 1014116      | 1      | 1           | 118    | 5           |
+| 432739       | 1      | 1           | 112    | 6           |
+| 500355       | 4      | 4           | 110    | 7           |
+| 537150       | 1      | 1           | 109    | 8           |
+| 1003412      | 1      | 1           | 100    | 9           |
+| 919666       | 1      | 1           | 97     | 10          |
++--------------+--------+-------------+--------+-------------+
+```
+
+```sql
+-- R-F按照10个等级划分，然后计算每个用户的价值score
+create table res_user_score
+comment "page views and unique visitor each day"
+row format delimited
+fields terminated by ','
+lines terminated by '\n'
+STORED AS TEXTFILE
+as
+select user_id, R, R_rank, R_score, F, F_rank, F_score,  R_score + F_score AS score
+from(
+select *,
+       ntile(10) over(order by R_rank desc) as R_score
+       ntile(10) over(order by F_rank desc) as F_score
+from temp_cte
+)
+order by score desc;
 ```

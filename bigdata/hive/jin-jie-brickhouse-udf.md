@@ -17,7 +17,9 @@
 jar tf brickhouse.jar
 #从brickhouse.jar文件中提取brickhouse.hql文件，并将其保存在当前目录中
 jar xf brickhouse.jar brickhouse.hql
-#进入hive命令行后,加载所有UDF为临时UDF
+#进入hive命令行后,添加jar包
+ADD JAR /path/to/brickhouse.jar;
+#然后加载所有UDF为临时UDF
 SOURCE /path/to/brickhouse.hql;
 ```
 
