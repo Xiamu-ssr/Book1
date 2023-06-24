@@ -622,54 +622,40 @@ order by score desc;
 ### 3.5 商品维度的分析
 
 ```sql
-create table res_user_score_count
+-- 清洗出一张只包含商品信息的表
+create table item_category_count (
+       item_id string, 
+       category_id string, 
+       count int) 
+comment "count in all item, with their not only one category_id, partition behavior_type"
+partitioned by (behavior_type string)
+row format delimited 
+fields terminated by ","
+lines terminated by "\n" 
+STORED AS ORC
+TBLPROPERTIES ("orc.compress"="SNAPPY");
+
+insert overwrite table item_category_count 
+partition (behavior_type) 
+select item_id, 
+       category_id, 
+       count(*) as count, 
+       behavior_type 
+from user_behavior1 
+group by behavior_type, item_id, category_id;
+```
+
+<pre class="language-sql"><code class="lang-sql">create temporary table tttt1
 comment "page views and unique visitor each day"
 row format delimited
 fields terminated by ','
 lines terminated by '\n'
 STORED AS TEXTFILE
 as
-select item_id,
-       behavior_type ,
-       count(*) as count;
-from (
-       select collect("item_id", item_id, "category_id", category_id ),
-              behavior_type,
-       from user_behavior1
-       group by item_id
-) t1
-group by behavior_type, item_id; 
-
---销量最高的商品
-select item_id ,
-       sum(case when behavior_type = 'pv' then 1 else 0 end) as pv,   --点击数
-       sum(case when behavior_type = 'fav' then 1 else 0 end) as fav,  --收藏数
-       sum(case when behavior_type = 'cart' then 1 else 0 end) as cart,  --加购物车数
-       sum(case when behavior_type = 'buy' then 1 else 0 end) as buy  --购买数
-from user_behavior
-group by item_id
-order by buy desc
-limit 10;
-
-select item_id,
-       dense_rank() over(order by )
-from(
-       
-) t1;
-
---销量最高的商品大类
-select category_id ,
-       sum(case when behavior_type = 'pv' then 1 else 0 end) as pv,   --点击数
-       sum(case when behavior_type = 'fav' then 1 else 0 end) as fav,  --收藏数
-       sum(case when behavior_type = 'cart' then 1 else 0 end) as cart,  --加购物车数
-       sum(case when behavior_type = 'buy' then 1 else 0 end) as buy  --购买数
-from user_behavior
-group by category_id
-order by buy desc
-limit 10;
-
-select 
-
+<strong>select item_id,
+</strong>    count(*) as count
 from user_behavior1
-group by item_id;
-```
+where behavior_type='buy'
+group by item_id
+order by count;
+</code></pre>

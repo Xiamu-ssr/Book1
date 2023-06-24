@@ -42,6 +42,7 @@
   * [进阶-优化](bigdata/hive/jin-jie-you-hua.md)
   * [进阶-函数](bigdata/hive/jin-jie-han-shu.md)
   * [进阶-Brickhouse UDF](bigdata/hive/jin-jie-brickhouse-udf.md)
+  * [进阶-接入Python](bigdata/hive/jin-jie-jie-ru-python.md)
 * [帮助](bigdata/bang-zhu/README.md)
   * [常用端口](bigdata/bang-zhu/chang-yong-duan-kou.md)
   * [常用命令](bigdata/bang-zhu/chang-yong-ming-ling.md)
