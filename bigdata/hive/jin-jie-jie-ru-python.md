@@ -16,24 +16,34 @@ pip3 install pyhive pandas
 ```python
 from pyhive import hive
 import pandas as pd
+from TCLIService.ttypes import TOperationState
+from tqdm import tqdm
 
-# 连接Hive
-conn = hive.connect('127.0.0.1', port=10000, username='hive')
-
-# 执行命令
+conn = hive.connect('127.0.0.1', port=10000, username='hive', database="sky")
 cursor = conn.cursor()
-cursor.execute('SHOW DATABASES')
 
-# 获取结果
-results = cursor.fetchall()
-
-# 将结果转换为Pandas DataFrame
-df = pd.DataFrame(results, columns=[desc[0] for desc in cursor.description])
-
-# 打印结果
-print(df)
-
-# 关闭游标和连接
+def single_cmd(cmd:str):
+    pbar = tqdm(total=100)
+    cursor.execute(cmd, async_=True)
+    status = cursor.poll().operationState
+    while status in (TOperationState.INITIALIZED_STATE, TOperationState.RUNNING_STATE):
+        progress = cursor.poll().progressUpdateResponse.progressedPercentage
+        pbar.update(int(progress * 100) - pbar.n)
+        status = cursor.poll().operationState
+    results = cursor.fetchall()
+    pbar.close()
+    df = pd.DataFrame(results, columns=[desc[0] for desc in cursor.description])
+    return df
+    
+print(single_cmd('''select item_id,
+                count(*) as count 
+                from user_behavior1
+                where behavior_type='buy'
+                group by item_id
+                order by count 
+                limit 7
+                 '''))
+         
 cursor.close()
 conn.close()
 ```

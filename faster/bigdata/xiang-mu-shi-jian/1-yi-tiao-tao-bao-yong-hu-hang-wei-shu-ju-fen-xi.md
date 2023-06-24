@@ -621,38 +621,7 @@ order by score desc;
 
 ### 3.5 商品维度的分析
 
-```sql
--- 清洗出一张只包含商品信息的表
-create table item_category_count (
-       item_id string, 
-       category_id string, 
-       count int) 
-comment "count in all item, with their not only one category_id, partition behavior_type"
-partitioned by (behavior_type string)
-row format delimited 
-fields terminated by ","
-lines terminated by "\n" 
-STORED AS ORC
-TBLPROPERTIES ("orc.compress"="SNAPPY");
-
-insert overwrite table item_category_count 
-partition (behavior_type) 
-select item_id, 
-       category_id, 
-       count(*) as count, 
-       behavior_type 
-from user_behavior1 
-group by behavior_type, item_id, category_id;
-```
-
-<pre class="language-sql"><code class="lang-sql">create temporary table tttt1
-comment "page views and unique visitor each day"
-row format delimited
-fields terminated by ','
-lines terminated by '\n'
-STORED AS TEXTFILE
-as
-<strong>select item_id,
+<pre class="language-sql"><code class="lang-sql"><strong>select item_id,
 </strong>    count(*) as count
 from user_behavior1
 where behavior_type='buy'
