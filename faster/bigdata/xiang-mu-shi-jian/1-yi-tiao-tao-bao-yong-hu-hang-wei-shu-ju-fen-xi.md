@@ -621,10 +621,11 @@ order by score desc;
 
 ### 3.5 商品维度的分析
 
-<pre class="language-sql"><code class="lang-sql"><strong>select item_id,
-</strong>    count(*) as count
-from user_behavior1
-where behavior_type='buy'
-group by item_id
-order by count;
-</code></pre>
+#### 3.5.1 item\_id商品
+
+对于不同的behavior\_type， 排名前50的商品，用pyhive分析后，转化表再插回。
+
+{% file src="../../../.gitbook/assets/t.html" %}
+
+#### 3.5.2 商品大类category\_id
+
