@@ -1,5 +1,7 @@
 # 1 亿条淘宝用户行为数据分析
 
+{% file src="../../../.gitbook/assets/Untitled-1 (1).py" %}
+
 ## 1. 部署环境
 
 环境采用本地Winodws+VMware虚拟化部署基于Ambari的Hadoop集群。
@@ -625,7 +627,229 @@ order by score desc;
 
 对于不同的behavior\_type， 排名前50的商品，用pyhive分析后，转化表再插回。
 
-{% file src="../../../.gitbook/assets/t.html" %}
+<details>
+
+<summary></summary>
+
+```python
+# %%
+from pyhive import hive
+import pandas as pd
+import numpy as np
+from TCLIService.ttypes import TOperationState
+from tqdm import tqdm
+
+conn = hive.connect('127.0.0.1', port=10000, username='hive', database="sky")
+cursor = conn.cursor()
+
+# %%
+def single_cmd(cmd:str):
+    pbar = tqdm(total=100)
+    cursor.execute(cmd, async_=True)
+    status = cursor.poll().operationState
+    while status in (TOperationState.INITIALIZED_STATE, TOperationState.RUNNING_STATE):
+        progress = cursor.poll().progressUpdateResponse.progressedPercentage
+        pbar.update(int(progress * 100) - pbar.n)
+        status = cursor.poll().operationState
+    results = None
+    try:results = cursor.fetchall()
+    except Exception as e:
+        pass
+    pbar.close()
+    if results:
+        return pd.DataFrame(results, columns=[desc[0] for desc in cursor.description])
+    else:
+        return None
+
+# %%
+
+res = pd.DataFrame({})
+for t in ['pv', 'cart', 'fav', 'buy']:
+    tmp = single_cmd('''select item_id,
+                    count(*) as count 
+                    from user_behavior1
+                    where behavior_type='{}'
+                    group by item_id
+                    order by count desc
+                    limit 50
+                    '''.format(t))
+    # print(tmp.head())
+    res[t] = [{k:v} for k,v in zip(tmp['item_id'], tmp['count'])]
+
+# %%
+single_cmd('''CREATE TABLE IF NOT EXISTS res_item_rank (
+                `rank` int ,
+                `pv` string ,
+                `cart` string ,
+                `fav` string ,
+                `buy` string )
+                row format delimited
+                fields terminated by ','
+                lines terminated by '\n'
+                STORED AS TEXTFILE
+            ''')
+
+# %%
+def multi_insert(table:str, values:list):
+    cmd = "INSERT INTO " + table + " VALUES "
+    for i in values:
+        cmd += '("{}", "{}", "{}", "{}", "{}")'.format(i[0], i[1], i[2], i[3], i[4]) + ", "
+    cmd = cmd[:-2]
+    print(cmd)
+    single_cmd(cmd)
+
+# %%
+res = res.astype(str)
+res['rank'] = res.index
+res['rank'] = res['rank'] + 1
+res = res.reindex(columns=['rank', 'pv', 'cart', 'fav', 'buy'])
+res = res.to_numpy()
+print(res)
+
+# %%
+multi_insert("res_item_rank", res)
+
+# %%
+print(single_cmd('''select * from res_item_rank'''))
+
+# %%
+cursor.close()
+conn.close()
+```
+
+</details>
+
+```
++---------------------+---------------------+---------------------+--------------------+--------------------+
+| res_item_rank.rank  |  res_item_rank.pv   | res_item_rank.cart  | res_item_rank.fav  | res_item_rank.buy  |
++---------------------+---------------------+---------------------+--------------------+--------------------+
+| 1                   | {'812879': 29720}   | {'3031354': 1730}   | {'2279428': 971}   | {'3122135': 1408}  |
+| 2                   | {'3845720': 25290}  | {'812879': 1514}    | {'2331370': 866}   | {'3031354': 942}   |
+| 3                   | {'138964': 20927}   | {'2331370': 1502}   | {'812879': 861}    | {'3964583': 671}   |
+| 4                   | {'2331370': 19348}  | {'2818406': 1403}   | {'2818406': 815}   | {'2560262': 658}   |
+| 5                   | {'2032668': 19075}  | {'2560262': 1258}   | {'3330337': 709}   | {'2964774': 614}   |
+| 6                   | {'1535294': 17830}  | {'138964': 1116}    | {'3845720': 695}   | {'740947': 553}    |
+| 7                   | {'59883': 17313}    | {'1535294': 1114}   | {'1535294': 674}   | {'1910706': 546}   |
+| 8                   | {'4211339': 17235}  | {'1583704': 1092}   | {'138964': 634}    | {'1116492': 512}   |
+| 9                   | {'3371523': 17156}  | {'2453685': 1042}   | {'2453685': 632}   | {'705557': 495}    |
+| 10                  | {'2338453': 17044}  | {'2279428': 981}    | {'2364679': 609}   | {'4443059': 490}   
+```
 
 #### 3.5.2 商品大类category\_id
 
+<details>
+
+<summary></summary>
+
+```python
+# %%
+from pyhive import hive
+import pandas as pd
+import numpy as np
+from TCLIService.ttypes import TOperationState
+from tqdm import tqdm
+
+conn = hive.connect('127.0.0.1', port=10000, username='hive', database="sky")
+cursor = conn.cursor()
+
+# %%
+def single_cmd(cmd:str):
+    pbar = tqdm(total=100)
+    cursor.execute(cmd, async_=True)
+    status = cursor.poll().operationState
+    while status in (TOperationState.INITIALIZED_STATE, TOperationState.RUNNING_STATE):
+        progress = cursor.poll().progressUpdateResponse.progressedPercentage
+        pbar.update(int(progress * 100) - pbar.n)
+        status = cursor.poll().operationState
+    results = None
+    try:results = cursor.fetchall()
+    except Exception as e:
+        pass
+    pbar.close()
+    if results:
+        return pd.DataFrame(results, columns=[desc[0] for desc in cursor.description])
+    else:
+        return None
+
+# %%
+
+res = pd.DataFrame({})
+for t in ['pv', 'cart', 'fav', 'buy']:
+    tmp = single_cmd('''select category_id,
+                    count(*) as count 
+                    from user_behavior1
+                    where behavior_type='{}'
+                    group by category_id
+                    order by count desc
+                    limit 15
+                    '''.format(t))
+    # print(tmp.head())
+    res[t] = [{k:v} for k,v in zip(tmp['category_id'], tmp['count'])]
+
+# %%
+single_cmd('''CREATE TABLE IF NOT EXISTS res_category_rank (
+                `rank` int ,
+                `pv` string ,
+                `cart` string ,
+                `fav` string ,
+                `buy` string )
+                row format delimited
+                fields terminated by ','
+                lines terminated by '\n'
+                STORED AS TEXTFILE
+            ''')
+
+# %%
+def multi_insert(table:str, values:list):
+    cmd = "INSERT INTO " + table + " VALUES "
+    for i in values:
+        cmd += '("{}", "{}", "{}", "{}", "{}")'.format(i[0], i[1], i[2], i[3], i[4]) + ", "
+    cmd = cmd[:-2]
+    print(cmd)
+    single_cmd(cmd)
+
+# %%
+res = res.astype(str)
+res['rank'] = res.index
+res['rank'] = res['rank'] + 1
+res = res.reindex(columns=['rank', 'pv', 'cart', 'fav', 'buy'])
+res = res.to_numpy()
+print(res)
+
+# %%
+multi_insert("res_category_rank", res)
+
+# %%
+print(single_cmd('''select * from res_category_rank'''))
+
+# %%
+cursor.close()
+conn.close()
+
+
+
+```
+
+</details>
+
+```
++-------------------------+-----------------------+-------------------------+------------------------+------------------------+
+| res_category_rank.rank  | res_category_rank.pv  | res_category_rank.cart  | res_category_rank.fav  | res_category_rank.buy  |
++-------------------------+-----------------------+-------------------------+------------------------+------------------------+
+| 1                       | {'4756105': 4426937}  | {'4756105': 212652}     | {'4756105': 137659}    | {'1464116': 34248}     |
+| 2                       | {'4145813': 3115400}  | {'4145813': 172399}     | {'4145813': 109352}    | {'2735466': 33426}     |
+| 3                       | {'2355072': 3110550}  | {'982926': 151994}      | {'982926': 88052}      | {'2885642': 31619}     |
+| 4                       | {'3607361': 2941480}  | {'4801426': 120584}     | {'2355072': 86088}     | {'4145813': 31418}     |
+| 5                       | {'982926': 2763686}   | {'2355072': 120176}     | {'3607361': 70514}     | {'4756105': 28021}     |
+| 6                       | {'2520377': 2003073}  | {'3607361': 107732}     | {'4801426': 67516}     | {'4801426': 26258}     |
+| 7                       | {'4801426': 1841977}  | {'1320293': 93843}      | {'2520377': 66565}     | {'982926': 24570}      |
+| 8                       | {'1320293': 1769460}  | {'2735466': 92518}      | {'2465336': 54162}     | {'2640118': 18116}     |
+| 9                       | {'2465336': 1484268}  | {'2520377': 85070}      | {'3002561': 53801}     | {'4159072': 17917}     |
+| 10                      | {'3002561': 1406307}  | {'2465336': 83140}      | {'1320293': 53117}     | {'1320293': 16948}     |
+| 11                      | {'2735466': 1101503}  | {'3002561': 79667}      | {'4181361': 42485}     | {'3002561': 16330}     |
+| 12                      | {'4181361': 990387}   | {'2640118': 61789}      | {'149192': 37840}      | {'4357323': 15686}     |
+| 13                      | {'149192': 978867}    | {'149192': 61559}       | {'2735466': 35193}     | {'4789432': 15545}     |
+| 14                      | {'1080785': 946692}   | {'4217906': 60537}      | {'4217906': 34854}     | {'903809': 15285}      |
+| 15                      | {'2885642': 944780}   | {'1464116': 59858}      | {'1080785': 31928}     | {'4217906': 14310}     |
++-------------------------+-----------------------+-------------------------+------------------------+------------------------+
+```
