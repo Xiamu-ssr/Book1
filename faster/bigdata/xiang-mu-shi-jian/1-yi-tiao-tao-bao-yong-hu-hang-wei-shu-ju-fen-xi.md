@@ -618,3 +618,58 @@ order by score desc;
 | 2                           | 9532                        |
 +-----------------------------+-----------------------------+
 ```
+
+### 3.5 商品维度的分析
+
+```sql
+create table res_user_score_count
+comment "page views and unique visitor each day"
+row format delimited
+fields terminated by ','
+lines terminated by '\n'
+STORED AS TEXTFILE
+as
+select item_id,
+       behavior_type ,
+       count(*) as count;
+from (
+       select collect("item_id", item_id, "category_id", category_id ),
+              behavior_type,
+       from user_behavior1
+       group by item_id
+) t1
+group by behavior_type, item_id; 
+
+--销量最高的商品
+select item_id ,
+       sum(case when behavior_type = 'pv' then 1 else 0 end) as pv,   --点击数
+       sum(case when behavior_type = 'fav' then 1 else 0 end) as fav,  --收藏数
+       sum(case when behavior_type = 'cart' then 1 else 0 end) as cart,  --加购物车数
+       sum(case when behavior_type = 'buy' then 1 else 0 end) as buy  --购买数
+from user_behavior
+group by item_id
+order by buy desc
+limit 10;
+
+select item_id,
+       dense_rank() over(order by )
+from(
+       
+) t1;
+
+--销量最高的商品大类
+select category_id ,
+       sum(case when behavior_type = 'pv' then 1 else 0 end) as pv,   --点击数
+       sum(case when behavior_type = 'fav' then 1 else 0 end) as fav,  --收藏数
+       sum(case when behavior_type = 'cart' then 1 else 0 end) as cart,  --加购物车数
+       sum(case when behavior_type = 'buy' then 1 else 0 end) as buy  --购买数
+from user_behavior
+group by category_id
+order by buy desc
+limit 10;
+
+select 
+
+from user_behavior1
+group by item_id;
+```
