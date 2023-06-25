@@ -29,92 +29,11 @@ sdk install springboot
 
 ## 3.开发Java后端
 
+### 3.1 初始化项目
+
 查看软件版本然后在下面的网站下载初始项目文件夹并移入容器
 
 {% embed url="https://start.springboot.io/" %}
-
-根据需要添加依赖，组成以下pom.xml配置
-
-<details>
-
-<summary></summary>
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.example</groupId>
-    <artifactId>myproject</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0-SNAPSHOT</version>
-    </parent>
-    <!-- 将在此添加其他行... -->
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-	</dependencies>
-	
-    <!-- ((只有当你使用 milestone 或 snapshot 版本时，你才需要这个。)) -->
-    <repositories>
-        <repository>
-            <id>spring-snapshots</id>
-            <url>https://repo.spring.io/snapshot</url>
-            <snapshots><enabled>true</enabled></snapshots>
-        </repository>
-        <repository>
-            <id>spring-milestones</id>
-            <url>https://repo.spring.io/milestone</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-snapshots</id>
-            <url>https://repo.spring.io/snapshot</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <url>https://repo.spring.io/milestone</url>
-        </pluginRepository>
-    </pluginRepositories>
-</project>
-
-```
-
-
-
-</details>
-
-创建`src/main/java/MyApplication.java`文件并写入以下内容
-
-```java
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-@SpringBootApplication
-public class MyApplication {
-
-    @RequestMapping("/")
-    String home() {
-        return "Hello World!";
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(MyApplication.class, args);
-    }
-
-}
-```
 
 一个基于Maven的Java项目，需要经过以下步骤才算完整
 
@@ -128,17 +47,123 @@ public class MyApplication {
 | 安装 install  | 安装   | 安装打包的项目到本地仓库，以供其他项目使用        |
 | 部署 deploy   | 部署   | 拷贝最终的工程包到远程仓库中，以共享给其他开发人员和工程 |
 
-在这里，因为并不是什么大型项目，并且使用了SpringBoot CLI，只需要完成validate、compile之后就可以run了
+在这里，因为并不是什么大型项目，并且只需要在本地部署，同时又使用了SpringBoot CLI，所以只需要完成validate、compile、package之后就可以run了
 
 ```bash
+mvn dependency:tree
 mvn validate
 mvn compile
+mvn package
 mvn spring-boot:run
 ```
 
+### 3.2 项目模块和依赖
 
+设计初期，划分出2个配置文件和4个Java核心文件，如下
 
+* java/demo/pom.xml
 
+Maven项目开发工具配置文件，可指定各种依赖库、插件等配置
+
+* java/demo/src/main/resources/application.properties
+
+Spring Boot 应用程序的配置文件，可指定数据库连接信息、服务器端口等等配置
+
+* java/demo/src/main/java/com/example/demo/Festival.java
+
+Festival表实体类，属性和Mysql的Festival结构对应，还包括构造方法和 Getter/Setter 方法，用于存储来自mysql表的数据。
+
+* java/demo/src/main/java/com/example/demo/FestivalRepository.java
+
+Festival接口，继承自JpaRepository，基于Festival类可以对Mysql表实行各类操作。
+
+* java/demo/src/main/java/com/example/demo/FestivalController.java
+
+处理前端的请求，通过FestivalRepository各类操作，完成请求所需数据，处理后将结果返回给前端
+
+* java/demo/src/main/java/com/example/demo/DemoApplication.java
+
+Spring Boot web入口程序
+
+### 3.3 项目层次
+
+<img src="../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+
+### 3.4项目细节解析
+
+#### 3.4.1 pom.xml
+
+项目配置继承自Spring Boot的一个父项目，是使用Spring Boot框架的起手式。
+
+```xml
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.5.2</version>
+    <relativePath/>
+</parent>
+```
+
+添加依赖，用于构建 Web 应用程序的 Spring Boot Starter，属于Spring Boot Web的起手式。
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+```
+
+添加依赖，用于编写单元测试和集成测试的 Spring Boot Starter，属于Spring Boot Web的起手式。
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
+    <exclusions>
+        <exclusion>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+
+添加依赖，MySQL JDBC 驱动程序，用于与 MySQL 数据库进行交互。
+
+```xml
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.25</version>
+</dependency>
+```
+
+添加依赖，用于 Spring Boot 应用程序中使用 JPA 进行数据库操作。
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+```
+
+3.4.2&#x20;
+
+```properties
+# 数据库连接信息
+spring.datasource.url=jdbc:mysql://localhost:3306/F
+spring.datasource.username=baby
+spring.datasource.password=20020730
+
+# java后端监听端口和ip
+server.port=8080
+server.address=127.0.0.1
+
+spring.jpa.hibernate.ddl-auto=update
+```
+
+细节也许可以不用讲
 
 ## 4.开发Mysql数据库
 

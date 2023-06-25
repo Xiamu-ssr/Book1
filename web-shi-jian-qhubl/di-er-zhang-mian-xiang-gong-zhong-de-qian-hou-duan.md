@@ -67,7 +67,7 @@ index.ts路由配置文件
 
 主体关系如下图，更多细节请查看源码，已打注释。
 
-<img src="../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+<img src="../.gitbook/assets/file.excalidraw (2).svg" alt="" class="gitbook-drawing">
 
 ## Docker容器运行
 
