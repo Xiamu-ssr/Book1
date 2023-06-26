@@ -101,3 +101,4 @@
   * [奖项存档](zhi-shen-shi-nei/self/jiang-xiang-cun-dang.md)
   * [日常小记](zhi-shen-shi-nei/self/ri-chang-xiao-ji.md)
   * [一些有趣的东西](zhi-shen-shi-nei/self/yi-xie-you-qu-de-dong-xi.md)
+  * [简历信息](zhi-shen-shi-nei/self/jian-li-xin-xi.md)
