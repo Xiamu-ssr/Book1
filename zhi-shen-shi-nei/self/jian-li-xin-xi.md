@@ -62,7 +62,7 @@
 
 <figure><img src="../../.gitbook/assets/2-2.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/2-3.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/2-3 (1).png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="竞赛获奖" %}
