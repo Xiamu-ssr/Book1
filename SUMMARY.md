@@ -51,7 +51,12 @@
 ## Project
 
 * [大数据项目实践](faster/bigdata/xiang-mu-shi-jian/README.md)
-  * [1 亿条淘宝用户行为数据分析](faster/bigdata/xiang-mu-shi-jian/1-yi-tiao-tao-bao-yong-hu-hang-wei-shu-ju-fen-xi.md)
+  * [1 亿条淘宝用户行为数据分析](project/da-shu-ju-xiang-mu-shi-jian/1-yi-tiao-tao-bao-yong-hu-hang-wei-shu-ju-fen-xi/README.md)
+    * [1. 部署环境](project/da-shu-ju-xiang-mu-shi-jian/1-yi-tiao-tao-bao-yong-hu-hang-wei-shu-ju-fen-xi/1.-bu-shu-huan-jing.md)
+    * [2. 数据集下载](project/da-shu-ju-xiang-mu-shi-jian/1-yi-tiao-tao-bao-yong-hu-hang-wei-shu-ju-fen-xi/2.-shu-ju-ji-xia-zai.md)
+    * [3. 数据处理和表优化](project/da-shu-ju-xiang-mu-shi-jian/1-yi-tiao-tao-bao-yong-hu-hang-wei-shu-ju-fen-xi/3.-shu-ju-chu-li-he-biao-you-hua.md)
+    * [4.数据分析](project/da-shu-ju-xiang-mu-shi-jian/1-yi-tiao-tao-bao-yong-hu-hang-wei-shu-ju-fen-xi/4.-shu-ju-fen-xi.md)
+    * [5.可视化](project/da-shu-ju-xiang-mu-shi-jian/1-yi-tiao-tao-bao-yong-hu-hang-wei-shu-ju-fen-xi/5.-ke-shi-hua.md)
 * [Web实践-Qhubl](web-xiang-mu/README.md)
   * [第一章-概](web-shi-jian-qhubl/di-yi-zhang-gai.md)
   * [第二章-面向公众的前后端](web-shi-jian-qhubl/di-er-zhang-mian-xiang-gong-zhong-de-qian-hou-duan.md)
