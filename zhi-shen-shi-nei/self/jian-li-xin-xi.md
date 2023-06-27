@@ -1,5 +1,7 @@
 # 简历信息
 
+
+
 {% tabs %}
 {% tab title="头像" %}
 <figure><img src="../../.gitbook/assets/a065998d76b08689d17777edc5965b56.jpg" alt="" width="188"><figcaption></figcaption></figure>
@@ -12,7 +14,7 @@
 {% tab title="个人简介" %}
 {% code overflow="wrap" %}
 ```
-熟悉Python、C、C++等多门编程语言。熟练使用Linux系统和Docker容器化技术。有OMP、MPI、CUDA、DPC++等并行框架使用经验和并行优化经验。了解并使用过Pytorch等机器学习框架。了解并使用过HDFS、MapReduce、YARN、Hive等大数据组件以及Ambari等工具。实践能力强，对于新事物能够短时间内学习并加以使用。
+熟悉Python、C、C++等多门编程语 言 。 熟练使用 Linux 系统 ， 有OMP、MPI、CUDA、DPC++等并行框架使用经验。了解并使用过HDFS 、 MapReduce 、 YARN 、Hive等大数据组件以及Ambari等工具。熟悉Docker容器化技术。合作沟通轻松，对于新事物能够短时间内学习并加以使用。实践能力强，对大数据领域有浓厚的探索精神。
 ```
 {% endcode %}
 {% endtab %}
