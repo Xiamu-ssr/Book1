@@ -67,9 +67,9 @@ ASC超算公众号原文
 
 <figure><img src="../../.gitbook/assets/DCCCD33B390DD36B649DAAD294BA62BF.jpg" alt="" width="563"><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/640.jpg" alt="" width="375"><figcaption></figcaption></figure>
-
 ### ICPC丝绸之路银奖
+
+{% file src="../../.gitbook/assets/2024-ICPC China National Invitational  Contest-MEDAL (1).pdf" %}
 {% endtab %}
 {% endtabs %}
 
