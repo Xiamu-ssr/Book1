@@ -68,4 +68,22 @@
 {% tab title="竞赛获奖" %}
 <table><thead><tr><th width="317.66666666666663"></th><th width="259"></th><th></th></tr></thead><tbody><tr><td>ICPC中国西北赛(团队)</td><td>铜奖</td><td>2020</td></tr><tr><td>第十二届蓝桥杯C/C++A组(个人)</td><td>省三等奖</td><td>2021</td></tr><tr><td>团体程序设计天梯赛(团队)</td><td>省一等奖+个人国三等奖</td><td>2021</td></tr><tr><td>英特尔杯全国并行应用挑战赛(团队)</td><td>并行基金奖</td><td>2022</td></tr><tr><td>ASC22决赛(团队)</td><td>全球一等奖+创新奖</td><td>2022</td></tr><tr><td>ICPC中国西部赛(团队)</td><td>银奖</td><td>2023</td></tr><tr><td>ICPC丝绸之路(团队)</td><td>银奖</td><td>2023</td></tr></tbody></table>
 {% endtab %}
+
+{% tab title="在校经历" %}
+**主修课程**
+
+{% code overflow="wrap" %}
+```
+离散数学、线性代数、概率论与数理统计、数据结构与算 法、数据库技术及其应用、系统管理与维护、计算机系统平台、数据挖 掘导论、并行计算、科学研究实践、Web系统与技术、大数据分析与处 理、软件工程
+```
+{% endcode %}
+
+**校园经历**&#x20;
+
+```
+被评选为三好学生 2021
+获得优秀学生奖学金 2022
+成为学校ASC超算队一员 2022
+```
+{% endtab %}
 {% endtabs %}
