@@ -62,6 +62,7 @@
   * [第二章-面向公众的前后端](web-shi-jian-qhubl/di-er-zhang-mian-xiang-gong-zhong-de-qian-hou-duan.md)
   * [部署指导](faster/web-shi-jian-qhubl/bu-shu-zhi-dao.md)
 * [Java-Web](project/java-web.md)
+* [GNN](project/gnn.md)
 
 ## Linux
 
@@ -76,7 +77,7 @@
   * [脚本](faster/linux/jiao-ben.md)
   * [QA](faster/linux/qa.md)
 * [Git](software/git/README.md)
-  * [DeBug](software/git/debug.md)
+  * [QA](linux/git/qa.md)
 * [VMware](software/vmware/README.md)
   * [虚拟机代理](software/vmware/xu-ni-ji-dai-li.md)
   * [双向复制粘贴](software/vmware/shuang-xiang-fu-zhi-nian-tie.md)
