@@ -66,6 +66,7 @@
   * [1. 环境配置](project/gnn/1.-huan-jing-pei-zhi.md)
   * [2. 节点分类](project/gnn/2.-jie-dian-fen-lei/README.md)
     * [2.1 GCN](project/gnn/2.-jie-dian-fen-lei/2.1-gcn.md)
+    * [2.2 GAT](project/gnn/2.-jie-dian-fen-lei/2.2-gat.md)
   * [3. 模型](project/gnn/3.-mo-xing.md)
   * [4. 损失函数](project/gnn/4.-sun-shi-han-shu.md)
 
