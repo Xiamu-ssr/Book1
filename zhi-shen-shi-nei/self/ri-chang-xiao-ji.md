@@ -146,5 +146,9 @@ SpringBoot写完了，前后端加密通信，可以先搁置了。Dataease可�
 
 ![](../../.gitbook/assets/2-3.png)
 
+**27**
+
+投了很多简历，搬宿舍，在线做了综合测评。
+
 </details>
 
