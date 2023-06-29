@@ -565,7 +565,7 @@ Jdk安装
 {% endtab %}
 
 {% tab title="3" %}
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (2).png" alt=""><figcaption></figcaption></figure>
 
 数据库选择。数据库，用户名，密码，在2.7的脚本里看。
 {% endtab %}

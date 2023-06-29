@@ -106,7 +106,7 @@ hive的问题解决了，又遇上了Tez的bug，难以解决，有点恶心，�
 
 **18**
 
-![](../../.gitbook/assets/image.png)
+![](<../../.gitbook/assets/image (5).png>)
 
 0红，Tez测试也轻松过了，fuck，就该用VMware完全虚拟化。docker对于大数据或许很重要，但是并不适合部署集群。剪辑了视频。
 
@@ -126,7 +126,7 @@ hive的问题解决了，又遇上了Tez的bug，难以解决，有点恶心，�
 
 &#x20;边做边优化。在bgs3安装了dataease，需要的资源真多啊。
 
-![](<../../.gitbook/assets/image (5).png>)
+![](../../.gitbook/assets/image.png)
 
 **23**
 
@@ -144,7 +144,7 @@ Java可真够难写的，搞一天，勉强前后端可以通信。
 
 SpringBoot写完了，前后端加密通信，可以先搁置了。Dataease可视化淘宝用户行为数据的分析结果，完成了。该准备简历了。
 
-![](../../.gitbook/assets/2-3.png)
+![](<../../.gitbook/assets/2-3 (1).png>)
 
 **27**
 

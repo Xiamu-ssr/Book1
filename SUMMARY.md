@@ -69,6 +69,7 @@
     * [2.2 GAT](project/gnn/2.-jie-dian-fen-lei/2.2-gat.md)
   * [3. 模型](project/gnn/3.-mo-xing.md)
   * [4. 损失函数](project/gnn/4.-sun-shi-han-shu.md)
+* [Python爬虫项目](project/python-pa-chong-xiang-mu.md)
 
 ## Linux
 

@@ -4,11 +4,11 @@
 
 {% tabs %}
 {% tab title="头像" %}
-<figure><img src="../../.gitbook/assets/a065998d76b08689d17777edc5965b56.jpg" alt="" width="188"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/a065998d76b08689d17777edc5965b56 (1).jpg" alt="" width="188"><figcaption></figcaption></figure>
 
 
 
-<figure><img src="../../.gitbook/assets/f8d805a537c8f0b097a41bf5e58a8273 (1).jpg" alt="" width="188"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/f8d805a537c8f0b097a41bf5e58a8273.jpg" alt="" width="188"><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="个人简介" %}
@@ -64,7 +64,7 @@
 
 <figure><img src="../../.gitbook/assets/2-2.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/2-3 (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/2-3.png" alt=""><figcaption></figcaption></figure>
 {% endtab %}
 
 {% tab title="竞赛获奖" %}
