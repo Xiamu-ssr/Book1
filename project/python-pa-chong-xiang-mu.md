@@ -53,7 +53,7 @@ pip3 install jupyter
 ### 2.3 爬虫库
 
 ```
-pip install requestsp beautifulsoup4
+pip install requestsp beautifulsoup4 parsel
 ```
 
 ### 2.4数据分析库
