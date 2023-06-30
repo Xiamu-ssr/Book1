@@ -101,12 +101,8 @@
   * [低密码策略脚本](software/mysql/di-mi-ma-ce-lve-jiao-ben.md)
   * [DeBug](software/mysql/debug.md)
 
-## 置身事内
+## Self
 
-* [置身事内](zhi-shen-shi-nei/wai.md)
-* [Self](zhi-shen-shi-nei/nei.md)
-  * [电脑应用](zhi-shen-shi-nei/self/dian-nao-ying-yong.md)
-  * [奖项存档](zhi-shen-shi-nei/self/jiang-xiang-cun-dang.md)
-  * [日常小记](zhi-shen-shi-nei/self/ri-chang-xiao-ji.md)
-  * [一些有趣的东西](zhi-shen-shi-nei/self/yi-xie-you-qu-de-dong-xi.md)
-  * [简历信息](zhi-shen-shi-nei/self/jian-li-xin-xi.md)
+* [电脑应用](self/dian-nao-ying-yong.md)
+* [奖项存档](self/jiang-xiang-cun-dang.md)
+* [一些有趣的东西](self/yi-xie-you-qu-de-dong-xi.md)
