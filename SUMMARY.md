@@ -72,7 +72,6 @@
     * [Utils](project/gnn/2.-jie-dian-fen-lei/2.2-gat/README.md)
       * [draw.py](project/gnn/2.-jie-dian-fen-lei/2.2-gat/draw.py.md)
       * [TTV.py](project/gnn/2.-jie-dian-fen-lei/2.2-gat/ttv.py.md)
-    * [运行](project/gnn/2.-jie-dian-fen-lei/yun-hang.md)
 * [Python爬虫项目](project/python-pa-chong-xiang-mu.md)
 
 ## Linux
