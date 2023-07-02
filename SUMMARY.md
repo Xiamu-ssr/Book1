@@ -64,12 +64,12 @@
 * [GNN](project/gnn/README.md)
   * [1. 环境配置](project/gnn/1.-huan-jing-pei-zhi.md)
   * [2. 节点分类](project/gnn/2.-jie-dian-fen-lei/README.md)
-    * [数据集](project/gnn/2.-jie-dian-fen-lei/shu-ju-ji.md)
-    * [模型](project/gnn/2.-jie-dian-fen-lei/2.1-gcn.md)
+    * [数据集](project/gnn/2.-jie-dian-fen-lei/shu-ju-ji/README.md)
+      * [Cora.py](project/gnn/2.-jie-dian-fen-lei/shu-ju-ji/cora.py.md)
+    * [模型](project/gnn/2.-jie-dian-fen-lei/2.1-gcn/README.md)
+      * [GCN.py](project/gnn/2.-jie-dian-fen-lei/2.1-gcn/gcn.py.md)
     * [Utils](project/gnn/2.-jie-dian-fen-lei/2.2-gat.md)
     * [运行](project/gnn/2.-jie-dian-fen-lei/yun-hang.md)
-  * [3. 模型](project/gnn/3.-mo-xing.md)
-  * [4. 损失函数](project/gnn/4.-sun-shi-han-shu.md)
 * [Python爬虫项目](project/python-pa-chong-xiang-mu.md)
 
 ## Linux
