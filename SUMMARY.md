@@ -68,7 +68,10 @@
       * [Cora.py](project/gnn/2.-jie-dian-fen-lei/shu-ju-ji/cora.py.md)
     * [模型](project/gnn/2.-jie-dian-fen-lei/2.1-gcn/README.md)
       * [GCN.py](project/gnn/2.-jie-dian-fen-lei/2.1-gcn/gcn.py.md)
-    * [Utils](project/gnn/2.-jie-dian-fen-lei/2.2-gat.md)
+      * [GAT.py](project/gnn/2.-jie-dian-fen-lei/2.1-gcn/gat.py.md)
+    * [Utils](project/gnn/2.-jie-dian-fen-lei/2.2-gat/README.md)
+      * [draw.py](project/gnn/2.-jie-dian-fen-lei/2.2-gat/draw.py.md)
+      * [TTV.py](project/gnn/2.-jie-dian-fen-lei/2.2-gat/ttv.py.md)
     * [运行](project/gnn/2.-jie-dian-fen-lei/yun-hang.md)
 * [Python爬虫项目](project/python-pa-chong-xiang-mu.md)
 
