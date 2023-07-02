@@ -61,7 +61,6 @@
   * [第一章-概](web-shi-jian-qhubl/di-yi-zhang-gai.md)
   * [第二章-面向公众的前后端](web-shi-jian-qhubl/di-er-zhang-mian-xiang-gong-zhong-de-qian-hou-duan.md)
   * [部署指导](faster/web-shi-jian-qhubl/bu-shu-zhi-dao.md)
-* [Java-Web](project/java-web.md)
 * [GNN](project/gnn/README.md)
   * [1. 环境配置](project/gnn/1.-huan-jing-pei-zhi.md)
   * [2. 节点分类](project/gnn/2.-jie-dian-fen-lei/README.md)
