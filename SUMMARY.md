@@ -72,6 +72,7 @@
     * [Utils](project/gnn/2.-jie-dian-fen-lei/2.2-gat/README.md)
       * [draw.py](project/gnn/2.-jie-dian-fen-lei/2.2-gat/draw.py.md)
       * [TTV.py](project/gnn/2.-jie-dian-fen-lei/2.2-gat/ttv.py.md)
+* [美亚柏科](project/mei-ya-bai-ke.md)
 
 ## Linux
 
