@@ -525,7 +525,7 @@ https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.48.tar.
 {% endtab %}
 
 {% tab title="4" %}
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Jdk安装
 {% endtab %}

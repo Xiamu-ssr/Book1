@@ -112,3 +112,5 @@
 * [电脑应用](self/dian-nao-ying-yong.md)
 * [奖项存档](self/jiang-xiang-cun-dang.md)
 * [一些有趣的东西](self/yi-xie-you-qu-de-dong-xi.md)
+* [日语笔记](self/ri-yu-bi-ji/README.md)
+  * [入门五十音](self/ri-yu-bi-ji/ru-men-wu-shi-yin.md)
