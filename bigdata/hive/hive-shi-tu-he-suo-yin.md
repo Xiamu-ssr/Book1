@@ -177,7 +177,7 @@ SET hive.optimize.index.filter.compact.minsize=0;
 SHOW INDEX ON emp;
 ```
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## 四、索引的缺陷
 
