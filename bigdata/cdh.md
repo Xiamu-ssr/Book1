@@ -519,7 +519,7 @@ https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.48.tar.
 {% endtab %}
 
 {% tab title="3" %}
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 自定义存储库：[http://172.10.0.2/cloudera-repos](https://links.jianshu.com/go?to=http%3A%2F%2F172.10.0.2%2Fcloudera-repos)
 {% endtab %}
