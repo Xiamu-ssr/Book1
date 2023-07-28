@@ -94,7 +94,7 @@ load data local inpath "/usr/file/emp.txt" into table emp;
 
 ​ 完成后 `emp` 表中数据如下：
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 2. 为清晰演示，先清空 `emp_ptn` 表中加载的数据：
 
