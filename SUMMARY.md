@@ -114,3 +114,4 @@
 * [一些有趣的东西](self/yi-xie-you-qu-de-dong-xi.md)
 * [日语笔记](self/ri-yu-bi-ji/README.md)
   * [入门五十音](self/ri-yu-bi-ji/ru-men-wu-shi-yin.md)
+  * [声调](self/ri-yu-bi-ji/sheng-tiao.md)
