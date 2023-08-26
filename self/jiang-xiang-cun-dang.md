@@ -68,5 +68,9 @@ ASC超算公众号原文
 #### ICPC丝绸之路银奖
 
 {% file src="../.gitbook/assets/2024-ICPC China National Invitational  Contest-MEDAL (1).pdf" %}
+
+**美亚柏科集训营**
+
+<figure><img src="../.gitbook/assets/90beb9c4d12b61fe9ed710df2a2dd296.jpg" alt="" width="375"><figcaption></figcaption></figure>
 {% endtab %}
 {% endtabs %}
