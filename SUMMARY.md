@@ -110,4 +110,5 @@
   * [入门音调声调](self/ri-yu-bi-ji/ru-men-yin-tiao-sheng-tiao.md)
 * [读书笔记](self/du-shu-bi-ji/README.md)
   * [《贫穷的本质》](self/du-shu-bi-ji/pin-qiong-de-ben-zhi/README.md)
-    * [1](self/du-shu-bi-ji/pin-qiong-de-ben-zhi/1.md)
+    * [前言](self/du-shu-bi-ji/pin-qiong-de-ben-zhi/qian-yan.md)
+    * [第一章 再好好想想](self/du-shu-bi-ji/pin-qiong-de-ben-zhi/di-yi-zhang-zai-hao-hao-xiang-xiang.md)
