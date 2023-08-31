@@ -112,3 +112,4 @@
   * [《贫穷的本质》](self/du-shu-bi-ji/pin-qiong-de-ben-zhi/README.md)
     * [前言](self/du-shu-bi-ji/pin-qiong-de-ben-zhi/qian-yan.md)
     * [第一章 再好好想想](self/du-shu-bi-ji/pin-qiong-de-ben-zhi/di-yi-zhang-zai-hao-hao-xiang-xiang.md)
+    * [第二章 饥饿人口已达到10亿？](self/du-shu-bi-ji/pin-qiong-de-ben-zhi/di-er-zhang-jieren-kou-yi-da-dao-10-yi.md)
