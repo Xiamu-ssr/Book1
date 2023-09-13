@@ -100,6 +100,9 @@
     * [免输密码登录](ji-shu-zhuan-ji/linux/mysql/mian-shu-mi-ma-deng-lu.md)
     * [低密码策略脚本](ji-shu-zhuan-ji/linux/mysql/di-mi-ma-ce-lve-jiao-ben.md)
     * [DeBug](ji-shu-zhuan-ji/linux/mysql/debug.md)
+* [Java](ji-shu-zhuan-ji/java/README.md)
+  * [多线程](ji-shu-zhuan-ji/java/duo-xian-cheng.md)
+  * [AQS](ji-shu-zhuan-ji/java/aqs.md)
 
 ## Self
 
