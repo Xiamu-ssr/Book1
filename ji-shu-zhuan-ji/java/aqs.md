@@ -1,2 +1,6 @@
+---
+description: AbstractQueuedSynchronizer
+---
+
 # AQS
 
