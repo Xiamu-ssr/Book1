@@ -103,6 +103,7 @@
 * [Java](ji-shu-zhuan-ji/java/README.md)
   * [多线程](ji-shu-zhuan-ji/java/duo-xian-cheng.md)
   * [AQS](ji-shu-zhuan-ji/java/aqs.md)
+  * [JVMG1](ji-shu-zhuan-ji/java/jvmg1.md)
 
 ## Self
 

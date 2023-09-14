@@ -19,3 +19,5 @@ description: AbstractQueuedSynchronizer
 3.  原子性
 
     多个线程竞争同一数据
+
+    可以使用atomicinteger synchronized lock解决
