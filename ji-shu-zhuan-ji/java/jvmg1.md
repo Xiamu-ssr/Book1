@@ -48,8 +48,14 @@ Java有两种GC模型
 垃圾到一定程度后，所有业务线程停止，GC开始工作。会导致Java程序运行到一定时候出现卡顿。
 {% endtab %}
 
-{% tab title="Second Tab" %}
+{% tab title="Parallel Scavenge" %}
+{% hint style="info" %}
+分代模型年轻代GC
+{% endhint %}
 
+> A stop-of-world, copying collector which uses multiple GC threads
+
+Serial如果有太多垃圾，那么STW时间会太长，卡顿严重，可以使用多线程去回收垃圾，但是线程不是越多越好。JDK1.8默认使用PS(Parallel Scavenge)+PO(Parallel Old)。
 {% endtab %}
 {% endtabs %}
 
