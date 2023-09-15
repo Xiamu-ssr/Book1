@@ -57,6 +57,16 @@ Java有两种GC模型
 
 Serial如果有太多垃圾，那么STW时间会太长，卡顿严重，可以使用多线程去回收垃圾，但是线程不是越多越好。JDK1.8默认使用PS(Parallel Scavenge)+PO(Parallel Old)。
 {% endtab %}
+
+{% tab title="CMS" %}
+{% hint style="info" %}
+分代模型老年代GC
+{% endhint %}
+
+> concurrent mark sweep
+
+并发清理
+{% endtab %}
 {% endtabs %}
 
 
