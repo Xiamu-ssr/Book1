@@ -37,6 +37,8 @@ Java有两种GC模型
 
 <figure><img src="../../.gitbook/assets/image (18).png" alt="" width="563"><figcaption></figcaption></figure>
 
+<table data-full-width="true"><thead><tr><th width="156">分代Young</th><th></th><th width="140">分代Old</th><th></th><th>分区模型</th><th></th></tr></thead><tbody><tr><td>ParNew</td><td>拷贝</td><td>CMS</td><td>标记清除</td><td>G1</td><td></td></tr><tr><td>Serial</td><td></td><td>SO</td><td></td><td>ZGC</td><td>标记压缩</td></tr><tr><td>PS</td><td>拷贝</td><td>PO</td><td></td><td>Shenandoah</td><td>标记压缩</td></tr></tbody></table>
+
 {% tabs %}
 {% tab title="Serial" %}
 {% hint style="info" %}
