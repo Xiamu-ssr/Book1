@@ -20,11 +20,9 @@ layout:
 
 # JVMG1
 
-Java有三个GC 算法
+Java有三个基础GC 算法
 
-* Mark-Sweep标记清除
-* Copying拷贝
-* Mark-Compact标记压缩
+<table><thead><tr><th width="239"></th><th></th></tr></thead><tbody><tr><td>Mark-Sweep标记清除</td><td><p>它分为两个阶段：标记和清除。</p><p>标记阶段会遍历所有可达的对象，并将它们标记为存活。清除阶段会删除所有未被标记的对象，即垃圾对象。</p><p>这种算法的优点是实现简单，不需要额外的空间。缺点是会产生内存碎片，导致后续分配大对象时可能失败。</p></td></tr><tr><td>Copying拷贝</td><td><p>一种将内存分为两个相等的区域，每次只使用其中一个区域的算法。当这个区域快要用完时，就会将存活的对象复制到另一个区域，并清空原来的区域。</p><p>这种算法的优点是不会产生内存碎片，且复制过程中不需要暂停应用程序。缺点是浪费了一半的内存空间，且复制大量对象时会影响性能</p></td></tr><tr><td>Mark-Compact标记压缩</td><td><p>一种结合了标记清除和拷贝算法的思想的算法。它也分为两个阶段：标记和压缩。</p><p>标记阶段和标记清除算法相同，都是遍历所有可达的对象，并将它们标记为存活。压缩阶段则是将所有存活的对象向内存空间的一端移动，并更新它们的引用地址。</p><p>这种算法的优点是既不会浪费内存空间，又不会产生内存碎片。缺点是移动对象和更新引用地址时需要暂停应用程序。</p></td></tr></tbody></table>
 
 Java有两种GC模型
 
@@ -37,7 +35,7 @@ Java有两种GC模型
 
 <figure><img src="../../.gitbook/assets/image (18).png" alt="" width="563"><figcaption></figcaption></figure>
 
-<table data-full-width="true"><thead><tr><th width="156">分代Young</th><th></th><th width="140">分代Old</th><th></th><th>分区模型</th><th></th></tr></thead><tbody><tr><td>ParNew</td><td>拷贝</td><td>CMS</td><td>标记清除</td><td>G1</td><td></td></tr><tr><td>Serial</td><td></td><td>SO</td><td></td><td>ZGC</td><td>标记压缩</td></tr><tr><td>PS</td><td>拷贝</td><td>PO</td><td></td><td>Shenandoah</td><td>标记压缩</td></tr></tbody></table>
+<table data-full-width="true"><thead><tr><th width="156">分代Young</th><th></th><th width="140">分代Old</th><th></th><th>分区模型</th><th></th></tr></thead><tbody><tr><td>ParNew</td><td>Copying</td><td>CMS</td><td>Mark-Sweep</td><td>G1</td><td>Copying和Mark-Compact</td></tr><tr><td>Serial</td><td>Copying或Mark-Compact</td><td>SO</td><td>Mark-Compact</td><td>ZGC</td><td>Copying和Mark-Compact</td></tr><tr><td>PS</td><td>Copying</td><td>PO</td><td>Mark-Compact</td><td>Shenandoah</td><td>Copying和Mark-Compact</td></tr></tbody></table>
 
 {% tabs %}
 {% tab title="Serial" %}
@@ -91,7 +89,7 @@ A新引用了D，B取消引用D，变成下图，此时业务任务停止，标�
 
 解决方案有很多，其一如下
 
-在JVM中设计一种屏障，一旦观察到黑色向白色建立引用，将此黑色修正为灰色。
+在JVM中设计一种屏障，一旦观察到黑色向白色建立引用，将此黑色修正为灰色。这就是CMS对三色标记的修正方案，称为Incremental Update
 
 </details>
 
