@@ -1,6 +1,6 @@
 ---
 description: JVM Garbage First
-cover: ../../.gitbook/assets/image (18).png
+cover: ../../../.gitbook/assets/image (18).png
 coverY: 0
 layout:
   cover:
@@ -29,11 +29,11 @@ Java有两种GC模型
 * 分代模型
 * 分区模型
 
-<figure><img src="../../.gitbook/assets/image (19).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (19).png" alt="" width="375"><figcaption></figcaption></figure>
 
 在这两种模型之上，Java建立了10中GC，如下图
 
-<figure><img src="../../.gitbook/assets/image (18).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (18).png" alt="" width="563"><figcaption></figcaption></figure>
 
 <table data-full-width="true"><thead><tr><th width="156">分代Young</th><th></th><th width="140">分代Old</th><th></th><th>分区模型</th><th></th></tr></thead><tbody><tr><td>ParNew</td><td>Copying</td><td>CMS</td><td>Mark-Sweep</td><td>G1</td><td>Copying和Mark-Compact</td></tr><tr><td>Serial</td><td>Copying或Mark-Compact</td><td>SO</td><td>Mark-Compact</td><td>ZGC</td><td>Copying和Mark-Compact</td></tr><tr><td>PS</td><td>Copying</td><td>PO</td><td>Mark-Compact</td><td>Shenandoah</td><td>Copying和Mark-Compact</td></tr></tbody></table>
 
@@ -79,11 +79,11 @@ GC的标记阶段一般采用**三色标记法**，但是存在诸多bug，同�
 
 A及其子已经标记到，B被标记到但其子未标记，D还未标记，此时标记任务停止，业务任务启动
 
-<img src="../../.gitbook/assets/image (21).png" alt="" data-size="original">
+<img src="../../../.gitbook/assets/image (21).png" alt="" data-size="original">
 
 A新引用了D，B取消引用D，变成下图，此时业务任务停止，标记任务启动
 
-![](<../../.gitbook/assets/image (22).png>)
+![](<../../../.gitbook/assets/image (22).png>)
 
 标记任务从灰色B继续标记，发现没有子，于是一轮结束，标记AB为有效，D为垃圾。
 
