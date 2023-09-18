@@ -106,7 +106,8 @@
     * [AQS](ji-shu-zhuan-ji/java/yu-yan-te-xing/aqs.md)
     * [JVMG1](ji-shu-zhuan-ji/java/yu-yan-te-xing/jvmg1.md)
   * [框架](ji-shu-zhuan-ji/java/kuang-jia/README.md)
-    * [SpringBoot](ji-shu-zhuan-ji/java/kuang-jia/springboot.md)
+    * [SpringBoot](ji-shu-zhuan-ji/java/kuang-jia/springboot/README.md)
+      * [注解](ji-shu-zhuan-ji/java/kuang-jia/springboot/zhu-jie.md)
 
 ## Self
 
