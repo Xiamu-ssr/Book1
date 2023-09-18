@@ -60,6 +60,7 @@ name: alice
 person:
   name: ${name}
   age: 20
+  address: [beijing, suzhou]
 
 #array
 address: [beijing, shanghai]
@@ -68,6 +69,8 @@ address: [beijing, shanghai]
 msg1: 'hello \n world'
 msg2: "hello \n world"
 ```
+
+方式一
 
 ```java
     @Value("${name}")
@@ -80,6 +83,8 @@ msg2: "hello \n world"
     private String msg1;
 ```
 
+方式二
+
 ```java
     @Autowired
     private Environment env;
@@ -91,4 +96,57 @@ msg2: "hello \n world"
         System.out.println(env.getProperty("address[1]"));
         System.out.println(env.getProperty("msg2"));
     }
+```
+
+方式三
+
+```java
+package com.example.demo.entity;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+
+@Component
+@ConfigurationProperties(prefix = "person")
+public class Person {
+    private String name;
+    private int age;
+    private String[] address;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String[] getAddress() {
+        return address;
+    }
+
+    public void setAddress(String[] address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", address=" + Arrays.toString(address) +
+                '}';
+    }
+}
+
 ```
