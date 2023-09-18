@@ -45,14 +45,50 @@ namedouble: ${person.name}
 
 ## 数据读取
 
+有以下三种方法
+
 1. @Value
 2. Environment
 3. @ConfigurationProperties
 
+以下面yaml作为例子
+
+```yaml
+##自定义
+name: alice
+#object
+person:
+  name: ${name}
+  age: 20
+
+#array
+address: [beijing, shanghai]
+
+#constant
+msg1: 'hello \n world'
+msg2: "hello \n world"
+```
+
 ```java
-public class test {
     @Value("${name}")
     private String name;
-    @V
-}
+    @Value("${person.age}")
+    private int age;
+    @Value("${address[0]}")
+    private String address;
+    @Value("${msg1}")
+    private String msg1;
+```
+
+```java
+    @Autowired
+    private Environment env;
+
+    @RequestMapping("")
+    public String Index(){
+        System.out.println(env.getProperty("name"));
+        System.out.println(env.getProperty("person.name"));
+        System.out.println(env.getProperty("address[1]"));
+        System.out.println(env.getProperty("msg2"));
+    }
 ```
