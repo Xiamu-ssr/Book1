@@ -40,3 +40,19 @@ person:
     name: ${name}
 namedouble: ${person.name}
 ```
+
+
+
+## 数据读取
+
+1. @Value
+2. Environment
+3. @ConfigurationProperties
+
+```java
+public class test {
+    @Value("${name}")
+    private String name;
+    @V
+}
+```
