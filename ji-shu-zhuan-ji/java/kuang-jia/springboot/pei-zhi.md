@@ -17,8 +17,22 @@ Spring Boot是基于约定的，很多配置都有默认值，如果想使用自
 
 
 
-同时这个文件还可以写一些自定义内容，例如
+同时这个文件还可以写一些自定义内容，例如(以yaml为例)
 
+```yaml
+Person:
+    name: alice
+    sex: female
 ```
-name=abc
+
+在java程序中可以这样去获取这些值
+
+```java
+public class Person{
+    @Value("${Person.name}")
+    private String name;
+    
+    @Value("${Person.sex}")
+    private String sex;
+}
 ```
